@@ -21,7 +21,6 @@ export function endNote() {
 }
 
 export function changeParam(x, y, width, height) {
-  osc.phase = mapRange(x, 0, width, 0, 90.0);
-  osc.detune.value = mapRange(y, 0, height, -100.0, 100.0);
-  osc.width.value = mapRange(y, 0, height, 0, 1.0);
+  osc.width.value = mapRange(x, 0, width, 0, 1.0);
+  osc.detune.value = mapRange(y, 0, height, 50.0, -50.0);
 }
