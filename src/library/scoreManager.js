@@ -5,6 +5,9 @@ import {
   handleNoPoseDetected,
   mapIsEmpty
 } from "./map";
+
+import store from "../store";
+
 import {
   VIDEO_WIDTH,
   VIDEO_HEIGHT,
@@ -108,6 +111,8 @@ function checkAndRegenerateMap() {
     waitingForNewMapFrames++;
 
     if (waitingForNewMapFrames > FRAMES_TO_WAIT_BETWEEN_MAPS) {
+      store.commit("LEVEL_UP");
+
       map = generatePixelMap(MAP_RESOLUTION, MAP_RESOLUTION);
       waitingForNewMapFrames = 0;
     }

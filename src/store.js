@@ -4,7 +4,13 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {},
-  mutations: {},
+  state: {
+    level: 0
+  },
+  mutations: {
+    LEVEL_UP(state) {
+      state.level++;
+    }
+  },
   actions: {}
 });
