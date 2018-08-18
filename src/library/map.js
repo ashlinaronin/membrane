@@ -33,6 +33,20 @@ export function drawPixelMap(ctx, videoWidth, videoHeight, color, map) {
   }
 }
 
+export function handleNoPoseDetected() {
+  framesSinceLastMovement = framesSinceLastMovement + 1;
+  checkForShouldEndNote();
+}
+
+function checkForShouldEndNote() {
+  if (framesSinceLastMovement > FRAMES_BEFORE_MOVEMENT_DECLARED_OVER) {
+    if (isPlaying) {
+      endNote();
+      isPlaying = false;
+    }
+  }
+}
+
 export function calculateAndDrawMapPosition(
   keypoints,
   minConfidence,
@@ -41,6 +55,8 @@ export function calculateAndDrawMapPosition(
   videoWidth,
   videoHeight
 ) {
+  checkForShouldEndNote();
+
   for (let i = 0; i < keypoints.length; i++) {
     const keypoint = keypoints[i];
 
@@ -74,13 +90,6 @@ export function calculateAndDrawMapPosition(
         }
 
         lastPosition = [x, y];
-      }
-
-      if (framesSinceLastMovement > FRAMES_BEFORE_MOVEMENT_DECLARED_OVER) {
-        if (isPlaying) {
-          endNote();
-          isPlaying = false;
-        }
       }
     }
   }

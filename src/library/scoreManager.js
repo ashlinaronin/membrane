@@ -2,6 +2,7 @@ import {
   drawPixelMap,
   generatePixelMap,
   calculateAndDrawMapPosition,
+  handleNoPoseDetected,
   mapIsEmpty
 } from "./map";
 import {
@@ -86,7 +87,9 @@ function drawPoses(ctx, poses) {
   // and draw the resulting skeleton and keypoints if over certain confidence
   // scores
   poses.forEach(({ score, keypoints }) => {
-    if (score >= MULTI_POSE_CONFIG.MIN_POSE_CONFIDENCE) {
+    if (score < MULTI_POSE_CONFIG.MIN_POSE_CONFIDENCE) {
+      handleNoPoseDetected();
+    } else {
       calculateAndDrawMapPosition(
         keypoints,
         MULTI_POSE_CONFIG.MIN_PART_CONFIDENCE,
