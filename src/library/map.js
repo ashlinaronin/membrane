@@ -4,6 +4,7 @@ let lastPosition;
 let isPlaying = false;
 let framesSinceLastMovement = 0;
 const MIN_DISTANCE_TO_PLAY = 16;
+const FRAMES_BEFORE_MOVEMENT_DECLARED_OVER = 3;
 
 export function generatePixelMap(width, height) {
   const map = [];
@@ -75,7 +76,7 @@ export function calculateAndDrawMapPosition(
         lastPosition = [x, y];
       }
 
-      if (framesSinceLastMovement > 5) {
+      if (framesSinceLastMovement > FRAMES_BEFORE_MOVEMENT_DECLARED_OVER) {
         if (isPlaying) {
           endNote();
           isPlaying = false;
