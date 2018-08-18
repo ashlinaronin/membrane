@@ -2,7 +2,7 @@ import Tone from "tone";
 import mapRange from "../mapRange";
 
 // create modules
-const reverb = new Tone.Reverb(1.5);
+const reverb = new Tone.Reverb(2.5);
 const osc = new Tone.PulseOscillator(80, 0.2);
 const env = new Tone.AmplitudeEnvelope();
 
