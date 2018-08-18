@@ -1,12 +1,10 @@
-import LowPulseSynth from "./sounds/LowPulseSynth";
+import { startNote, endNote, changeParam } from "./sounds/synthManager";
 
 let lastPosition;
 let isPlaying = false;
 let framesSinceLastMovement = 0;
 const MIN_DISTANCE_TO_PLAY = 16;
 const FRAMES_BEFORE_MOVEMENT_DECLARED_OVER = 3;
-
-const lowPulseSynth = new LowPulseSynth();
 
 export function generatePixelMap(width, height) {
   const map = [];
@@ -43,7 +41,7 @@ export function handleNoPoseDetected() {
 function checkForShouldEndNote() {
   if (framesSinceLastMovement > FRAMES_BEFORE_MOVEMENT_DECLARED_OVER) {
     if (isPlaying) {
-      lowPulseSynth.endNote();
+      endNote();
       isPlaying = false;
     }
   }
@@ -77,7 +75,7 @@ export function calculateAndDrawMapPosition(
         lastPosition = [x, y];
       }
 
-      lowPulseSynth.changeParam(x, y, videoWidth, videoHeight);
+      changeParam(x, y, videoWidth, videoHeight);
       framesSinceLastMovement = framesSinceLastMovement + 1;
 
       if (
@@ -87,7 +85,7 @@ export function calculateAndDrawMapPosition(
         framesSinceLastMovement = 0;
 
         if (!isPlaying) {
-          lowPulseSynth.startNote();
+          startNote();
           isPlaying = true;
         }
 
