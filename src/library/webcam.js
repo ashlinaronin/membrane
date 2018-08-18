@@ -1,8 +1,5 @@
 import { isMobile } from "./deviceDetection";
-
-const VIDEO_WIDTH = 640;
-const VIDEO_HEIGHT = 480;
-const EXTERNAL_WEBCAM_LABEL = "USB Camera (046d:0821)"; // look for this webcam, if not found use default
+import { VIDEO_WIDTH, VIDEO_HEIGHT, EXTERNAL_WEBCAM_LABEL } from "./constants";
 
 async function setupCamera(videoElement) {
   if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {

@@ -1,6 +1,5 @@
 <template>
   <div class="video-score">
-    henlo
     <video playsinline ref="video"></video>
     <canvas ref="output"></canvas>
     <div class="error">
@@ -10,7 +9,11 @@
 </template>
 
 <script>
+import * as posenet from "@tensorflow-models/posenet";
+
 import { loadVideo } from "../library/webcam";
+import { detectPoseInRealTime } from "../library/scoreManager";
+import { MOBILENET_ARCHITECTURE } from "../library/constants";
 
 export default {
   name: "VideoScore",
@@ -19,12 +22,17 @@ export default {
   },
   data() {
     return {
-      error: ""
+      error: "",
+      net: null
     };
   },
   async mounted() {
+    // TODO: optimize by putting this in created hook?
+    this.net = await posenet.load(MOBILENET_ARCHITECTURE);
+
     try {
       await loadVideo(this.$refs.video);
+      detectPoseInRealTime(this.$refs.output, this.$refs.video, this.net);
     } catch (e) {
       this.error =
         "this browser does not support video capture, or this device does not have a camera";
@@ -48,5 +56,9 @@ li {
 }
 a {
   color: #42b983;
+}
+
+video {
+  display: none;
 }
 </style>
