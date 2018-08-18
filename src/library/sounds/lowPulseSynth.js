@@ -2,15 +2,17 @@ import Tone from "tone";
 import mapRange from "../mapRange";
 
 // create modules
-const reverb = new Tone.Freeverb(0.7, 1500);
+const reverb = new Tone.Reverb(1.5);
 const osc = new Tone.PulseOscillator(80, 0.2);
 const env = new Tone.AmplitudeEnvelope();
 
-// connect modules
-osc.start();
-osc.connect(env);
-env.connect(reverb);
-reverb.toMaster();
+// generate impulse response for verb, then connect modules
+reverb.generate().then(() => {
+  osc.start();
+  osc.connect(env);
+  env.connect(reverb);
+  reverb.toMaster();
+});
 
 export function startNote() {
   env.triggerAttack("+0.05", 0.8);
