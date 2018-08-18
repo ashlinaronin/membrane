@@ -3,14 +3,32 @@
     henlo
     <video playsinline ref="video"></video>
     <canvas ref="output"></canvas>
+    <div class="error">
+      {{ error }}
+    </div>
   </div>
 </template>
 
 <script>
+import { loadVideo } from "../library/webcam";
+
 export default {
   name: "VideoScore",
   props: {
     msg: String
+  },
+  data() {
+    return {
+      error: ""
+    };
+  },
+  async mounted() {
+    try {
+      await loadVideo(this.$refs.video);
+    } catch (e) {
+      this.error =
+        "this browser does not support video capture, or this device does not have a camera";
+    }
   }
 };
 </script>
