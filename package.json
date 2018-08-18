@@ -12,6 +12,7 @@
     "@tensorflow-models/posenet": "^0.2.2",
     "@tensorflow/tfjs": "^0.12.5",
     "stats.js": "^0.17.0",
+    "tone": "^0.12.80",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"

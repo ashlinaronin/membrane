@@ -1,4 +1,4 @@
-// import { startNote, endNote, changeParam } from './newSynth';
+import { startNote, endNote, changeParam } from "./sounds/lowPulseSynth";
 
 let lastPosition;
 let isPlaying = false;
@@ -58,7 +58,7 @@ export function calculateAndDrawMapPosition(
         lastPosition = [x, y];
       }
 
-      // changeParam(x, y, videoWidth, videoHeight);
+      changeParam(x, y, videoWidth, videoHeight);
       framesSinceLastMovement = framesSinceLastMovement + 1;
 
       if (
@@ -68,7 +68,7 @@ export function calculateAndDrawMapPosition(
         framesSinceLastMovement = 0;
 
         if (!isPlaying) {
-          // startNote();
+          startNote();
           isPlaying = true;
         }
 
@@ -77,7 +77,7 @@ export function calculateAndDrawMapPosition(
 
       if (framesSinceLastMovement > 5) {
         if (isPlaying) {
-          // endNote();
+          endNote();
           isPlaying = false;
         }
       }
