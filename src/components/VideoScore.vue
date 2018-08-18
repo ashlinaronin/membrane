@@ -10,6 +10,7 @@
 
 <script>
 import * as posenet from "@tensorflow-models/posenet";
+import Stats from "stats.js";
 
 import { loadVideo } from "../library/webcam";
 import { detectPoseInRealTime } from "../library/scoreManager";
@@ -23,16 +24,24 @@ export default {
   data() {
     return {
       error: "",
-      net: null
+      net: null,
+      stats: new Stats()
     };
   },
   async mounted() {
     // TODO: optimize by putting this in created hook?
     this.net = await posenet.load(MOBILENET_ARCHITECTURE);
+    this.stats.showPanel(0);
+    document.body.appendChild(this.stats.dom);
 
     try {
       await loadVideo(this.$refs.video);
-      detectPoseInRealTime(this.$refs.output, this.$refs.video, this.net);
+      detectPoseInRealTime(
+        this.$refs.output,
+        this.$refs.video,
+        this.net,
+        this.stats
+      );
     } catch (e) {
       this.error =
         "this browser does not support video capture, or this device does not have a camera";
@@ -41,7 +50,6 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 h3 {
   margin: 40px 0 0;

@@ -22,17 +22,15 @@ let map = generatePixelMap(MAP_RESOLUTION, MAP_RESOLUTION);
  * Feeds an image to posenet to estimate poses - this is where the magic
  * happens. This function loops with a requestAnimationFrame method.
  */
-export function detectPoseInRealTime(canvas, video, net) {
+export function detectPoseInRealTime(canvas, video, net, stats) {
   const ctx = canvas.getContext("2d");
-
-  debugger;
 
   canvas.width = VIDEO_WIDTH;
   canvas.height = VIDEO_HEIGHT;
 
   async function poseDetectionFrame() {
     // Begin monitoring code for frames per second
-    // stats.begin();
+    stats.begin();
 
     const poses = await detectPoses(video, net);
 
@@ -41,7 +39,7 @@ export function detectPoseInRealTime(canvas, video, net) {
     checkAndRegenerateMap();
 
     // End monitoring code for frames per second
-    // stats.end();
+    stats.end();
 
     requestAnimationFrame(poseDetectionFrame);
   }
