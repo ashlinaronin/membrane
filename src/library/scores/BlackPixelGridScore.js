@@ -1,190 +1,192 @@
 import { startNote, endNote, changeParam } from "../sounds/synthManager";
+import { drawTriangle, generateTrianglePoints } from "./scoreHelpers";
+import {
+  MIN_DISTANCE_TO_PLAY,
+  FRAMES_BEFORE_MOVEMENT_DECLARED_OVER,
+  NOSE_TRIANGLE_RADIUS,
+  NOSE_TRIANGLE_COLOR
+} from "../constants";
 
-let lastPosition;
-let isPlaying = false;
-let framesSinceLastMovement = 0;
-const MIN_DISTANCE_TO_PLAY = 16;
-const FRAMES_BEFORE_MOVEMENT_DECLARED_OVER = 3;
+const SCORE_FILL_STYLE = "black";
 
-export function generateMap(width, height) {
-  const map = [];
-
-  for (let i = 0; i < width; i++) {
-    map[i] = [];
-    for (let j = 0; j < height; j++) {
-      map[i][j] = Math.random() >= 0.5;
-    }
+export default class BlackPixelGridScore {
+  constructor(scoreResolution) {
+    this.width = scoreResolution;
+    this.height = scoreResolution;
+    this.grid = this.generateScore();
+    this.isPlaying = false;
+    this.lastPosition = undefined;
+    this.framesSinceLastMovement = 0;
   }
 
-  return map;
-}
+  generateScore() {
+    const grid = [];
 
-export function mapIsEmpty(map) {
-  return !map.some(row => row.some(col => col === true));
-}
-
-export function drawMap(ctx, videoWidth, videoHeight, color, map) {
-  const widthUnit = videoWidth / getMapWidth(map);
-  const heightUnit = videoHeight / getMapHeight(map);
-
-  ctx.fillStyle = color;
-  for (let i = 0; i < map.length; i++) {
-    for (let j = 0; j < map[0].length; j++) {
-      if (map[i][j] === true) {
-        ctx.fillRect(widthUnit * i, heightUnit * j, widthUnit, heightUnit);
+    for (let i = 0; i < this.width; i++) {
+      grid[i] = [];
+      for (let j = 0; j < this.height; j++) {
+        grid[i][j] = Math.random() >= 0.5;
       }
     }
+
+    return grid;
   }
-}
 
-export function handleNoPoseDetected() {
-  framesSinceLastMovement = framesSinceLastMovement + 1;
-  checkForShouldEndNote();
-}
+  isClear() {
+    return !this.grid.some(row => row.some(col => col === true));
+  }
 
-export function handlePoseDetected(
-  keypoints,
-  minConfidence,
-  ctx,
-  map,
-  videoWidth,
-  videoHeight
-) {
-  checkForShouldEndNote();
+  drawScore(ctx, video, videoWidth, videoHeight) {
+    ctx.clearRect(0, 0, videoWidth, videoHeight);
+    ctx.globalCompositeOperation = "source-over";
 
-  for (let i = 0; i < keypoints.length; i++) {
-    const keypoint = keypoints[i];
+    this.drawGrid(ctx, videoWidth, videoHeight);
+  }
 
-    if (keypoint.score < minConfidence) {
-      continue;
-    }
+  drawGrid(ctx, videoWidth, videoHeight) {
+    const widthUnit = videoWidth / this.width;
+    const heightUnit = videoHeight / this.height;
 
-    const { y, x } = keypoint.position;
-
-    if (keypoint.part === "nose") {
-      const trianglePoints = generateTrianglePoints(x, y, 20);
-      checkForInMap(trianglePoints, map, videoWidth, videoHeight);
-      drawTriangle(ctx, trianglePoints, "black");
-
-      if (typeof lastPosition === "undefined") {
-        lastPosition = [x, y];
-      }
-
-      changeParam(x, y, videoWidth, videoHeight);
-      framesSinceLastMovement = framesSinceLastMovement + 1;
-
-      if (
-        Math.abs(lastPosition[0] - x) > MIN_DISTANCE_TO_PLAY ||
-        Math.abs(lastPosition[1] - y) > MIN_DISTANCE_TO_PLAY
-      ) {
-        framesSinceLastMovement = 0;
-
-        if (!isPlaying) {
-          startNote();
-          isPlaying = true;
+    ctx.fillStyle = SCORE_FILL_STYLE;
+    for (let i = 0; i < this.grid.length; i++) {
+      for (let j = 0; j < this.grid[0].length; j++) {
+        if (this.grid[i][j] === true) {
+          ctx.fillRect(widthUnit * i, heightUnit * j, widthUnit, heightUnit);
         }
-
-        lastPosition = [x, y];
       }
     }
   }
-}
 
-function checkForShouldEndNote() {
-  if (framesSinceLastMovement > FRAMES_BEFORE_MOVEMENT_DECLARED_OVER) {
-    if (isPlaying) {
-      endNote();
-      isPlaying = false;
+  handleNoPoseDetected() {
+    this.framesSinceLastMovement = this.framesSinceLastMovement + 1;
+    this.checkForShouldEndNote();
+  }
+
+  handlePoseDetected(
+    keypoints,
+    minPartConfidence,
+    ctx,
+    videoWidth,
+    videoHeight
+  ) {
+    this.checkForShouldEndNote();
+
+    for (let i = 0; i < keypoints.length; i++) {
+      const keypoint = keypoints[i];
+
+      if (keypoint.score < minPartConfidence) {
+        continue;
+      }
+
+      if (keypoint.part === "nose") {
+        this.handleNoseFound(
+          ctx,
+          videoWidth,
+          videoHeight,
+          keypoint.position.x,
+          keypoint.position.y
+        );
+      }
     }
   }
-}
 
-function generateTrianglePoints(x, y, r) {
-  return [
-    [x, y - r / 2],
-    [x - r, y + r / 2],
-    [x + r, y + r / 2],
-    [x, y] // center point, just used for collision detection
-  ];
-}
-
-function checkForInMap(trianglePoints, map, videoWidth, videoHeight) {
-  let anyTrianglePointInMap = false;
-
-  trianglePoints.forEach(trianglePoint => {
-    const [pointX, pointY] = trianglePoint;
-
-    const mapCoordinates = getMapCoordinatesForPoint(
-      pointX,
-      pointY,
-      map,
+  handleNoseFound(ctx, videoWidth, videoHeight, x, y) {
+    const trianglePoints = generateTrianglePoints(x, y, NOSE_TRIANGLE_RADIUS);
+    this.checkForGridPointPlayedAndRemove(
+      trianglePoints,
       videoWidth,
       videoHeight
     );
-    const containsPoint = mapContainsPoint(map, mapCoordinates);
+    drawTriangle(ctx, trianglePoints, NOSE_TRIANGLE_COLOR);
 
-    if (containsPoint) {
-      anyTrianglePointInMap = true;
-      removePointFromMap(map, mapCoordinates);
+    if (typeof this.lastPosition === "undefined") {
+      this.lastPosition = [x, y];
     }
-  });
 
-  return anyTrianglePointInMap;
-}
+    changeParam(x, y, videoWidth, videoHeight);
+    this.framesSinceLastMovement = this.framesSinceLastMovement + 1;
 
-function removePointFromMap(map, mapPointCoords) {
-  const [mapXCoord, mapYCoord] = mapPointCoords;
-  map[mapXCoord][mapYCoord] = false;
-}
+    if (
+      Math.abs(this.lastPosition[0] - x) > MIN_DISTANCE_TO_PLAY ||
+      Math.abs(this.lastPosition[1] - y) > MIN_DISTANCE_TO_PLAY
+    ) {
+      this.framesSinceLastMovement = 0;
 
-function getMapWidth(map) {
-  return map.length;
-}
+      if (!this.isPlaying) {
+        startNote();
+        this.isPlaying = true;
+      }
 
-function getMapHeight(map) {
-  return map[0].length;
-}
-
-function getMapCoordinatesForPoint(x, y, map, videoWidth, videoHeight) {
-  const mapWidth = getMapWidth(map);
-  const mapHeight = getMapHeight(map);
-
-  const widthUnit = videoWidth / mapWidth; // # rows
-  const heightUnit = videoHeight / mapHeight; // # cols
-
-  let mapXCoord = Math.floor(x / widthUnit);
-  let mapYCoord = Math.floor(y / heightUnit);
-
-  // Account for edges of camera window
-  if (mapXCoord >= mapWidth) {
-    mapXCoord = mapWidth - 1;
+      this.lastPosition = [x, y];
+    }
   }
 
-  if (mapYCoord >= mapHeight) {
-    mapYCoord = mapHeight - 1;
+  checkForGridPointPlayedAndRemove(trianglePoints, videoWidth, videoHeight) {
+    let anyTrianglePointInGrid = false;
+
+    trianglePoints.forEach(trianglePoint => {
+      const [pointX, pointY] = trianglePoint;
+
+      const gridCoordinates = this.getGridCoordinatesForPoint(
+        pointX,
+        pointY,
+        videoWidth,
+        videoHeight
+      );
+      const containsPoint = this.gridContainsPoint(gridCoordinates);
+
+      if (containsPoint) {
+        anyTrianglePointInGrid = true;
+        this.removePointFromGrid(gridCoordinates);
+      }
+    });
+
+    return anyTrianglePointInGrid;
   }
 
-  if (mapXCoord <= 0) {
-    mapXCoord = 0;
+  getGridCoordinatesForPoint(x, y, videoWidth, videoHeight) {
+    const widthUnit = videoWidth / this.width; // # rows
+    const heightUnit = videoHeight / this.height; // # cols
+
+    let gridXCoord = Math.floor(x / widthUnit);
+    let gridYCoord = Math.floor(y / heightUnit);
+
+    // Account for edges of camera window
+    if (gridXCoord >= this.width) {
+      gridXCoord = this.width - 1;
+    }
+
+    if (gridYCoord >= this.height) {
+      gridYCoord = this.height - 1;
+    }
+
+    if (gridXCoord <= 0) {
+      gridXCoord = 0;
+    }
+
+    if (gridYCoord <= 0) {
+      gridYCoord = 0;
+    }
+
+    return [gridXCoord, gridYCoord];
   }
 
-  if (mapYCoord <= 0) {
-    mapYCoord = 0;
+  removePointFromGrid(gridPointCoords) {
+    const [gridXCoord, gridYCoord] = gridPointCoords;
+    this.grid[gridXCoord][gridYCoord] = false;
   }
 
-  return [mapXCoord, mapYCoord];
-}
+  gridContainsPoint(gridPointCoords) {
+    const [gridXCoord, gridYCoord] = gridPointCoords;
+    return this.grid[gridXCoord][gridYCoord] === true;
+  }
 
-function mapContainsPoint(map, mapPointCoords) {
-  const [mapXCoord, mapYCoord] = mapPointCoords;
-  return map[mapXCoord][mapYCoord] === true;
-}
-
-function drawTriangle(ctx, trianglePoints, color) {
-  ctx.fillStyle = color;
-  ctx.beginPath();
-  ctx.moveTo(trianglePoints[0][0], trianglePoints[0][1]);
-  ctx.lineTo(trianglePoints[1][0], trianglePoints[1][1]);
-  ctx.lineTo(trianglePoints[2][0], trianglePoints[2][1]);
-  ctx.fill();
+  checkForShouldEndNote() {
+    if (this.framesSinceLastMovement > FRAMES_BEFORE_MOVEMENT_DECLARED_OVER) {
+      if (this.isPlaying) {
+        endNote();
+        this.isPlaying = false;
+      }
+    }
+  }
 }
