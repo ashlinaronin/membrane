@@ -15,3 +15,11 @@ export function drawTriangle(ctx, trianglePoints, color) {
   ctx.lineTo(trianglePoints[2][0], trianglePoints[2][1]);
   ctx.fill();
 }
+
+export function drawMirroredVideo(ctx, video, videoWidth, videoHeight) {
+  ctx.save();
+  ctx.scale(-1, 1);
+  ctx.translate(-videoWidth, 0);
+  ctx.drawImage(video, 0, 0, videoWidth, videoHeight);
+  ctx.restore();
+}

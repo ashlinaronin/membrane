@@ -18,8 +18,8 @@ export function changeLevel(level) {
   score = new scoreType(SCORE_RESOLUTION);
 }
 
-export function drawScore(ctx, videoWidth, videoHeight) {
-  return score.drawScore(ctx, videoWidth, videoHeight);
+export function drawScore(ctx, video, videoWidth, videoHeight) {
+  return score.drawScore(ctx, video, videoWidth, videoHeight);
 }
 
 export function handlePoseDetected(

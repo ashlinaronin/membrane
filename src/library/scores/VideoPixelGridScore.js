@@ -1,5 +1,9 @@
 import { startNote, endNote, changeParam } from "../sounds/synthManager";
-import { drawTriangle, generateTrianglePoints } from "./noseHelpers";
+import {
+  drawTriangle,
+  generateTrianglePoints,
+  drawMirroredVideo
+} from "./scoreHelpers";
 import {
   MIN_DISTANCE_TO_PLAY,
   FRAMES_BEFORE_MOVEMENT_DECLARED_OVER,
@@ -36,7 +40,20 @@ export default class VideoPixelGridScore {
     return !this.grid.some(row => row.some(col => col === true));
   }
 
-  drawScore(ctx, videoWidth, videoHeight) {
+  drawScore(ctx, video, videoWidth, videoHeight) {
+    ctx.clearRect(0, 0, videoWidth, videoHeight);
+    ctx.globalCompositeOperation = "source-over";
+
+    this.drawGrid(ctx, videoWidth, videoHeight);
+
+    ctx.globalCompositeOperation = "source-atop";
+
+    drawMirroredVideo(ctx, video, videoWidth, videoHeight);
+
+    ctx.globalCompositeOperation = "source-over";
+  }
+
+  drawGrid(ctx, videoWidth, videoHeight) {
     const widthUnit = videoWidth / this.width;
     const heightUnit = videoHeight / this.height;
 

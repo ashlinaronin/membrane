@@ -32,7 +32,7 @@ export function detectPoseInRealTime(canvas, video, net, stats) {
 
     const poses = await detectPoses(video, net);
 
-    drawScoreAndVideo(ctx, video);
+    drawScore(ctx, video, VIDEO_WIDTH, VIDEO_HEIGHT);
     drawPoses(ctx, poses);
     checkScoreAndLevelUp();
 
@@ -56,27 +56,6 @@ async function detectPoses(video, net) {
     MULTI_POSE_CONFIG.MIN_PART_CONFIDENCE,
     MULTI_POSE_CONFIG.NMS_RADIUS
   );
-}
-
-function drawMirroredVideo(ctx, video, videoWidth, videoHeight) {
-  ctx.save();
-  ctx.scale(-1, 1);
-  ctx.translate(-videoWidth, 0);
-  ctx.drawImage(video, 0, 0, videoWidth, videoHeight);
-  ctx.restore();
-}
-
-function drawScoreAndVideo(ctx, video) {
-  ctx.clearRect(0, 0, VIDEO_WIDTH, VIDEO_HEIGHT);
-  ctx.globalCompositeOperation = "source-over";
-
-  drawScore(ctx, VIDEO_WIDTH, VIDEO_HEIGHT);
-
-  ctx.globalCompositeOperation = "source-atop";
-
-  drawMirroredVideo(ctx, video, VIDEO_WIDTH, VIDEO_HEIGHT);
-
-  ctx.globalCompositeOperation = "source-over";
 }
 
 function drawPoses(ctx, poses) {
