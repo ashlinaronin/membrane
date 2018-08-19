@@ -1,10 +1,12 @@
 import VideoPixelGridScore from "./VideoPixelGridScore";
 import BlackPixelGridScore from "./BlackPixelGridScore";
+import PurplePixelGridScore from "./PurplePixelGridScore";
 import { SCORE_RESOLUTION } from "../constants";
 
 const scoreLevelMap = {
   0: VideoPixelGridScore,
-  1: BlackPixelGridScore
+  1: BlackPixelGridScore,
+  2: PurplePixelGridScore
 };
 
 let score;
