@@ -1,8 +1,8 @@
 <template>
   <div class="level-controls">
     <label for="selected-level">Select level</label>
-    <select name="selectedLevel" id="selected-level" v-model="selectedLevel" @change="handleSelectedLevelChange">
-      <option v-for="level in AVAILABLE_LEVELS"
+    <select name="selectedLevel" id="selected-level" v-model="selectedLevel">
+      <option v-for="level in availableLevels"
               :key="level"
               :value="level">{{level}}</option>
     </select>
@@ -10,19 +10,21 @@
 </template>
 
 <script>
-const AVAILABLE_LEVELS = Array.from({ length: 10 }, (v, k) => k + 1);
-
 export default {
   name: "LevelControls",
   data() {
     return {
-      selectedLevel: this.$store.state.level,
-      AVAILABLE_LEVELS
+      availableLevels: Array.from({ length: 10 }, (v, k) => k + 1)
     };
   },
-  methods: {
-    handleSelectedLevelChange(event) {
-      this.$store.commit("CHANGE_LEVEL", { level: Number(event.target.value) });
+  computed: {
+    selectedLevel: {
+      get() {
+        return this.$store.state.level;
+      },
+      set(newLevel) {
+        this.$store.commit("CHANGE_LEVEL", { level: newLevel });
+      }
     }
   }
 };
