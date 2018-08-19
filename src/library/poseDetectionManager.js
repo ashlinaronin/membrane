@@ -86,12 +86,12 @@ function drawPoses(ctx, poses) {
   // For each pose (i.e. person) detected in an image, loop through the poses
   // and draw the resulting skeleton and keypoints if over certain confidence
   // scores
-  poses.forEach(({ confidence, keypoints }) => {
-    if (confidence < MULTI_POSE_CONFIG.MIN_POSE_CONFIDENCE) {
+  poses.forEach(pose => {
+    if (pose.score < MULTI_POSE_CONFIG.MIN_POSE_CONFIDENCE) {
       handleNoPoseDetected();
     } else {
       handlePoseDetected(
-        keypoints,
+        pose.keypoints,
         MULTI_POSE_CONFIG.MIN_PART_CONFIDENCE,
         ctx,
         VIDEO_WIDTH,
