@@ -81,6 +81,10 @@ export default class PixelGridScore {
     }
   }
 
+  drawNose(ctx, trianglePoints) {
+    drawTriangle(ctx, trianglePoints, NOSE_TRIANGLE_COLOR);
+  }
+
   handleNoseFound(ctx, videoWidth, videoHeight, x, y) {
     const trianglePoints = generateTrianglePoints(x, y, NOSE_TRIANGLE_RADIUS);
     this.checkForGridPointPlayedAndRemove(
@@ -88,7 +92,7 @@ export default class PixelGridScore {
       videoWidth,
       videoHeight
     );
-    drawTriangle(ctx, trianglePoints, NOSE_TRIANGLE_COLOR);
+    this.drawNose(ctx, trianglePoints);
 
     if (typeof this.lastPosition === "undefined") {
       this.lastPosition = [x, y];

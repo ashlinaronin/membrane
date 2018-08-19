@@ -1,4 +1,5 @@
 import PixelGridScore from "./PixelGridScore";
+import { drawTriangle } from "./scoreHelpers";
 import waterVideo from "../../assets/water.mp4";
 
 export default class WaterPixelGridScore extends PixelGridScore {
@@ -32,5 +33,9 @@ export default class WaterPixelGridScore extends PixelGridScore {
     this.drawGrid(ctx, videoWidth, videoHeight, "white");
 
     ctx.globalCompositeOperation = "source-over";
+  }
+
+  drawNose(ctx, trianglePoints) {
+    drawTriangle(ctx, trianglePoints, "white");
   }
 }
