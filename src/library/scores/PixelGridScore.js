@@ -7,8 +7,6 @@ import {
   NOSE_TRIANGLE_COLOR
 } from "../constants";
 
-const SCORE_FILL_STYLE = "black";
-
 export default class PixelGridScore {
   constructor(scoreResolution) {
     this.width = scoreResolution;
@@ -36,11 +34,11 @@ export default class PixelGridScore {
     return !this.grid.some(row => row.some(col => col === true));
   }
 
-  drawGrid(ctx, videoWidth, videoHeight) {
+  drawGrid(ctx, videoWidth, videoHeight, gridFillStyle) {
     const widthUnit = videoWidth / this.width;
     const heightUnit = videoHeight / this.height;
 
-    ctx.fillStyle = SCORE_FILL_STYLE;
+    ctx.fillStyle = gridFillStyle;
     for (let i = 0; i < this.grid.length; i++) {
       for (let j = 0; j < this.grid[0].length; j++) {
         if (this.grid[i][j] === true) {

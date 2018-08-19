@@ -10,7 +10,7 @@ export default class VideoPixelGridScore extends PixelGridScore {
     ctx.clearRect(0, 0, videoWidth, videoHeight);
     ctx.globalCompositeOperation = "source-over";
 
-    this.drawGrid(ctx, videoWidth, videoHeight);
+    this.drawGrid(ctx, videoWidth, videoHeight, "black");
 
     ctx.globalCompositeOperation = "source-atop";
 

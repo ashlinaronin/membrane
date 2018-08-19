@@ -8,6 +8,6 @@ export default class BlackPixelGridScore extends PixelGridScore {
   drawScore(ctx, video, videoWidth, videoHeight) {
     ctx.clearRect(0, 0, videoWidth, videoHeight);
     ctx.globalCompositeOperation = "source-over";
-    this.drawGrid(ctx, videoWidth, videoHeight);
+    this.drawGrid(ctx, videoWidth, videoHeight, "black");
   }
 }
