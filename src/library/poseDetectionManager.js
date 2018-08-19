@@ -13,11 +13,8 @@ import {
   FLIP_HORIZONTAL,
   IMAGE_SCALE_FACTOR,
   OUTPUT_STRIDE,
-  MULTI_POSE_CONFIG,
-  FRAMES_TO_WAIT_BETWEEN_SCORES
+  MULTI_POSE_CONFIG
 } from "./constants";
-
-let waitingForNewScoreFrames = 0;
 
 /**
  * Feeds an image to posenet to estimate poses - this is where the magic
@@ -102,14 +99,7 @@ function drawPoses(ctx, poses) {
 }
 
 function checkScoreAndLevelUp() {
-  // If score is clear, pause for 48 frames then level up
   if (scoreIsClear()) {
-    waitingForNewScoreFrames++;
-
-    if (waitingForNewScoreFrames > FRAMES_TO_WAIT_BETWEEN_SCORES) {
-      store.commit("LEVEL_UP");
-
-      waitingForNewScoreFrames = 0;
-    }
+    store.commit("LEVEL_UP");
   }
 }
