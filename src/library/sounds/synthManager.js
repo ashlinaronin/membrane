@@ -22,13 +22,13 @@ export function changeLevel(level) {
 }
 
 export function startNote() {
-  synth.startNote();
+  return synth.startNote();
 }
 
 export function endNote() {
-  synth.endNote();
+  return synth.endNote();
 }
 
 export function changeParam(x, y, width, height) {
-  synth.changeParam(x, y, width, height);
+  return synth.changeParam(x, y, width, height);
 }
