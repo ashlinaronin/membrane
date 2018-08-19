@@ -7,7 +7,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    level: 0
+    level: 1
   },
   mutations: {
     LEVEL_UP(state) {

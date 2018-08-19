@@ -5,20 +5,20 @@ import { SCORE_RESOLUTION } from "../constants";
 import RainbowPixelGridScore from "./RainbowPixelGridScore";
 
 const scoreLevelMap = {
-  0: VideoPixelGridScore,
-  1: BlackPixelGridScore,
-  2: PurplePixelGridScore,
-  3: RainbowPixelGridScore
+  1: VideoPixelGridScore,
+  2: BlackPixelGridScore,
+  3: PurplePixelGridScore,
+  4: RainbowPixelGridScore
 };
 
 let score;
 
-changeLevel(0);
+changeLevel(1);
 
 export function changeLevel(level) {
   const scoreType = scoreLevelMap.hasOwnProperty(level)
     ? scoreLevelMap[level]
-    : scoreLevelMap[0];
+    : scoreLevelMap[1];
   score = new scoreType(SCORE_RESOLUTION);
 }
 
