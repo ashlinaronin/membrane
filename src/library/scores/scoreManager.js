@@ -5,6 +5,7 @@ import PurplePixelGridScore from "./PurplePixelGridScore";
 import RainbowPixelGridScore from "./RainbowPixelGridScore";
 import CircleGridScore from "./CircleGridScore";
 import NosePuzzlePixelGridScore from "./NosePuzzlePixelGridScore";
+import WaterPixelGridScore from "./WaterPixelGridScore";
 
 const scoreLevelMap = {
   1: VideoPixelGridScore,
@@ -12,7 +13,8 @@ const scoreLevelMap = {
   3: PurplePixelGridScore,
   4: RainbowPixelGridScore,
   5: CircleGridScore,
-  6: NosePuzzlePixelGridScore
+  6: NosePuzzlePixelGridScore,
+  7: WaterPixelGridScore
 };
 
 let score;
