@@ -1,10 +1,9 @@
 import {
-  drawMap,
-  generateMap,
+  drawScore,
+  scoreIsClear,
   handlePoseDetected,
-  handleNoPoseDetected,
-  mapIsEmpty
-} from "./map";
+  handleNoPoseDetected
+} from "./scores/scoreManager";
 
 import store from "../store";
 
@@ -15,12 +14,10 @@ import {
   IMAGE_SCALE_FACTOR,
   OUTPUT_STRIDE,
   MULTI_POSE_CONFIG,
-  MAP_RESOLUTION
+  FRAMES_TO_WAIT_BETWEEN_SCORES
 } from "./constants";
 
-let waitingForNewMapFrames = 0;
-const FRAMES_TO_WAIT_BETWEEN_MAPS = 24;
-let map = generateMap(MAP_RESOLUTION, MAP_RESOLUTION);
+let waitingForNewScoreFrames = 0;
 
 /**
  * Feeds an image to posenet to estimate poses - this is where the magic
@@ -38,9 +35,9 @@ export function detectPoseInRealTime(canvas, video, net, stats) {
 
     const poses = await detectPoses(video, net);
 
-    drawMapAndVideo(ctx, video);
+    drawScoreAndVideo(ctx, video);
     drawPoses(ctx, poses);
-    checkAndRegenerateMap();
+    checkScoreAndLevelUp();
 
     // End monitoring code for frames per second
     stats.end();
@@ -72,15 +69,15 @@ function drawMirroredVideo(ctx, video, videoWidth, videoHeight) {
   ctx.restore();
 }
 
-function drawMapAndVideo(ctx, video) {
+function drawScoreAndVideo(ctx, video) {
   ctx.clearRect(0, 0, VIDEO_WIDTH, VIDEO_HEIGHT);
   ctx.globalCompositeOperation = "source-over";
 
-  drawMap(ctx, VIDEO_WIDTH, VIDEO_HEIGHT, "black", map);
+  drawScore(ctx, VIDEO_WIDTH, VIDEO_HEIGHT);
 
   ctx.globalCompositeOperation = "source-atop";
 
-  drawMirroredVideo(ctx, video, VIDEO_WIDTH, VIDEO_HEIGHT, map);
+  drawMirroredVideo(ctx, video, VIDEO_WIDTH, VIDEO_HEIGHT);
 
   ctx.globalCompositeOperation = "source-over";
 }
@@ -89,15 +86,14 @@ function drawPoses(ctx, poses) {
   // For each pose (i.e. person) detected in an image, loop through the poses
   // and draw the resulting skeleton and keypoints if over certain confidence
   // scores
-  poses.forEach(({ score, keypoints }) => {
-    if (score < MULTI_POSE_CONFIG.MIN_POSE_CONFIDENCE) {
+  poses.forEach(({ confidence, keypoints }) => {
+    if (confidence < MULTI_POSE_CONFIG.MIN_POSE_CONFIDENCE) {
       handleNoPoseDetected();
     } else {
       handlePoseDetected(
         keypoints,
         MULTI_POSE_CONFIG.MIN_PART_CONFIDENCE,
         ctx,
-        map,
         VIDEO_WIDTH,
         VIDEO_HEIGHT
       );
@@ -105,16 +101,15 @@ function drawPoses(ctx, poses) {
   });
 }
 
-function checkAndRegenerateMap() {
-  // If map is empty, pause for 48 frames then generate a new map
-  if (mapIsEmpty(map)) {
-    waitingForNewMapFrames++;
+function checkScoreAndLevelUp() {
+  // If score is clear, pause for 48 frames then level up
+  if (scoreIsClear()) {
+    waitingForNewScoreFrames++;
 
-    if (waitingForNewMapFrames > FRAMES_TO_WAIT_BETWEEN_MAPS) {
+    if (waitingForNewScoreFrames > FRAMES_TO_WAIT_BETWEEN_SCORES) {
       store.commit("LEVEL_UP");
 
-      map = generateMap(MAP_RESOLUTION, MAP_RESOLUTION);
-      waitingForNewMapFrames = 0;
+      waitingForNewScoreFrames = 0;
     }
   }
 }

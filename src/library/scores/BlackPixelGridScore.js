@@ -1,4 +1,4 @@
-import { startNote, endNote, changeParam } from "./sounds/synthManager";
+import { startNote, endNote, changeParam } from "../sounds/synthManager";
 
 let lastPosition;
 let isPlaying = false;

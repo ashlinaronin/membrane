@@ -13,7 +13,7 @@ import * as posenet from "@tensorflow-models/posenet";
 import Stats from "stats.js";
 
 import { loadVideo } from "../library/webcam";
-import { detectPoseInRealTime } from "../library/scoreManager";
+import { detectPoseInRealTime } from "../library/poseDetectionManager";
 import { MOBILENET_ARCHITECTURE } from "../library/constants";
 
 export default {
