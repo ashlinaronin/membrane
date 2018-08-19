@@ -7,6 +7,8 @@ import {
   NOSE_TRIANGLE_COLOR
 } from "../constants";
 
+const SCORE_FILL_STYLE = "black";
+
 export default class VideoPixelGridScore {
   constructor(scoreResolution) {
     this.width = scoreResolution;
@@ -38,7 +40,7 @@ export default class VideoPixelGridScore {
     const widthUnit = videoWidth / this.width;
     const heightUnit = videoHeight / this.height;
 
-    ctx.fillStyle = "black";
+    ctx.fillStyle = SCORE_FILL_STYLE;
     for (let i = 0; i < this.grid.length; i++) {
       for (let j = 0; j < this.grid[0].length; j++) {
         if (this.grid[i][j] === true) {
@@ -69,42 +71,50 @@ export default class VideoPixelGridScore {
         continue;
       }
 
-      const { y, x } = keypoint.position;
-
       if (keypoint.part === "nose") {
-        const trianglePoints = generateTrianglePoints(
-          x,
-          y,
-          NOSE_TRIANGLE_RADIUS
+        this.handleNoseFound(
+          ctx,
+          videoWidth,
+          videoHeight,
+          keypoint.position.x,
+          keypoint.position.y
         );
-        this.checkForInGrid(trianglePoints, videoWidth, videoHeight);
-        drawTriangle(ctx, trianglePoints, NOSE_TRIANGLE_COLOR);
-
-        if (typeof this.lastPosition === "undefined") {
-          this.lastPosition = [x, y];
-        }
-
-        changeParam(x, y, videoWidth, videoHeight);
-        this.framesSinceLastMovement = this.framesSinceLastMovement + 1;
-
-        if (
-          Math.abs(this.lastPosition[0] - x) > MIN_DISTANCE_TO_PLAY ||
-          Math.abs(this.lastPosition[1] - y) > MIN_DISTANCE_TO_PLAY
-        ) {
-          this.framesSinceLastMovement = 0;
-
-          if (!this.isPlaying) {
-            startNote();
-            this.isPlaying = true;
-          }
-
-          this.lastPosition = [x, y];
-        }
       }
     }
   }
 
-  checkForInGrid(trianglePoints, videoWidth, videoHeight) {
+  handleNoseFound(ctx, videoWidth, videoHeight, x, y) {
+    const trianglePoints = generateTrianglePoints(x, y, NOSE_TRIANGLE_RADIUS);
+    this.checkForGridPointPlayedAndRemove(
+      trianglePoints,
+      videoWidth,
+      videoHeight
+    );
+    drawTriangle(ctx, trianglePoints, NOSE_TRIANGLE_COLOR);
+
+    if (typeof this.lastPosition === "undefined") {
+      this.lastPosition = [x, y];
+    }
+
+    changeParam(x, y, videoWidth, videoHeight);
+    this.framesSinceLastMovement = this.framesSinceLastMovement + 1;
+
+    if (
+      Math.abs(this.lastPosition[0] - x) > MIN_DISTANCE_TO_PLAY ||
+      Math.abs(this.lastPosition[1] - y) > MIN_DISTANCE_TO_PLAY
+    ) {
+      this.framesSinceLastMovement = 0;
+
+      if (!this.isPlaying) {
+        startNote();
+        this.isPlaying = true;
+      }
+
+      this.lastPosition = [x, y];
+    }
+  }
+
+  checkForGridPointPlayedAndRemove(trianglePoints, videoWidth, videoHeight) {
     let anyTrianglePointInGrid = false;
 
     trianglePoints.forEach(trianglePoint => {
