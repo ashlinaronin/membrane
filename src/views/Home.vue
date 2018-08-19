@@ -1,17 +1,20 @@
 <template>
   <div class="home">
-    <VideoScore msg="Welcome to Your Vue.js App"/>
+    <VideoScore />
+    <LevelControls />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import VideoScore from "@/components/VideoScore.vue";
+import LevelControls from "@/components/LevelControls.vue";
 
 export default {
   name: "home",
   components: {
-    VideoScore
+    VideoScore,
+    LevelControls
   }
 };
 </script>

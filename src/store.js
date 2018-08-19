@@ -12,9 +12,17 @@ export default new Vuex.Store({
   mutations: {
     LEVEL_UP(state) {
       state.level++;
-      changeSynthLevel(state.level);
-      changeScoreLevel(state.level);
+      updateSynthAndScore(state.level);
+    },
+    CHANGE_LEVEL(state, { level }) {
+      state.level = level;
+      updateSynthAndScore(state.level);
     }
   },
   actions: {}
 });
+
+function updateSynthAndScore(newLevel) {
+  changeSynthLevel(newLevel);
+  changeScoreLevel(newLevel);
+}

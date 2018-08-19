@@ -18,9 +18,6 @@ import { MOBILENET_ARCHITECTURE } from "../library/constants";
 
 export default {
   name: "VideoScore",
-  props: {
-    msg: String
-  },
   data() {
     return {
       error: "",
