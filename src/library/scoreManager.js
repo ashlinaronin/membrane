@@ -1,7 +1,7 @@
 import {
-  drawPixelMap,
-  generatePixelMap,
-  calculateAndDrawMapPosition,
+  drawMap,
+  generateMap,
+  handlePoseDetected,
   handleNoPoseDetected,
   mapIsEmpty
 } from "./map";
@@ -20,7 +20,7 @@ import {
 
 let waitingForNewMapFrames = 0;
 const FRAMES_TO_WAIT_BETWEEN_MAPS = 24;
-let map = generatePixelMap(MAP_RESOLUTION, MAP_RESOLUTION);
+let map = generateMap(MAP_RESOLUTION, MAP_RESOLUTION);
 
 /**
  * Feeds an image to posenet to estimate poses - this is where the magic
@@ -76,7 +76,7 @@ function drawMapAndVideo(ctx, video) {
   ctx.clearRect(0, 0, VIDEO_WIDTH, VIDEO_HEIGHT);
   ctx.globalCompositeOperation = "source-over";
 
-  drawPixelMap(ctx, VIDEO_WIDTH, VIDEO_HEIGHT, "black", map);
+  drawMap(ctx, VIDEO_WIDTH, VIDEO_HEIGHT, "black", map);
 
   ctx.globalCompositeOperation = "source-atop";
 
@@ -93,7 +93,7 @@ function drawPoses(ctx, poses) {
     if (score < MULTI_POSE_CONFIG.MIN_POSE_CONFIDENCE) {
       handleNoPoseDetected();
     } else {
-      calculateAndDrawMapPosition(
+      handlePoseDetected(
         keypoints,
         MULTI_POSE_CONFIG.MIN_PART_CONFIDENCE,
         ctx,
@@ -113,7 +113,7 @@ function checkAndRegenerateMap() {
     if (waitingForNewMapFrames > FRAMES_TO_WAIT_BETWEEN_MAPS) {
       store.commit("LEVEL_UP");
 
-      map = generatePixelMap(MAP_RESOLUTION, MAP_RESOLUTION);
+      map = generateMap(MAP_RESOLUTION, MAP_RESOLUTION);
       waitingForNewMapFrames = 0;
     }
   }

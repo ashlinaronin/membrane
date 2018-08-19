@@ -6,7 +6,7 @@ let framesSinceLastMovement = 0;
 const MIN_DISTANCE_TO_PLAY = 16;
 const FRAMES_BEFORE_MOVEMENT_DECLARED_OVER = 3;
 
-export function generatePixelMap(width, height) {
+export function generateMap(width, height) {
   const map = [];
 
   for (let i = 0; i < width; i++) {
@@ -19,7 +19,11 @@ export function generatePixelMap(width, height) {
   return map;
 }
 
-export function drawPixelMap(ctx, videoWidth, videoHeight, color, map) {
+export function mapIsEmpty(map) {
+  return !map.some(row => row.some(col => col === true));
+}
+
+export function drawMap(ctx, videoWidth, videoHeight, color, map) {
   const widthUnit = videoWidth / getMapWidth(map);
   const heightUnit = videoHeight / getMapHeight(map);
 
@@ -38,16 +42,7 @@ export function handleNoPoseDetected() {
   checkForShouldEndNote();
 }
 
-function checkForShouldEndNote() {
-  if (framesSinceLastMovement > FRAMES_BEFORE_MOVEMENT_DECLARED_OVER) {
-    if (isPlaying) {
-      endNote();
-      isPlaying = false;
-    }
-  }
-}
-
-export function calculateAndDrawMapPosition(
+export function handlePoseDetected(
   keypoints,
   minConfidence,
   ctx,
@@ -91,6 +86,15 @@ export function calculateAndDrawMapPosition(
 
         lastPosition = [x, y];
       }
+    }
+  }
+}
+
+function checkForShouldEndNote() {
+  if (framesSinceLastMovement > FRAMES_BEFORE_MOVEMENT_DECLARED_OVER) {
+    if (isPlaying) {
+      endNote();
+      isPlaying = false;
     }
   }
 }
@@ -176,11 +180,7 @@ function mapContainsPoint(map, mapPointCoords) {
   return map[mapXCoord][mapYCoord] === true;
 }
 
-export function mapIsEmpty(map) {
-  return !map.some(row => row.some(col => col === true));
-}
-
-export function drawTriangle(ctx, trianglePoints, color) {
+function drawTriangle(ctx, trianglePoints, color) {
   ctx.fillStyle = color;
   ctx.beginPath();
   ctx.moveTo(trianglePoints[0][0], trianglePoints[0][1]);
