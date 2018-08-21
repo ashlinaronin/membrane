@@ -7,7 +7,7 @@ export default class SneezeSampler {
     this.grainPlayer = new Tone.GrainPlayer(sneeze, () => {
       this.initialize();
     });
-    this.env = new Tone.AmplitudeEnvelope(0.1, 0.2, 1.0, 0.5);
+    this.env = new Tone.AmplitudeEnvelope(0.1, 0.2, 1.0, 0.2);
   }
 
   async initialize() {
