@@ -22,7 +22,7 @@ level audio ideas:
 modifiers for existing levels:
 * more notes get added in "certain" situations
 * random combination of score and synthesis
-*
+* use exponential and other non-linear scaling algorithms for mapping xy values
 
 how to handle multiple players/noses
 * hmm :)
