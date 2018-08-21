@@ -1,9 +1,11 @@
 import LowPulseSynth from "./LowPulseSynth";
 import FatSynth from "./FatSynth";
+import SneezeSampler from "./SneezeSampler";
 
 const synthLevelMap = {
   1: LowPulseSynth,
-  2: FatSynth
+  2: FatSynth,
+  3: SneezeSampler
 };
 
 let synth;

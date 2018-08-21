@@ -7,10 +7,11 @@ export default class SneezeSampler {
     this.grainPlayer = new Tone.GrainPlayer(sneeze, () => {
       this.initialize();
     });
-    this.env = new Tone.AmplitudeEnvelope();
+    this.env = new Tone.AmplitudeEnvelope(0.1, 0.2, 1.0, 0.5);
   }
 
   async initialize() {
+    this.grainPlayer.loop = true;
     this.grainPlayer.start();
     this.grainPlayer.connect(this.env);
     this.env.toMaster();
@@ -31,7 +32,7 @@ export default class SneezeSampler {
 
   changeParam(x, y, width, height) {
     this.grainPlayer.grainSize = mapRange(x, 0, width, 0, 1.0);
-    this.grainPlayer.playbackRate = mapRange(x, 0, width, 0.0, 2.0);
-    this.grainPlayer.detune = mapRange(y, 0, height, 50.0, -50.0);
+    this.grainPlayer.playbackRate = mapRange(y, 0, height, 0.0, 2.0);
+    this.grainPlayer.overlap = mapRange(x, 0, width, 0, 2.0);
   }
 }
