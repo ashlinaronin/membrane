@@ -10,7 +10,8 @@ export default class DetunedChordSynth {
     });
 
     this.env = new Tone.AmplitudeEnvelope(0.4, 0.2, 0.9, 1.2);
-    this.delay = new Tone.FeedbackDelay("8n", 0.35);
+    this.delay = new Tone.FeedbackDelay(0.15, 0.3);
+    this.panner = new Tone.Panner(0);
     this.initialize();
   }
 
@@ -20,11 +21,14 @@ export default class DetunedChordSynth {
       osc.start();
     });
     this.env.connect(this.delay);
-    this.delay.toMaster();
+    this.delay.connect(this.panner);
+    this.panner.toMaster();
   }
 
   dispose() {
     this.oscs.forEach(osc => osc.dispose());
+    this.panner.dispose();
+    this.delay.dispose();
     this.env.dispose();
   }
 
@@ -49,5 +53,7 @@ export default class DetunedChordSynth {
     notes.map((note, index) => {
       this.oscs[index].frequency.value = note;
     });
+
+    this.panner.pan.value = mapRange(y, 0, height, -1.0, 1.0);
   }
 }
