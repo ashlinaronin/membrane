@@ -1,4 +1,3 @@
-import Tone from "tone";
 import LowPulseSynth from "./LowPulseSynth";
 import FatSynth from "./FatSynth";
 import SneezeSampler from "./SneezeSampler";
@@ -13,23 +12,9 @@ const synthLevelMap = {
   4: LowPulseSynth
 };
 
-let synth, masterCompressor, lowBump;
+let synth;
 
-initializeMasterChain();
 changeLevel(1);
-
-function initializeMasterChain() {
-  masterCompressor = new Tone.Compressor({
-    threshold: -6,
-    ratio: 3,
-    attack: 0.5,
-    release: 0.1
-  });
-
-  lowBump = new Tone.Filter(200, "lowshelf");
-
-  Tone.Master.chain(lowBump, masterCompressor);
-}
 
 export function changeLevel(level) {
   if (typeof synth !== "undefined") {
