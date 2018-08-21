@@ -1,0 +1,30 @@
+level visual ideas:
+* completely black, only show squares retrospectively after you play them
+* 3d cloth simulation-- map on cloth that's swaying in the wind, still pixel map
+* 3d cubes with depth / collision detection -- https://threejs.org/examples/#webgl_interactive_cubes
+* 3d - extrude triangle nose shape back in z, trails follow
+* 3d - following spline like in movie theater promo-- moving nose controls movement of camera
+* 3d - nose rotating masking https://threejs.org/examples/#webgl_postprocessing_masking
+* 3d - raycast sprites shifting in depth, dynamically adding new elements to grid
+* 3d - modified material-- moving nose through face smushes it https://threejs.org/examples/#webgl_materials_modified
+
+level audio ideas:
+* sampler playing recording of sneeze, pitchshifted by nose movement
+* sine oscillator with tremelo lfo rate controlled by nose
+* detuned chord playing with multiple fat oscs and tremelo, chord quality changes with x and detune changes with y
+* pipe organ arpeggios with some distortion, x changing scale and y changing key
+* multiple instruments playing the various parts of the midi file for 'all the pretty little horses', moving nose switches key and rotates instrumentation
+* record sample of user speaking and turn it into a sample, simple pitch x volume y parameter mapping
+* metallic drum synth where x controls which drum sound is played and y controls harmonicity or other
+* a square osc with a waveshaper that is defined as a buffer projected over the grid score and which is modified by nose movement
+* pluck synth with many delay,
+
+modifiers for existing levels:
+* more notes get added in "certain" situations
+* random combination of score and synthesis
+*
+
+how to handle multiple players/noses
+* hmm :)
+* first we need to be able to track them independently to know when one has moved and not just have raw data about two different users without knowing which one is which
+* then we could either have each additional player be an additional voice for the basic 1-voice synths,
