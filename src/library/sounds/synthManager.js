@@ -3,13 +3,15 @@ import FatSynth from "./FatSynth";
 import SneezeSampler from "./SneezeSampler";
 import SineTremoloSynth from "./SineTremoloSynth";
 import DetunedChordSynth from "./DetunedChordSynth";
+import OrganArpeggioSynth from "./OrganArpeggioSynth";
 
 const synthLevelMap = {
-  1: DetunedChordSynth,
-  5: SineTremoloSynth,
-  2: FatSynth,
-  3: SneezeSampler,
-  4: LowPulseSynth
+  1: OrganArpeggioSynth,
+  2: DetunedChordSynth,
+  3: SineTremoloSynth,
+  4: SneezeSampler,
+  5: FatSynth,
+  6: LowPulseSynth
 };
 
 let synth;
