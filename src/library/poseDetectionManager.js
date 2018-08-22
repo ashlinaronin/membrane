@@ -30,10 +30,10 @@ export function detectPoseInRealTime(canvas, video, net, stats) {
     // Begin monitoring code for frames per second
     stats.begin();
 
-    const poses = await detectPoses(video, net);
+    const singlePose = await detectPose(video, net);
 
     drawScore(ctx, video, VIDEO_WIDTH, VIDEO_HEIGHT);
-    drawPoses(ctx, poses);
+    drawPose(ctx, singlePose);
     checkScoreAndLevelUp();
 
     // End monitoring code for frames per second
@@ -45,36 +45,27 @@ export function detectPoseInRealTime(canvas, video, net, stats) {
   poseDetectionFrame();
 }
 
-async function detectPoses(video, net) {
-  // Scale an image down to a certain factor. Too large of an image will slow down the GPU
-  return net.estimateMultiplePoses(
+async function detectPose(video, net) {
+  return net.estimateSinglePose(
     video,
     IMAGE_SCALE_FACTOR,
     FLIP_HORIZONTAL,
-    OUTPUT_STRIDE,
-    MULTI_POSE_CONFIG.MAX_POSE_DETECTIONS,
-    MULTI_POSE_CONFIG.MIN_PART_CONFIDENCE,
-    MULTI_POSE_CONFIG.NMS_RADIUS
+    OUTPUT_STRIDE
   );
 }
 
-function drawPoses(ctx, poses) {
-  // For each pose (i.e. person) detected in an image, loop through the poses
-  // and draw the resulting skeleton and keypoints if over certain confidence
-  // scores
-  poses.forEach(pose => {
-    if (pose.score < MULTI_POSE_CONFIG.MIN_POSE_CONFIDENCE) {
-      handleNoPoseDetected();
-    } else {
-      handlePoseDetected(
-        pose.keypoints,
-        MULTI_POSE_CONFIG.MIN_PART_CONFIDENCE,
-        ctx,
-        VIDEO_WIDTH,
-        VIDEO_HEIGHT
-      );
-    }
-  });
+function drawPose(ctx, pose) {
+  if (pose.score < MULTI_POSE_CONFIG.MIN_POSE_CONFIDENCE) {
+    handleNoPoseDetected();
+  } else {
+    handlePoseDetected(
+      pose.keypoints,
+      MULTI_POSE_CONFIG.MIN_PART_CONFIDENCE,
+      ctx,
+      VIDEO_WIDTH,
+      VIDEO_HEIGHT
+    );
+  }
 }
 
 function checkScoreAndLevelUp() {
