@@ -3,36 +3,40 @@ import { NOSE_TRIANGLE_RADIUS } from "../constants";
 import { drawTriangle, generateTrianglePoints } from "./scoreHelpers";
 
 export default class CircleNoseTriangleGridScore extends PixelGridScore {
-  constructor(scoreResolution) {
-    super(scoreResolution);
+  constructor(scoreResolution, videoWidth, videoHeight) {
+    super(scoreResolution, videoWidth, videoHeight);
+
+    // Reuse vars to avoid allocating lots of new memory every frame
+    this.smallerUnit = undefined;
+    this.halfSmallerUnit = undefined;
+    this.x = undefined;
+    this.y = undefined;
+    this.trianglePoints = undefined;
   }
 
-  drawScore(ctx, video, videoWidth, videoHeight) {
-    ctx.clearRect(0, 0, videoWidth, videoHeight);
+  drawScore(ctx) {
+    ctx.clearRect(0, 0, this.videoWidth, this.videoHeight);
     ctx.globalCompositeOperation = "source-over";
-    this.drawGrid(ctx, videoWidth, videoHeight);
+    this.drawGrid(ctx);
   }
 
   // overrides PixelGridScore's generic grid
-  drawGrid(ctx, videoWidth, videoHeight) {
-    const widthUnit = videoWidth / this.width;
-    const heightUnit = videoHeight / this.height;
-
+  drawGrid(ctx) {
     for (let i = 0; i < this.grid.length; i++) {
       for (let j = 0; j < this.grid[0].length; j++) {
         if (this.grid[i][j] === true) {
-          const smallerUnit = widthUnit < heightUnit ? widthUnit : heightUnit;
-          const halfSmallerUnit = smallerUnit / 2;
-          const x = widthUnit * i + halfSmallerUnit;
-          const y = heightUnit * j + halfSmallerUnit;
+          this.smallerUnit =
+            this.widthUnit < this.heightUnit ? this.widthUnit : this.heightUnit;
+          this.halfSmallerUnit = this.smallerUnit / 2;
+          this.x = this.widthUnit * i + this.halfSmallerUnit;
+          this.y = this.heightUnit * j + this.halfSmallerUnit;
 
-          const color = `hsl(${i * 12}, 60%, 50%)`;
-          const trianglePoints = generateTrianglePoints(
-            x,
-            y,
+          this.trianglePoints = generateTrianglePoints(
+            this.x,
+            this.y,
             NOSE_TRIANGLE_RADIUS * 2
           );
-          drawTriangle(ctx, trianglePoints, color);
+          drawTriangle(ctx, this.trianglePoints, `hsl(${i * 12}, 60%, 50%)`);
         }
       }
     }

@@ -8,12 +8,17 @@ import {
 } from "../constants";
 
 export default class PixelGridScore {
-  constructor(scoreResolution) {
+  constructor(scoreResolution, videoWidth, videoHeight) {
     this.width = scoreResolution;
     this.height = scoreResolution;
+    this.videoWidth = videoWidth;
+    this.videoHeight = videoHeight;
+    this.widthUnit = this.videoWidth / this.width;
+    this.heightUnit = this.videoHeight / this.height;
     this.grid = this.generateScore();
     this.isPlaying = false;
     this.lastPosition = undefined;
+    this.trianglePoints = undefined;
     this.framesSinceLastMovement = 0;
   }
 
@@ -34,15 +39,17 @@ export default class PixelGridScore {
     return !this.grid.some(row => row.some(col => col === true));
   }
 
-  drawGrid(ctx, videoWidth, videoHeight, gridFillStyle) {
-    const widthUnit = videoWidth / this.width;
-    const heightUnit = videoHeight / this.height;
-
+  drawGrid(ctx, gridFillStyle) {
     ctx.fillStyle = gridFillStyle;
     for (let i = 0; i < this.grid.length; i++) {
       for (let j = 0; j < this.grid[0].length; j++) {
         if (this.grid[i][j] === true) {
-          ctx.fillRect(widthUnit * i, heightUnit * j, widthUnit, heightUnit);
+          ctx.fillRect(
+            this.widthUnit * i,
+            this.heightUnit * j,
+            this.widthUnit,
+            this.heightUnit
+          );
         }
       }
     }
@@ -53,13 +60,7 @@ export default class PixelGridScore {
     this.checkForShouldEndNote();
   }
 
-  handlePoseDetected(
-    keypoints,
-    minPartConfidence,
-    ctx,
-    videoWidth,
-    videoHeight
-  ) {
+  handlePoseDetected(keypoints, minPartConfidence, ctx) {
     this.checkForShouldEndNote();
 
     for (let i = 0; i < keypoints.length; i++) {
@@ -70,13 +71,7 @@ export default class PixelGridScore {
       }
 
       if (keypoint.part === "nose") {
-        this.handleNoseFound(
-          ctx,
-          videoWidth,
-          videoHeight,
-          keypoint.position.x,
-          keypoint.position.y
-        );
+        this.handleNoseFound(ctx, keypoint.position.x, keypoint.position.y);
       }
     }
   }
@@ -85,20 +80,16 @@ export default class PixelGridScore {
     drawTriangle(ctx, trianglePoints, NOSE_TRIANGLE_COLOR);
   }
 
-  handleNoseFound(ctx, videoWidth, videoHeight, x, y) {
-    const trianglePoints = generateTrianglePoints(x, y, NOSE_TRIANGLE_RADIUS);
-    this.checkForGridPointPlayedAndRemove(
-      trianglePoints,
-      videoWidth,
-      videoHeight
-    );
-    this.drawNose(ctx, trianglePoints);
+  handleNoseFound(ctx, x, y) {
+    this.trianglePoints = generateTrianglePoints(x, y, NOSE_TRIANGLE_RADIUS);
+    this.checkForGridPointPlayedAndRemove(this.trianglePoints);
+    this.drawNose(ctx, this.trianglePoints);
 
     if (typeof this.lastPosition === "undefined") {
       this.lastPosition = [x, y];
     }
 
-    changeParam(x, y, videoWidth, videoHeight);
+    changeParam(x, y, this.videoWidth, this.videoHeight);
     this.framesSinceLastMovement = this.framesSinceLastMovement + 1;
 
     if (
@@ -116,21 +107,15 @@ export default class PixelGridScore {
     }
   }
 
-  checkForGridPointPlayedAndRemove(trianglePoints, videoWidth, videoHeight) {
+  checkForGridPointPlayedAndRemove(trianglePoints) {
     let anyTrianglePointInGrid = false;
 
     trianglePoints.forEach(trianglePoint => {
-      const [pointX, pointY] = trianglePoint;
-
       const gridCoordinates = this.getGridCoordinatesForPoint(
-        pointX,
-        pointY,
-        videoWidth,
-        videoHeight
+        trianglePoint[0],
+        trianglePoint[1]
       );
-      const containsPoint = this.gridContainsPoint(gridCoordinates);
-
-      if (containsPoint) {
+      if (this.gridContainsPoint(gridCoordinates)) {
         anyTrianglePointInGrid = true;
         this.removePointFromGrid(gridCoordinates);
       }
@@ -139,12 +124,9 @@ export default class PixelGridScore {
     return anyTrianglePointInGrid;
   }
 
-  getGridCoordinatesForPoint(x, y, videoWidth, videoHeight) {
-    const widthUnit = videoWidth / this.width; // # rows
-    const heightUnit = videoHeight / this.height; // # cols
-
-    let gridXCoord = Math.floor(x / widthUnit);
-    let gridYCoord = Math.floor(y / heightUnit);
+  getGridCoordinatesForPoint(x, y) {
+    let gridXCoord = Math.floor(x / this.widthUnit);
+    let gridYCoord = Math.floor(y / this.heightUnit);
 
     // Account for edges of camera window
     if (gridXCoord >= this.width) {
