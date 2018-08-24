@@ -9,14 +9,17 @@ import fscreen from "fscreen";
 
 export default {
   name: "FullScreenButton",
-  data() {
-    return {
-      fullscreen: false
-    };
-  },
   computed: {
     buttonText() {
       return this.fullscreen ? "Exit full screen" : "Enter full screen";
+    },
+    fullscreen: {
+      get() {
+        return this.$store.state.fullscreen;
+      },
+      set(newVal) {
+        this.$store.commit("SET_FULLSCREEN", { fullscreen: newVal });
+      }
     }
   },
   mounted() {
@@ -57,6 +60,3 @@ export default {
   }
 };
 </script>
-
-<style scoped lang="scss">
-</style>

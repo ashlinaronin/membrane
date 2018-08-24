@@ -8,7 +8,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    level: 1
+    level: 1,
+    fullscreen: false
   },
   mutations: {
     LEVEL_UP(state) {
@@ -23,6 +24,9 @@ export default new Vuex.Store({
     CHANGE_LEVEL(state, { level }) {
       state.level = level;
       updateSynthAndScore(state.level);
+    },
+    SET_FULLSCREEN(state, { fullscreen }) {
+      state.fullscreen = fullscreen;
     }
   },
   actions: {}
