@@ -28,8 +28,8 @@ export default {
   async mounted() {
     // TODO: optimize by putting this in created hook?
     this.net = await posenet.load(MOBILENET_ARCHITECTURE);
-    this.stats.showPanel(0);
-    document.body.appendChild(this.stats.dom);
+    //    this.stats.showPanel(0);
+    //    document.body.appendChild(this.stats.dom);
 
     try {
       await loadVideo(this.$refs.video);
