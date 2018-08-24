@@ -9,6 +9,7 @@ export default class WaterPixelGridScore extends PixelGridScore {
     this.videoLoaded = false;
     this.videoElement = document.createElement("video");
     this.videoElement.src = waterVideo;
+    this.videoElement.loop = true;
     this.videoElement.play();
 
     this.videoElement.addEventListener(
