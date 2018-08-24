@@ -61,9 +61,7 @@ function drawPose(ctx, pose) {
     handlePoseDetected(
       pose.keypoints,
       MULTI_POSE_CONFIG.MIN_PART_CONFIDENCE,
-      ctx,
-      VIDEO_WIDTH,
-      VIDEO_HEIGHT
+      ctx
     );
   }
 }

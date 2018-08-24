@@ -28,20 +28,8 @@ export function drawScore(ctx, webcamVideo) {
   return score.drawScore(ctx, webcamVideo);
 }
 
-export function handlePoseDetected(
-  keypoints,
-  minPartConfidence,
-  ctx,
-  videoWidth,
-  videoHeight
-) {
-  return score.handlePoseDetected(
-    keypoints,
-    minPartConfidence,
-    ctx,
-    videoWidth,
-    videoHeight
-  );
+export function handlePoseDetected(keypoints, minPartConfidence, ctx) {
+  return score.handlePoseDetected(keypoints, minPartConfidence, ctx);
 }
 
 export function handleNoPoseDetected() {
