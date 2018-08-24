@@ -7,6 +7,7 @@ level visual ideas:
 * 3d - nose rotating masking https://threejs.org/examples/#webgl_postprocessing_masking
 * 3d - raycast sprites shifting in depth, dynamically adding new elements to grid
 * 3d - modified material-- moving nose through face smushes it https://threejs.org/examples/#webgl_materials_modified
+* 2d - twister! squares follow other body part locations, must move nose on top of them to play
 
 level audio ideas:
 * sampler playing recording of sneeze, pitchshifted by nose movement
