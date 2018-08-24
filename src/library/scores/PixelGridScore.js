@@ -8,9 +8,13 @@ import {
 } from "../constants";
 
 export default class PixelGridScore {
-  constructor(scoreResolution) {
+  constructor(scoreResolution, videoWidth, videoHeight) {
     this.width = scoreResolution;
     this.height = scoreResolution;
+    this.videoWidth = videoWidth;
+    this.videoHeight = videoHeight;
+    this.widthUnit = this.videoWidth / this.width;
+    this.heightUnit = this.videoHeight / this.height;
     this.grid = this.generateScore();
     this.isPlaying = false;
     this.lastPosition = undefined;
@@ -34,15 +38,17 @@ export default class PixelGridScore {
     return !this.grid.some(row => row.some(col => col === true));
   }
 
-  drawGrid(ctx, videoWidth, videoHeight, gridFillStyle) {
-    const widthUnit = videoWidth / this.width;
-    const heightUnit = videoHeight / this.height;
-
+  drawGrid(ctx, gridFillStyle) {
     ctx.fillStyle = gridFillStyle;
     for (let i = 0; i < this.grid.length; i++) {
       for (let j = 0; j < this.grid[0].length; j++) {
         if (this.grid[i][j] === true) {
-          ctx.fillRect(widthUnit * i, heightUnit * j, widthUnit, heightUnit);
+          ctx.fillRect(
+            this.widthUnit * i,
+            this.heightUnit * j,
+            this.widthUnit,
+            this.heightUnit
+          );
         }
       }
     }

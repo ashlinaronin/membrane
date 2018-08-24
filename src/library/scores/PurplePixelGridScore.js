@@ -1,13 +1,13 @@
 import PixelGridScore from "./PixelGridScore";
 
 export default class PurplePixelGridScore extends PixelGridScore {
-  constructor(scoreResolution) {
-    super(scoreResolution);
+  constructor(scoreResolution, videoWidth, videoHeight) {
+    super(scoreResolution, videoWidth, videoHeight);
   }
 
-  drawScore(ctx, video, videoWidth, videoHeight) {
-    ctx.clearRect(0, 0, videoWidth, videoHeight);
+  drawScore(ctx) {
+    ctx.clearRect(0, 0, this.videoWidth, this.videoHeight);
     ctx.globalCompositeOperation = "source-over";
-    this.drawGrid(ctx, videoWidth, videoHeight, "purple");
+    this.drawGrid(ctx, "purple");
   }
 }

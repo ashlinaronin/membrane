@@ -1,26 +1,28 @@
 import PixelGridScore from "./PixelGridScore";
 
 export default class PurplePixelGridScore extends PixelGridScore {
-  constructor(scoreResolution) {
-    super(scoreResolution);
+  constructor(scoreResolution, videoWidth, videoHeight) {
+    super(scoreResolution, videoWidth, videoHeight);
   }
 
-  drawScore(ctx, video, videoWidth, videoHeight) {
-    ctx.clearRect(0, 0, videoWidth, videoHeight);
+  drawScore(ctx) {
+    ctx.clearRect(0, 0, this.videoWidth, this.videoHeight);
     ctx.globalCompositeOperation = "source-over";
-    this.drawGrid(ctx, videoWidth, videoHeight);
+    this.drawGrid(ctx, this.videoWidth, this.videoHeight);
   }
 
   // overrides PixelGridScore's generic grid
-  drawGrid(ctx, videoWidth, videoHeight) {
-    const widthUnit = videoWidth / this.width;
-    const heightUnit = videoHeight / this.height;
-
+  drawGrid(ctx) {
     for (let i = 0; i < this.grid.length; i++) {
       for (let j = 0; j < this.grid[0].length; j++) {
         if (this.grid[i][j] === true) {
           ctx.fillStyle = `hsl(${i * 12}, 60%, 50%)`;
-          ctx.fillRect(widthUnit * i, heightUnit * j, widthUnit, heightUnit);
+          ctx.fillRect(
+            this.widthUnit * i,
+            this.heightUnit * j,
+            this.widthUnit,
+            this.heightUnit
+          );
         }
       }
     }

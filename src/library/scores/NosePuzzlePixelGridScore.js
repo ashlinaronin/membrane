@@ -2,8 +2,8 @@ import PixelGridScore from "./PixelGridScore";
 import nosesImage from "../../assets/noses.jpg";
 
 export default class NosePuzzlePixelGridScore extends PixelGridScore {
-  constructor(scoreResolution) {
-    super(scoreResolution);
+  constructor(scoreResolution, videoWidth, videoHeight) {
+    super(scoreResolution, videoWidth, videoHeight);
 
     this.imgLoaded = false;
     this.img = new Image();
@@ -13,17 +13,17 @@ export default class NosePuzzlePixelGridScore extends PixelGridScore {
     };
   }
 
-  drawScore(ctx, video, videoWidth, videoHeight) {
+  drawScore(ctx) {
     if (!this.imgLoaded) return;
 
-    ctx.clearRect(0, 0, videoWidth, videoHeight);
+    ctx.clearRect(0, 0, this.videoWidth, this.videoHeight);
     ctx.globalCompositeOperation = "source-over";
 
-    ctx.drawImage(this.img, 0, 0, videoWidth, videoHeight);
+    ctx.drawImage(this.img, 0, 0, this.videoWidth, this.videoHeight);
 
     ctx.globalCompositeOperation = "source-atop";
 
-    this.drawGrid(ctx, videoWidth, videoHeight, "white");
+    this.drawGrid(ctx, "white");
 
     ctx.globalCompositeOperation = "source-over";
   }

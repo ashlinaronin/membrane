@@ -20,7 +20,7 @@ import {
  * Feeds an image to posenet to estimate poses - this is where the magic
  * happens. This function loops with a requestAnimationFrame method.
  */
-export function detectPoseInRealTime(canvas, video, net, stats) {
+export function detectPoseInRealTime(canvas, webcamVideo, net, stats) {
   const ctx = canvas.getContext("2d");
 
   canvas.width = VIDEO_WIDTH;
@@ -30,9 +30,9 @@ export function detectPoseInRealTime(canvas, video, net, stats) {
     // Begin monitoring code for frames per second
     stats.begin();
 
-    const singlePose = await detectPose(video, net);
+    const singlePose = await detectPose(webcamVideo, net);
 
-    drawScore(ctx, video, VIDEO_WIDTH, VIDEO_HEIGHT);
+    drawScore(ctx, webcamVideo);
     drawPose(ctx, singlePose);
     checkScoreAndLevelUp();
 
