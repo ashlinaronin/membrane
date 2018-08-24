@@ -1,8 +1,8 @@
 <template>
   <div class="home">
     <VideoScore />
-    <LevelControls />
-    <FullScreenButton />
+    <LevelControls v-show="!fullscreen" />
+    <FullScreenButton v-show="!fullscreen" />
   </div>
 </template>
 
@@ -18,6 +18,11 @@ export default {
     VideoScore,
     LevelControls,
     FullScreenButton
+  },
+  computed: {
+    fullscreen() {
+      return this.$store.state.fullscreen;
+    }
   }
 };
 </script>
