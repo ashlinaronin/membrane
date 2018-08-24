@@ -1,14 +1,14 @@
 import { SCORE_RESOLUTION } from "../constants";
 import VideoPixelGridScore from "./VideoPixelGridScore";
 import RainbowPixelGridScore from "./RainbowPixelGridScore";
-import CircleGridScore from "./CircleGridScore";
+import DerynPixelGridScore from "./DerynPixelGridScore";
 import NosePuzzlePixelGridScore from "./NosePuzzlePixelGridScore";
 import WaterPixelGridScore from "./WaterPixelGridScore";
 
 const scoreLevelMap = {
   1: VideoPixelGridScore,
   2: RainbowPixelGridScore,
-  3: CircleGridScore,
+  3: DerynPixelGridScore,
   4: NosePuzzlePixelGridScore,
   5: WaterPixelGridScore
 };
