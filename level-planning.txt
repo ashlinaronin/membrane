@@ -29,3 +29,10 @@ how to handle multiple players/noses
 * hmm :)
 * first we need to be able to track them independently to know when one has moved and not just have raw data about two different users without knowing which one is which
 * then we could either have each additional player be an additional voice for the basic 1-voice synths,
+
+
+what should go together?
+
+
+technical todos
+* should add dispose methods to scores to clean em up, esp ones that use video or images
