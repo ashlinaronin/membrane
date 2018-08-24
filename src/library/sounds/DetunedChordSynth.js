@@ -48,7 +48,7 @@ export default class DetunedChordSynth {
     ];
     const notes = Tone.Frequency("C2").harmonize(this.intervals);
     notes.map((note, index) => {
-      this.oscs[index].frequency.value = note;
+      this.oscs[index].frequency.rampTo(note, 0.1);
     });
 
     this.panner.pan.value = mapRange(y, 0, height, -1.0, 1.0);
