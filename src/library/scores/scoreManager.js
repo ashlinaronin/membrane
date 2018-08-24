@@ -1,7 +1,5 @@
 import { SCORE_RESOLUTION } from "../constants";
 import VideoPixelGridScore from "./VideoPixelGridScore";
-import BlackPixelGridScore from "./BlackPixelGridScore";
-import PurplePixelGridScore from "./PurplePixelGridScore";
 import RainbowPixelGridScore from "./RainbowPixelGridScore";
 import CircleGridScore from "./CircleGridScore";
 import NosePuzzlePixelGridScore from "./NosePuzzlePixelGridScore";
@@ -10,13 +8,11 @@ import CircleNoseTriangleGridScore from "./CircleNoseTriangleGridScore";
 
 const scoreLevelMap = {
   1: VideoPixelGridScore,
-  2: BlackPixelGridScore,
-  3: PurplePixelGridScore,
-  4: RainbowPixelGridScore,
-  5: CircleGridScore,
-  6: NosePuzzlePixelGridScore,
-  7: WaterPixelGridScore,
-  8: CircleNoseTriangleGridScore
+  2: RainbowPixelGridScore,
+  3: CircleGridScore,
+  4: NosePuzzlePixelGridScore,
+  5: WaterPixelGridScore,
+  6: CircleNoseTriangleGridScore
 };
 
 let score;

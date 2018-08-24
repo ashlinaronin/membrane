@@ -6,8 +6,8 @@ import DetunedChordSynth from "./DetunedChordSynth";
 import OrganArpeggioSynth from "./OrganArpeggioSynth";
 
 const synthLevelMap = {
-  1: OrganArpeggioSynth,
-  2: DetunedChordSynth,
+  1: DetunedChordSynth,
+  2: OrganArpeggioSynth,
   3: SineTremoloSynth,
   4: SneezeSampler,
   5: FatSynth,
