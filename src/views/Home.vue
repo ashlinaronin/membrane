@@ -2,7 +2,7 @@
   <div class="home">
     <VideoScore />
     <LevelControls />
-    <FullScreenButton element-selector=".video-score" />
+    <FullScreenButton />
   </div>
 </template>
 

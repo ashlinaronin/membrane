@@ -9,9 +9,6 @@ import fscreen from "fscreen";
 
 export default {
   name: "FullScreenButton",
-  props: {
-    elementSelector: String
-  },
   methods: {
     doFscreen() {
       if (fscreen.fullscreenEnabled) {
@@ -20,8 +17,7 @@ export default {
           this.fullscreenHandler,
           false
         );
-        const $el = document.querySelector(this.elementSelector);
-        fscreen.requestFullscreen($el);
+        fscreen.requestFullscreen(document.body);
       }
     },
     fullscreenHandler() {
