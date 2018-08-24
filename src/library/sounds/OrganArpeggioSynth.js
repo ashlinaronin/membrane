@@ -48,6 +48,11 @@ export default class OrganArpeggioSynth {
     this.osc.dispose();
     this.env.dispose();
     this.chorus.dispose();
+    this.pattern.dispose();
+    this.osc = null;
+    this.env = null;
+    this.chorus = null;
+    this.pattern = null;
   }
 
   startNote() {
