@@ -4,6 +4,9 @@ export default class BreathingPixelGridScore extends PixelGridScore {
   constructor(scoreResolution) {
     super(scoreResolution);
 
+    this.widthUnit = 0;
+    this.heightUnit = 0;
+    this.phase = 0;
     this.breath = 0;
   }
 
@@ -14,21 +17,22 @@ export default class BreathingPixelGridScore extends PixelGridScore {
   }
 
   drawGrid(ctx, videoWidth, videoHeight, gridFillStyle) {
-    const widthUnit = videoWidth / this.width;
-    const heightUnit = videoHeight / this.height;
+    this.widthUnit = videoWidth / this.width;
+    this.heightUnit = videoHeight / this.height;
 
-    this.breath = (this.breath + 1) % 50;
-
-    console.log(this.breath);
+    this.phase = (this.phase + 0.01) % (2 * Math.PI);
+    this.breath = Math.sin(this.phase) * 30;
 
     ctx.fillStyle = gridFillStyle;
     for (let i = 0; i < this.grid.length; i++) {
       for (let j = 0; j < this.grid[0].length; j++) {
         if (this.grid[i][j] === true) {
-          const width = widthUnit + this.breath;
-          const height = heightUnit + this.breath;
-
-          ctx.fillRect(widthUnit * i, heightUnit * j, width, height);
+          ctx.fillRect(
+            this.widthUnit * i,
+            this.heightUnit * j,
+            this.widthUnit + this.breath,
+            this.heightUnit + this.breath
+          );
         }
       }
     }
