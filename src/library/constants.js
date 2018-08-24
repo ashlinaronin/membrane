@@ -22,3 +22,5 @@ export const FRAMES_BEFORE_MOVEMENT_DECLARED_OVER = 3;
 
 export const NOSE_TRIANGLE_RADIUS = 20;
 export const NOSE_TRIANGLE_COLOR = "black";
+
+export const NUM_LEVELS = 6;

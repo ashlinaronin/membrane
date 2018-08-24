@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import { changeLevel as changeSynthLevel } from "./library/sounds/synthManager";
 import { changeLevel as changeScoreLevel } from "./library/scores/scoreManager";
+import { NUM_LEVELS } from "./library/constants";
 
 Vue.use(Vuex);
 
@@ -11,7 +12,12 @@ export default new Vuex.Store({
   },
   mutations: {
     LEVEL_UP(state) {
-      state.level++;
+      if (state.level === NUM_LEVELS) {
+        state.level = 1;
+      } else {
+        state.level++;
+      }
+
       updateSynthAndScore(state.level);
     },
     CHANGE_LEVEL(state, { level }) {
