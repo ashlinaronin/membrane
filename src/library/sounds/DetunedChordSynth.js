@@ -9,8 +9,7 @@ export default class DetunedChordSynth {
       return new Tone.Oscillator(note, "sawtooth6");
     });
 
-    this.env = new Tone.AmplitudeEnvelope(0.4, 0.2, 0.9, 1.2);
-    this.delay = new Tone.FeedbackDelay(0.15, 0.3);
+    this.env = new Tone.AmplitudeEnvelope();
     this.panner = new Tone.Panner(0);
     this.initialize();
   }
@@ -20,15 +19,13 @@ export default class DetunedChordSynth {
       osc.connect(this.env);
       osc.start();
     });
-    this.env.connect(this.delay);
-    this.delay.connect(this.panner);
+    this.env.connect(this.panner);
     this.panner.toMaster();
   }
 
   dispose() {
     this.oscs.forEach(osc => osc.dispose());
     this.panner.dispose();
-    this.delay.dispose();
     this.env.dispose();
   }
 
