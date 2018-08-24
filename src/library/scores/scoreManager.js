@@ -4,15 +4,13 @@ import RainbowPixelGridScore from "./RainbowPixelGridScore";
 import CircleGridScore from "./CircleGridScore";
 import NosePuzzlePixelGridScore from "./NosePuzzlePixelGridScore";
 import WaterPixelGridScore from "./WaterPixelGridScore";
-import CircleNoseTriangleGridScore from "./CircleNoseTriangleGridScore";
 
 const scoreLevelMap = {
   1: VideoPixelGridScore,
   2: RainbowPixelGridScore,
   3: CircleGridScore,
   4: NosePuzzlePixelGridScore,
-  5: WaterPixelGridScore,
-  6: CircleNoseTriangleGridScore
+  5: WaterPixelGridScore
 };
 
 let score;
