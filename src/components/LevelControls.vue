@@ -14,7 +14,7 @@ export default {
   name: "LevelControls",
   data() {
     return {
-      availableLevels: Array.from({ length: 10 }, (v, k) => k + 1)
+      availableLevels: Array.from({ length: 6 }, (v, k) => k + 1)
     };
   },
   computed: {
