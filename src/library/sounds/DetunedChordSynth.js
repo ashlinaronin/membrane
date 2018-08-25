@@ -24,9 +24,14 @@ export default class DetunedChordSynth {
   }
 
   dispose() {
-    this.oscs.forEach(osc => osc.dispose());
+    this.oscs.forEach(osc => {
+      osc.dispose();
+      osc = null;
+    });
     this.panner.dispose();
     this.env.dispose();
+    this.panner = null;
+    this.env = null;
   }
 
   startNote() {

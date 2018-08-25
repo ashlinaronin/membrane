@@ -18,8 +18,11 @@ export default class SneezeSampler {
   }
 
   dispose() {
+    this.grainPlayer.stop();
     this.grainPlayer.dispose();
     this.env.dispose();
+    this.grainPlayer = null;
+    this.env = null;
   }
 
   startNote() {

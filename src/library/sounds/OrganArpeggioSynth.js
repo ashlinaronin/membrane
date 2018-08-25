@@ -62,6 +62,7 @@ export default class OrganArpeggioSynth {
   }
 
   dispose() {
+    Tone.Transport.stop();
     this.osc.dispose();
     this.env.dispose();
     this.chorus.dispose();

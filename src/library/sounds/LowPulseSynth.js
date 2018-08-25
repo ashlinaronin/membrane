@@ -22,6 +22,9 @@ export default class LowPulseSynth {
     this.osc.dispose();
     this.env.dispose();
     this.reverb.dispose();
+    this.osc = null;
+    this.env = null;
+    this.reverb = null;
   }
 
   startNote() {

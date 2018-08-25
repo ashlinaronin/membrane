@@ -33,6 +33,12 @@ export default class SineTremoloSynth {
     this.reverb.dispose();
     this.freqLfo.dispose();
     this.detuneLfo.dispose();
+    this.osc = null;
+    this.env = null;
+    this.cheb = null;
+    this.reverb = null;
+    this.freqLfo = null;
+    this.detuneLfo = null;
   }
 
   startNote() {
