@@ -52,6 +52,10 @@ video {
   display: none;
 }
 
+canvas {
+  cursor: none;
+}
+
 .video-score {
   display: flex;
   align-items: center;
