@@ -1,13 +1,13 @@
 import { SCORE_RESOLUTION, VIDEO_HEIGHT, VIDEO_WIDTH } from "../constants";
 import VideoPixelGridScore from "./VideoPixelGridScore";
-import DerynPixelGridScore from "./DerynPixelGridScore";
+import GrassPixelGridScore from "./GrassPixelGridScore";
 import WaterPixelGridScore from "./WaterPixelGridScore";
 import BreathingPixelGridScore from "./BreathingPixelGridScore";
 
 const scoreLevelMap = {
   1: VideoPixelGridScore,
   2: BreathingPixelGridScore,
-  3: DerynPixelGridScore,
+  3: GrassPixelGridScore,
   4: WaterPixelGridScore
 };
 

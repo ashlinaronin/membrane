@@ -33,7 +33,8 @@ export default class GrassPixelGridScore extends PixelGridScore {
 
     drawMirroredVideo(ctx, webcamVideo, this.videoWidth, this.videoHeight);
 
-    ctx.globalCompositeOperation = "destination-over";
+    // multiply, darken, difference, exclusion, hue, color is also nice
+    ctx.globalCompositeOperation = "luminosity";
 
     ctx.drawImage(this.videoElement, 0, 0, this.videoWidth, this.videoHeight);
 
@@ -41,6 +42,6 @@ export default class GrassPixelGridScore extends PixelGridScore {
   }
 
   drawNose(ctx, trianglePoints) {
-    drawTriangle(ctx, trianglePoints, "green");
+    drawTriangle(ctx, trianglePoints, "hsl(94, 71%, 22%)");
   }
 }
