@@ -1,8 +1,8 @@
 import PixelGridScore from "./PixelGridScore";
-import { drawTriangle } from "./scoreHelpers";
-import derynVideo from "../../assets/derynose.mp4";
+import { drawTriangle, drawMirroredVideo } from "./scoreHelpers";
+import derynVideo from "../../assets/grass.mp4";
 
-export default class DerynPixelGridScore extends PixelGridScore {
+export default class GrassPixelGridScore extends PixelGridScore {
   constructor(scoreResolution, videoWidth, videoHeight) {
     super(scoreResolution, videoWidth, videoHeight);
 
@@ -21,22 +21,26 @@ export default class DerynPixelGridScore extends PixelGridScore {
     );
   }
 
-  drawScore(ctx) {
+  drawScore(ctx, webcamVideo) {
     if (!this.videoLoaded) return;
 
     ctx.clearRect(0, 0, this.videoWidth, this.videoHeight);
     ctx.globalCompositeOperation = "source-over";
 
-    ctx.drawImage(this.videoElement, 0, 0, this.videoWidth, this.videoHeight);
+    this.drawGrid(ctx, "black");
 
     ctx.globalCompositeOperation = "source-atop";
 
-    this.drawGrid(ctx, "white");
+    drawMirroredVideo(ctx, webcamVideo, this.videoWidth, this.videoHeight);
+
+    ctx.globalCompositeOperation = "destination-over";
+
+    ctx.drawImage(this.videoElement, 0, 0, this.videoWidth, this.videoHeight);
 
     ctx.globalCompositeOperation = "source-over";
   }
 
   drawNose(ctx, trianglePoints) {
-    drawTriangle(ctx, trianglePoints, "white");
+    drawTriangle(ctx, trianglePoints, "green");
   }
 }
