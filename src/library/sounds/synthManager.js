@@ -1,10 +1,10 @@
 import LowPulseSynth from "./LowPulseSynth";
 import SneezeSampler from "./SneezeSampler";
 import SineTremoloSynth from "./SineTremoloSynth";
-import DetunedChordSynth from "./DetunedChordSynth";
+import MetallicSynth from "./MetallicSynth";
 
 const synthLevelMap = {
-  1: DetunedChordSynth,
+  1: MetallicSynth,
   2: LowPulseSynth,
   3: SneezeSampler,
   4: SineTremoloSynth
