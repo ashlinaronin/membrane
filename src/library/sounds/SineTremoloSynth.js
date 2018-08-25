@@ -3,36 +3,32 @@ import mapRange from "../mapRange";
 
 export default class SineTremoloSynth {
   constructor() {
-    this.osc = new Tone.Oscillator(200, "sine");
-    this.freqLfo = new Tone.LFO(10, 200, 400);
-    this.detuneLfo = new Tone.LFO(10, -25.0, 25.0);
+    this.osc = new Tone.Oscillator(160, "sine");
+    this.freqLfo = new Tone.LFO(10, 160, 280);
     this.env = new Tone.AmplitudeEnvelope();
-    this.cheb = new Tone.Chebyshev(15);
+    this.chorus = new Tone.Chorus(1.5, 3.5, 0.7);
     this.initialize();
   }
 
   async initialize() {
     this.osc.start();
     this.freqLfo.start();
-    this.detuneLfo.start();
     this.osc.connect(this.env);
-    this.env.connect(this.cheb);
-    this.cheb.toMaster();
+    this.env.connect(this.chorus);
+    this.chorus.spread = 180;
+    this.chorus.toMaster();
     this.freqLfo.connect(this.osc.frequency);
-    this.detuneLfo.connect(this.osc.detune);
   }
 
   dispose() {
     this.osc.dispose();
     this.env.dispose();
-    this.cheb.dispose();
+    this.chorus.dispose();
     this.freqLfo.dispose();
-    this.detuneLfo.dispose();
     this.osc = null;
     this.env = null;
-    this.cheb = null;
+    this.chorus = null;
     this.freqLfo = null;
-    this.detuneLfo = null;
   }
 
   startNote() {
@@ -44,8 +40,7 @@ export default class SineTremoloSynth {
   }
 
   changeParam(x, y, width, height) {
-    this.freqLfo.frequency.value = mapRange(x, 0, width, 20.0, 100.0);
-    this.detuneLfo.frequency.value = mapRange(y, 0, height, 0, 10.0);
-    // this.reverb.wet.value = mapRange(y, 0, height, 0, 1.0);
+    this.freqLfo.frequency.rampTo(mapRange(x, 0, width, 0.0, 20.0), 0.01);
+    this.chorus.frequency.rampTo(mapRange(y, 0, height, 0.0, 20.0), 0.01);
   }
 }
