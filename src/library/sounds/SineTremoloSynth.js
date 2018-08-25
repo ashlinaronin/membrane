@@ -3,14 +3,15 @@ import mapRange from "../mapRange";
 
 export default class SineTremoloSynth {
   constructor() {
-    this.osc = new Tone.Oscillator(160, "sine");
-    this.freqLfo = new Tone.LFO(10, 160, 280);
-    this.env = new Tone.AmplitudeEnvelope();
+    this.osc = new Tone.Oscillator(180, "sine");
+    this.freqLfo = new Tone.LFO(10, 180, 260);
+    this.env = new Tone.AmplitudeEnvelope(0.4, 0.2, 1.0, 0.9);
     this.chorus = new Tone.Chorus(1.5, 3.5, 0.7);
     this.initialize();
   }
 
   async initialize() {
+    this.osc.volume.value = -4;
     this.osc.start();
     this.freqLfo.start();
     this.osc.connect(this.env);
@@ -40,7 +41,7 @@ export default class SineTremoloSynth {
   }
 
   changeParam(x, y, width, height) {
-    this.freqLfo.frequency.rampTo(mapRange(x, 0, width, 0.0, 20.0), 0.01);
-    this.chorus.frequency.rampTo(mapRange(y, 0, height, 0.0, 20.0), 0.01);
+    this.freqLfo.frequency.rampTo(mapRange(x, 0, width, 0.1, 20.0), 0.05);
+    this.chorus.frequency.rampTo(mapRange(y, 0, height, 0.1, 20.0), 0.05);
   }
 }
