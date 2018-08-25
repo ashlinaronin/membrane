@@ -1,4 +1,7 @@
 import PixelGridScore from "./PixelGridScore";
+import { drawTriangle } from "./scoreHelpers";
+
+const GRID_COLOR = "hsl(0, 100%, 95%)";
 
 export default class BreathingPixelGridScore extends PixelGridScore {
   constructor(scoreResolution, videoWidth, videoHeight) {
@@ -11,7 +14,7 @@ export default class BreathingPixelGridScore extends PixelGridScore {
   drawScore(ctx) {
     ctx.clearRect(0, 0, this.videoWidth, this.videoHeight);
     ctx.globalCompositeOperation = "source-over";
-    this.drawGrid(ctx, "hsl(0, 100%, 95%)");
+    this.drawGrid(ctx, GRID_COLOR);
   }
 
   drawGrid(ctx, gridFillStyle) {
@@ -31,5 +34,9 @@ export default class BreathingPixelGridScore extends PixelGridScore {
         }
       }
     }
+  }
+
+  drawNose(ctx, trianglePoints) {
+    drawTriangle(ctx, trianglePoints, GRID_COLOR);
   }
 }
