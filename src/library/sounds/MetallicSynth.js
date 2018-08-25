@@ -15,7 +15,7 @@ export default class MetallicSynth {
     this.synth.envelope.releaseCurve = "exponential";
     this.synth.frequency.value = 80;
     this.synth.resonance = 200;
-    this.synth.volume.value = -16;
+    this.synth.volume.value = -22;
     this.synth.connect(this.delay);
     this.delay.toMaster();
   }

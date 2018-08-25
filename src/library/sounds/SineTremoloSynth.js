@@ -11,7 +11,7 @@ export default class SineTremoloSynth {
   }
 
   async initialize() {
-    this.osc.volume.value = -4;
+    this.osc.volume.value = -8;
     this.osc.start();
     this.freqLfo.start();
     this.osc.connect(this.env);
