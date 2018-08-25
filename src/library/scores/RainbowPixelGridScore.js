@@ -8,7 +8,7 @@ export default class PurplePixelGridScore extends PixelGridScore {
   drawScore(ctx) {
     ctx.clearRect(0, 0, this.videoWidth, this.videoHeight);
     ctx.globalCompositeOperation = "source-over";
-    this.drawGrid(ctx, this.videoWidth, this.videoHeight);
+    this.drawGrid(ctx);
   }
 
   // overrides PixelGridScore's generic grid

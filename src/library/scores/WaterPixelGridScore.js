@@ -38,7 +38,7 @@ export default class WaterPixelGridScore extends PixelGridScore {
 
     ctx.globalCompositeOperation = "source-atop";
 
-    this.drawGrid(ctx, this.videoWidth, this.videoHeight, "white");
+    this.drawGrid(ctx, "white");
 
     ctx.globalCompositeOperation = "source-over";
   }
