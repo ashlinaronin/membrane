@@ -16,6 +16,10 @@ export default class VideoPixelGridScore extends PixelGridScore {
 
     drawMirroredVideo(ctx, webcamVideo, this.videoWidth, this.videoHeight);
 
+    ctx.globalCompositeOperation = "hue";
+
+    this.drawGrid(ctx, "black");
+
     ctx.globalCompositeOperation = "source-over";
   }
 }
