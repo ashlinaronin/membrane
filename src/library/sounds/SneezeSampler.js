@@ -1,6 +1,6 @@
 import Tone from "tone";
 import mapRange from "../mapRange";
-import sneeze from "../../assets/147827__dshogan__sneeze_cut.wav";
+import sneeze from "../../assets/double_big_sneez.wav";
 
 export default class SneezeSampler {
   constructor() {
