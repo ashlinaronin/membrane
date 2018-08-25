@@ -30,7 +30,7 @@ export default class LowPulseSynth {
   }
 
   changeParam(x, y, width, height) {
-    this.osc.width.value = mapRange(x, 0, width, 0, 1.0);
+    this.osc.width.value = mapRange(x, 0, width, 0.8, 1.0);
     this.osc.detune.value = mapRange(y, 0, height, 50.0, -50.0);
   }
 }
