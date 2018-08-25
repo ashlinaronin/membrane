@@ -6,19 +6,26 @@ export default class WaterPixelGridScore extends PixelGridScore {
   constructor(scoreResolution, videoWidth, videoHeight) {
     super(scoreResolution, videoWidth, videoHeight);
 
+    this.onLoadedData = this.onLoadedData.bind(this);
+
     this.videoLoaded = false;
     this.videoElement = document.createElement("video");
     this.videoElement.src = waterVideo;
     this.videoElement.loop = true;
-    this.videoElement.play();
+    this.videoElement.addEventListener("loadeddata", this.onLoadedData, false);
+  }
 
-    this.videoElement.addEventListener(
-      "loadeddata",
-      () => {
-        this.videoLoaded = true;
-      },
-      false
-    );
+  onLoadedData() {
+    this.videoLoaded = true;
+    this.videoElement.play();
+    this.videoElement.removeEventListener("loadeddata", this.onLoadedData);
+  }
+
+  dispose() {
+    this.videoElement.pause();
+    this.videoElement.removeAttribute("src");
+    this.videoElement.load();
+    this.videoElement = null;
   }
 
   drawScore(ctx) {

@@ -1,24 +1,31 @@
 import PixelGridScore from "./PixelGridScore";
 import { drawTriangle, drawMirroredVideo } from "./scoreHelpers";
-import derynVideo from "../../assets/grass.mp4";
+import grassVideo from "../../assets/grass.mp4";
 
 export default class GrassPixelGridScore extends PixelGridScore {
   constructor(scoreResolution, videoWidth, videoHeight) {
     super(scoreResolution, videoWidth, videoHeight);
 
+    this.onLoadedData = this.onLoadedData.bind(this);
+
     this.videoLoaded = false;
     this.videoElement = document.createElement("video");
-    this.videoElement.src = derynVideo;
+    this.videoElement.src = grassVideo;
     this.videoElement.loop = true;
-    this.videoElement.play();
+    this.videoElement.addEventListener("loadeddata", this.onLoadedData, false);
+  }
 
-    this.videoElement.addEventListener(
-      "loadeddata",
-      () => {
-        this.videoLoaded = true;
-      },
-      false
-    );
+  onLoadedData() {
+    this.videoLoaded = true;
+    this.videoElement.play();
+    this.videoElement.removeEventListener("loadeddata", this.onLoadedData);
+  }
+
+  dispose() {
+    this.videoElement.pause();
+    this.videoElement.removeAttribute("src");
+    this.videoElement.load();
+    this.videoElement = null;
   }
 
   drawScore(ctx, webcamVideo) {

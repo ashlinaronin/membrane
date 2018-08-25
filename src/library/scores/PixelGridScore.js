@@ -35,6 +35,10 @@ export default class PixelGridScore {
     return grid;
   }
 
+  dispose() {
+    this.grid = null;
+  }
+
   isClear() {
     return !this.grid.some(row => row.some(col => col === true));
   }

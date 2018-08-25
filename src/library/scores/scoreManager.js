@@ -16,6 +16,10 @@ let score;
 changeLevel(1);
 
 export function changeLevel(level) {
+  if (typeof score !== "undefined" && typeof score.dispose === "function") {
+    score.dispose();
+  }
+
   const scoreType = scoreLevelMap.hasOwnProperty(level)
     ? scoreLevelMap[level]
     : scoreLevelMap[1];
