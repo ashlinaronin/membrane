@@ -1,4 +1,4 @@
-import { startNote, endNote, changeParam } from "../sounds/synthManager";
+import { startNote, endNote, changeParam } from "../synths/synthManager";
 import { drawTriangle, generateTrianglePoints } from "./scoreHelpers";
 import {
   MIN_DISTANCE_TO_PLAY,

@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { changeLevel as changeSynthLevel } from "./library/sounds/synthManager";
+import { changeLevel as changeSynthLevel } from "./library/synths/synthManager";
 import { changeLevel as changeScoreLevel } from "./library/scores/scoreManager";
 import { NUM_LEVELS } from "./library/constants";
 
