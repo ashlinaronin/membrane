@@ -1,6 +1,6 @@
 import PixelGridScore from "./PixelGridScore";
 import { drawTriangle } from "./scoreHelpers";
-import waterVideo from "../../assets/water.mp4";
+import waterVideo from "../../assets/water-bader.mp4";
 
 export default class WaterPixelGridScore extends PixelGridScore {
   constructor(scoreResolution, videoWidth, videoHeight) {
