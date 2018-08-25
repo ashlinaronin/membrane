@@ -34,8 +34,8 @@ export default class SneezeSampler {
   }
 
   changeParam(x, y, width, height) {
-    this.grainPlayer.grainSize = mapRange(x, 0, width, 0, 0.5);
+    this.grainPlayer.grainSize = mapRange(x, 0, width, 0.001, 0.5);
     this.grainPlayer.playbackRate = mapRange(y, 0, height, 0.2, 1.0);
-    this.grainPlayer.overlap = mapRange(x, 0, width, 0, 4.0);
+    this.grainPlayer.overlap = mapRange(x, 0, width, 0.001, 4.0);
   }
 }
