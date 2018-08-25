@@ -3,28 +3,22 @@ import mapRange from "../mapRange";
 
 export default class LowPulseSynth {
   constructor() {
-    this.reverb = new Tone.Reverb(2.5);
     this.osc = new Tone.PulseOscillator(80, 0.2);
     this.env = new Tone.AmplitudeEnvelope();
     this.initialize();
   }
 
   async initialize() {
-    // generate impulse response for verb, then connect modules
-    await this.reverb.generate();
     this.osc.start();
     this.osc.connect(this.env);
-    this.env.connect(this.reverb);
-    this.reverb.toMaster();
+    this.env.toMaster();
   }
 
   dispose() {
     this.osc.dispose();
     this.env.dispose();
-    this.reverb.dispose();
     this.osc = null;
     this.env = null;
-    this.reverb = null;
   }
 
   startNote() {
