@@ -60,3 +60,12 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+button {
+  background: white;
+  border: 1px solid black;
+  font-size: 24px;
+  margin: 20px;
+}
+</style>
