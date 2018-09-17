@@ -1,5 +1,11 @@
 # membrane
 
+An interactive audio-visual poem using human pose detection.
+Visible online at [https://ashlin.me/membrane]().
+
+Membrane was created using Vue.js, PoseNet, TensorFlowJS, and Tone.js. For more information about PoseNet and TensorFlow see [https://medium.com/tensorflow/real-time-human-pose-estimation-in-the-browser-with-tensorflow-js-7dd0bc881cd5]().
+
+
 ## Project setup
 ```
 npm install
