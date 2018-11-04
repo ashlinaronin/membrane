@@ -62,6 +62,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.full-screen-button {
+  flex: 1;
+}
+
 button {
   background: white;
   border: 1px solid black;
