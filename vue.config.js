@@ -1,4 +1,7 @@
 module.exports = {
   lintOnSave: false,
-  baseUrl: "/membrane/"
+  publicPath: "/membrane/",
+  devServer: {
+    disableHostCheck: true
+  }
 };

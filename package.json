@@ -6,11 +6,12 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit"
+    "test:unit": "vue-cli-service test:unit",
+    "tunnel": "~/ngrok http 8080"
   },
   "dependencies": {
-    "@tensorflow-models/posenet": "^0.2.2",
-    "@tensorflow/tfjs": "^0.12.5",
+    "@tensorflow-models/posenet": "^0.2.3",
+    "@tensorflow/tfjs": "^0.13.3",
     "fscreen": "^1.0.2",
     "stats.js": "^0.17.0",
     "tone": "^13.2.9",
