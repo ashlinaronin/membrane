@@ -2,9 +2,9 @@
   <div class="level-controls">
     <label for="selected-level">Select level</label>
     <select name="selectedLevel" id="selected-level" v-model="selectedLevel">
-      <option v-for="level in availableLevels"
-              :key="level"
-              :value="level">{{level}}</option>
+      <option v-for="level in availableLevels" :key="level" :value="level">{{
+        level
+      }}</option>
     </select>
   </div>
 </template>
@@ -32,5 +32,4 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>
