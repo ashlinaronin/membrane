@@ -1,10 +1,8 @@
 <template>
   <div class="video-score">
-    <video playsinline ref="video"></video>
-    <canvas ref="output"></canvas>
-    <div class="error">
-      {{ error }}
-    </div>
+    <video playsinline ref="video" />
+    <canvas ref="output" />
+    <ErrorDisplay :message="{ error }" />
   </div>
 </template>
 
@@ -12,12 +10,17 @@
 import * as posenet from "@tensorflow-models/posenet";
 import Stats from "stats.js";
 
+import ErrorDisplay from "./ErrorDisplay.vue";
+
 import { loadVideo } from "../library/webcam";
 import { detectPoseInRealTime } from "../library/poseDetectionManager";
 import { MOBILENET_ARCHITECTURE } from "../library/constants";
 
 export default {
   name: "VideoScore",
+  components: {
+    ErrorDisplay
+  },
   data() {
     return {
       error: "",
@@ -38,7 +41,7 @@ export default {
       );
     } catch (e) {
       this.error =
-        "this browser does not support video capture, or this device does not have a camera";
+        "this browser does not support video capture, or this device does not have a camera.";
     }
   }
 };
@@ -56,6 +59,7 @@ canvas {
 .video-score {
   flex: 4;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100%;
