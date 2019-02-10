@@ -1,5 +1,7 @@
 <template>
-  <div class="error-display">Error: {{ message.error }}</div>
+  <div v-if="message.error.length > 0" class="error-display">
+    Error: {{ message.error }}
+  </div>
 </template>
 
 <script>
