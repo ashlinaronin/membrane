@@ -6,7 +6,12 @@
 export default {
   name: "ErrorDisplay",
   props: {
-    message: String
+    message: {
+      type: Object,
+      default: function() {
+        return { message: "" };
+      }
+    }
   }
 };
 </script>
