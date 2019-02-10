@@ -4,7 +4,7 @@ export const SCORE_RESOLUTION = 8;
 export const MOBILENET_ARCHITECTURE = 0.5;
 
 // look for this webcam, if not found use default
-export const EXTERNAL_WEBCAM_LABEL = "USB Camera (046d:0821)";
+export const EXTERNAL_WEBCAM_LABEL = "USB Camera (046d:0990)";
 
 export const MULTI_POSE_CONFIG = {
   MAX_POSE_DETECTIONS: 5,
