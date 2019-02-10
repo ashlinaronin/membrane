@@ -40,6 +40,7 @@ export default {
         this.stats
       );
     } catch (e) {
+      console.error(e);
       this.error =
         "this browser does not support video capture, or this device does not have a camera.";
     }
