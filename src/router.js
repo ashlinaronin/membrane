@@ -19,6 +19,12 @@ export default new Router({
       // which is lazy-loaded when the route is visited.
       component: () =>
         import(/* webpackChunkName: "synth-test" */ "./views/SynthTest.vue")
+    },
+    {
+      path: "/composite-test",
+      name: "composite-test",
+      component: () =>
+        import(/* webpackChunkName: "composite-test" */ "./views/CompositeTest.vue")
     }
   ]
 });

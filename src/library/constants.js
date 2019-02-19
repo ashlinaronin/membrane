@@ -24,3 +24,32 @@ export const NOSE_TRIANGLE_RADIUS = 20;
 export const NOSE_TRIANGLE_COLOR = "black";
 
 export const NUM_LEVELS = 4;
+
+export const COMPOSITE_OPERATIONS = [
+  "source-over",
+  "source-in",
+  "source-out",
+  "source-atop",
+  "destination-over",
+  "destination-in",
+  "destination-out",
+  "destination-atop",
+  "lighter",
+  "copy",
+  "xor",
+  "multiply",
+  "screen",
+  "overlay",
+  "darken",
+  "lighten",
+  "color-dodge",
+  "color-burn",
+  "hard-light",
+  "soft-light",
+  "difference",
+  "exclusion",
+  "hue",
+  "saturation",
+  "color",
+  "luminosity"
+];
