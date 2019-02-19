@@ -20,6 +20,8 @@ export default class PixelGridScore {
     this.lastPosition = undefined;
     this.trianglePoints = undefined;
     this.framesSinceLastMovement = 0;
+
+    console.log(`created grid with ${this.calculateRemainingPoints()} points`);
   }
 
   generateScore() {
@@ -155,6 +157,12 @@ export default class PixelGridScore {
   removePointFromGrid(gridPointCoords) {
     const [gridXCoord, gridYCoord] = gridPointCoords;
     this.grid[gridXCoord][gridYCoord] = false;
+    console.log(`played point [${gridXCoord}, ${gridYCoord}]`);
+    console.log(`${this.calculateRemainingPoints()} points remaining in grid`);
+  }
+
+  calculateRemainingPoints() {
+    return this.grid.flat().filter(point => !!point).length;
   }
 
   gridContainsPoint(gridPointCoords) {
