@@ -3,7 +3,10 @@
     <video playsinline ref="video" />
     <canvas ref="output" />
     <ul>
-      <li v-for="(operation, index) in operations" :key="operation">
+      <li
+        v-for="(operation, index) in operations"
+        :key="`${operation}-${index}`"
+      >
         <OperationSelector
           :selected-operation="operation"
           :index="index"
