@@ -54,7 +54,12 @@ video {
 }
 
 canvas {
+  width: 100%;
   cursor: none;
+
+  @media only screen and (min-width: 768px) {
+    width: auto;
+  }
 }
 
 .video-score {
