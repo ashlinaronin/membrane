@@ -1,7 +1,7 @@
 <template>
   <div class="composite-test">
     <video playsinline ref="video" />
-    <canvas ref="output" />
+    <canvas ref="output" width="640" height="480" />
     <ul>
       <li
         v-for="(operation, index) in operations"
@@ -25,6 +25,19 @@ import ErrorDisplay from "@/components/ErrorDisplay.vue";
 import { loadVideo } from "../library/webcam";
 import { drawMirroredVideo } from "../library/scores/scoreHelpers";
 
+const generateScore = (width, height) => {
+  const grid = [];
+
+  for (let i = 0; i < width; i++) {
+    grid[i] = [];
+    for (let j = 0; j < height; j++) {
+      grid[i][j] = Math.random() >= 0.5;
+    }
+  }
+
+  return grid;
+};
+
 export default {
   name: "CompositeTest",
   components: {
@@ -38,7 +51,10 @@ export default {
       operations: ["source-over", "source-atop", "hue", "source-over"],
       ctx: null,
       videoWidth: 640,
-      videoHeight: 480
+      videoHeight: 480,
+      grid: generateScore(12, 12),
+      widthUnit: 640 / 12,
+      heightUnit: 480 / 12
     };
   },
   methods: {
@@ -51,8 +67,7 @@ export default {
       this.ctx.clearRect(0, 0, this.videoWidth, this.videoHeight);
       this.ctx.globalCompositeOperation = this.operations[0];
 
-      this.ctx.fillStyle = "black";
-      this.ctx.fillRect(0, 0, this.videoWidth, this.videoHeight);
+      this.drawGrid(this.ctx, "black");
 
       this.ctx.globalCompositeOperation = this.operations[1];
 
@@ -65,12 +80,30 @@ export default {
 
       this.ctx.globalCompositeOperation = this.operations[2];
 
-      this.ctx.fillStyle = "black";
-      this.ctx.fillRect(0, 0, this.videoWidth / 2, this.videoHeight / 2);
+      this.drawGrid(this.ctx, "black");
 
       this.ctx.globalCompositeOperation = this.operations[3];
 
       requestAnimationFrame(this.render);
+    },
+    dispose() {
+      this.grid = null;
+    },
+    drawGrid(ctx, gridFillStyle) {
+      debugger;
+      ctx.fillStyle = gridFillStyle;
+      for (let i = 0; i < this.grid.length; i++) {
+        for (let j = 0; j < this.grid[0].length; j++) {
+          if (this.grid[i][j] === true) {
+            ctx.fillRect(
+              this.widthUnit * i,
+              this.heightUnit * j,
+              this.widthUnit,
+              this.heightUnit
+            );
+          }
+        }
+      }
     }
   },
   async mounted() {
@@ -82,27 +115,15 @@ export default {
       console.error(e);
       this.error = "Error, sry";
     }
+  },
+  destroyed() {
+    this.dispose();
   }
 };
 </script>
 
 <style scoped lang="scss">
-.composite-test {
-  background: red;
-}
-
 video {
   display: none;
-}
-
-canvas {
-  width: 100%;
-  cursor: none;
-
-  @media only screen and (min-width: 768px) {
-    /*width: auto;*/
-    width: 640px;
-    height: 480px;
-  }
 }
 </style>
