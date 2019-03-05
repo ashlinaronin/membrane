@@ -2,10 +2,11 @@ import { startNote, endNote, changeParam } from "../synths/synthManager";
 
 import {
   MIN_DISTANCE_TO_PLAY,
-  FRAMES_BEFORE_MOVEMENT_DECLARED_OVER,
-  NOSE_TRIANGLE_RADIUS
+  FRAMES_BEFORE_MOVEMENT_DECLARED_OVER
 } from "../constants";
-const TOTAL_POINTS_BEFORE_NEXT_LEVEL = 1000;
+
+const NOSE_CIRCLE_RADIUS = 10;
+const TOTAL_POINTS_BEFORE_NEXT_LEVEL = 100;
 
 export default class ChemtrailsOutlineScore {
   constructor(scoreResolution, videoWidth, videoHeight) {
@@ -14,8 +15,9 @@ export default class ChemtrailsOutlineScore {
     this.height = scoreResolution;
     this.videoWidth = videoWidth;
     this.videoHeight = videoHeight;
-    this.widthUnit = this.videoWidth / this.width;
-    this.heightUnit = this.videoHeight / this.height;
+    this.bigCircleRadius = this.videoWidth / 4;
+    this.bigCircleX = this.videoWidth / 2;
+    this.bigCircleY = this.videoHeight / 2;
     this.isPlaying = false;
     this.lastPosition = undefined;
     this.framesSinceLastMovement = 0;
@@ -31,9 +33,9 @@ export default class ChemtrailsOutlineScore {
     ctx.fillStyle = "yellow";
     ctx.beginPath();
     ctx.arc(
-      this.videoWidth / 2,
-      this.videoHeight / 2,
-      this.videoWidth / 4,
+      this.bigCircleX,
+      this.bigCircleY,
+      this.bigCircleRadius,
       0,
       2 * Math.PI
     );
@@ -44,7 +46,7 @@ export default class ChemtrailsOutlineScore {
     ctx.globalCompositeOperation = "hue";
     ctx.fillStyle = this.currentColor;
     ctx.beginPath();
-    ctx.arc(x, y, NOSE_TRIANGLE_RADIUS / 2, 0, 2 * Math.PI);
+    ctx.arc(x, y, NOSE_CIRCLE_RADIUS, 0, 2 * Math.PI);
     ctx.fill();
   }
 
@@ -98,15 +100,11 @@ export default class ChemtrailsOutlineScore {
   }
 
   checkCollisions(x, y) {
-    const BIG_CIRCLE_RADIUS = this.videoWidth / 4;
-    const BIG_CIRCLE_X = this.videoWidth / 2;
-    const BIG_CIRCLE_Y = this.videoHeight / 2;
-
-    const dx = BIG_CIRCLE_X - x;
-    const dy = BIG_CIRCLE_Y - y;
+    const dx = this.bigCircleX - x;
+    const dy = this.bigCircleY - y;
     const distance = Math.sqrt(dx * dx + dy * dy);
 
-    return distance < BIG_CIRCLE_RADIUS + NOSE_TRIANGLE_RADIUS / 2;
+    return distance < this.bigCircleRadius + NOSE_CIRCLE_RADIUS;
   }
 
   checkForShouldEndNote() {
