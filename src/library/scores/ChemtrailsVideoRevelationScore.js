@@ -7,9 +7,9 @@ import {
 } from "../constants";
 
 const NOSE_CIRCLE_RADIUS = 10;
-const TOTAL_POINTS_BEFORE_NEXT_LEVEL = 1000;
+const TOTAL_POINTS_BEFORE_NEXT_LEVEL = 200;
 
-export default class ChemtrailsVideoScore {
+export default class ChemtrailsVideoRevelationScore {
   constructor(scoreResolution, videoWidth, videoHeight) {
     this.currentColor = "#000";
     this.width = scoreResolution;
@@ -97,14 +97,18 @@ export default class ChemtrailsVideoScore {
 
   handleNoseFound(ctx, x, y) {
     this.drawNose(ctx, x, y);
+    const collided = this.checkCollisions(x, y);
 
     if (typeof this.lastPosition === "undefined") {
       this.lastPosition = [x, y];
     }
 
     changeParam(x, y, this.videoWidth, this.videoHeight);
-    this.pointsPlayed.push([x, y]);
     this.framesSinceLastMovement = this.framesSinceLastMovement + 1;
+
+    if (collided) {
+      this.pointsPlayed.push([x, y]);
+    }
 
     if (
       Math.abs(this.lastPosition[0] - x) > MIN_DISTANCE_TO_PLAY ||
@@ -112,7 +116,7 @@ export default class ChemtrailsVideoScore {
     ) {
       this.framesSinceLastMovement = 0;
 
-      if (!this.isPlaying) {
+      if (!this.isPlaying && collided) {
         this.play();
       }
 
@@ -126,6 +130,14 @@ export default class ChemtrailsVideoScore {
     console.log("uniquePointCount", this.uniquePointCount);
 
     startNote();
+  }
+
+  checkCollisions(x, y) {
+    const dx = this.bigCircleX - x;
+    const dy = this.bigCircleY - y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+
+    return distance < this.bigCircleRadius + NOSE_CIRCLE_RADIUS;
   }
 
   checkForShouldEndNote() {
