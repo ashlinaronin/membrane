@@ -6,6 +6,7 @@ import {
   FRAMES_BEFORE_MOVEMENT_DECLARED_OVER,
   NOSE_TRIANGLE_RADIUS
 } from "../constants";
+const TOTAL_POINTS_BEFORE_NEXT_LEVEL = 100;
 
 export default class ChemtrailsScore {
   constructor(scoreResolution, videoWidth, videoHeight) {
@@ -20,6 +21,7 @@ export default class ChemtrailsScore {
     this.lastPosition = undefined;
     this.trianglePoints = undefined;
     this.framesSinceLastMovement = 0;
+    this.totalPointsPlayed = 0;
   }
 
   drawScore() {}
@@ -73,6 +75,8 @@ export default class ChemtrailsScore {
       if (!this.isPlaying) {
         startNote();
         this.isPlaying = true;
+        this.totalPointsPlayed = this.totalPointsPlayed + 1;
+        console.log("totalPointsPlayed", this.totalPointsPlayed);
       }
 
       this.lastPosition = [x, y];
@@ -80,11 +84,12 @@ export default class ChemtrailsScore {
   }
 
   checkForShouldEndNote() {
-    if (this.framesSinceLastMovement > FRAMES_BEFORE_MOVEMENT_DECLARED_OVER) {
-      if (this.isPlaying) {
-        endNote();
-        this.isPlaying = false;
-      }
+    if (
+      this.framesSinceLastMovement > FRAMES_BEFORE_MOVEMENT_DECLARED_OVER &&
+      this.isPlaying
+    ) {
+      endNote();
+      this.isPlaying = false;
     }
   }
 
@@ -94,6 +99,6 @@ export default class ChemtrailsScore {
   }
 
   isClear() {
-    return false;
+    return this.totalPointsPlayed > TOTAL_POINTS_BEFORE_NEXT_LEVEL;
   }
 }
