@@ -20,6 +20,11 @@ export default {
     fullscreen() {
       return this.$store.state.fullscreen;
     }
+  },
+  mounted() {
+    this.$store.commit("SET_AUDIO_DISABLED", {
+      audioDisabled: this.$route.query && this.$route.query.audioDisabled
+    });
   }
 };
 </script>

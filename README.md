@@ -30,3 +30,8 @@ npm run lint
 ```
 npm run test:unit
 ```
+
+### Routes --
+http://localhost:8080/membrane - default. can specify ?audioDisabled=true to turn off audio
+http://localhost:8080/synth-test
+http://localhost:8080/composite-test

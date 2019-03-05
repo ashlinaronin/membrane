@@ -9,6 +9,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     level: 1,
+    audioDisabled: false,
     fullscreen: false
   },
   mutations: {
@@ -27,6 +28,9 @@ export default new Vuex.Store({
     },
     SET_FULLSCREEN(state, { fullscreen }) {
       state.fullscreen = fullscreen;
+    },
+    SET_AUDIO_DISABLED(state, { audioDisabled }) {
+      state.audioDisabled = audioDisabled;
     }
   },
   actions: {}
