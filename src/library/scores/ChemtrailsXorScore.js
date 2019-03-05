@@ -1,4 +1,5 @@
 import { startNote, endNote, changeParam } from "../synths/synthManager";
+import { drawCircle } from "./scoreHelpers";
 
 import {
   MIN_DISTANCE_TO_PLAY,
@@ -62,15 +63,7 @@ export default class ChemtrailsXorScore {
 
     if (!isFirstFrame) return;
 
-    this.circles.forEach(circle => this.drawCircle(ctx, circle));
-  }
-
-  drawCircle(ctx, circle) {
-    ctx.globalCompositeOperation = "source-over";
-    ctx.fillStyle = circle.color;
-    ctx.beginPath();
-    ctx.arc(circle.x, circle.y, circle.radius, 0, 2 * Math.PI);
-    ctx.fill();
+    this.circles.forEach(circle => drawCircle(ctx, circle));
   }
 
   drawNose(ctx, x, y) {

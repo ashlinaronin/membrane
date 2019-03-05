@@ -16,6 +16,15 @@ export function drawTriangle(ctx, trianglePoints, color) {
   ctx.fill();
 }
 
+// circle object has x, y, radius, color
+export function drawCircle(ctx, circle) {
+  ctx.globalCompositeOperation = "source-over";
+  ctx.fillStyle = circle.color;
+  ctx.beginPath();
+  ctx.arc(circle.x, circle.y, circle.radius, 0, 2 * Math.PI);
+  ctx.fill();
+}
+
 export function drawMirroredVideo(ctx, video, videoWidth, videoHeight) {
   ctx.save();
   ctx.scale(-1, 1);
