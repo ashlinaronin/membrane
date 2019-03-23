@@ -91,17 +91,18 @@ export default class FragmentedFreezeScore {
       this.lastPosition[1]
     );
 
+    // todo how to determine if this is the first frame outside the collision area
+    // in a sequence of frames outside
+
     if (collided) {
       this.pointsPlayed.push([x, y]);
     }
 
     if (collided && !lastPointWasCollision) {
-      this.hasFrozenFrame = false;
+      this.freezeVideo(webcamVideo);
     }
 
     this.videoFrozen = !collided;
-
-    this.checkForShouldFreeze(webcamVideo);
 
     if (
       Math.abs(this.lastPosition[0] - x) > MIN_DISTANCE_TO_PLAY ||
@@ -143,12 +144,6 @@ export default class FragmentedFreezeScore {
     }
   }
 
-  checkForShouldFreeze(webcamVideo) {
-    if (!this.hasFrozenFrame) {
-      this.freezeVideo(webcamVideo);
-    }
-  }
-
   freezeVideo(webcamVideo) {
     // todo: only freeze part of video?
     this.freezeFrameCtx.drawImage(
@@ -158,7 +153,6 @@ export default class FragmentedFreezeScore {
       this.videoWidth,
       this.videoHeight
     );
-    this.hasFrozenFrame = true;
   }
 
   handleNoPoseDetected() {
