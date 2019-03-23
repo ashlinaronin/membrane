@@ -33,7 +33,7 @@ export function detectPoseInRealTime(canvas, webcamVideo, net, stats) {
     const singlePose = await detectPose(webcamVideo, net);
 
     drawScore(ctx, webcamVideo);
-    drawPose(ctx, singlePose);
+    drawPose(ctx, singlePose, webcamVideo);
     checkScoreAndLevelUp();
 
     // End monitoring code for frames per second
@@ -54,14 +54,15 @@ async function detectPose(video, net) {
   );
 }
 
-function drawPose(ctx, pose) {
+function drawPose(ctx, pose, webcamVideo) {
   if (pose.score < MULTI_POSE_CONFIG.MIN_POSE_CONFIDENCE) {
     handleNoPoseDetected();
   } else {
     handlePoseDetected(
       pose.keypoints,
       MULTI_POSE_CONFIG.MIN_PART_CONFIDENCE,
-      ctx
+      ctx,
+      webcamVideo
     );
   }
 }

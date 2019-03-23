@@ -1,14 +1,14 @@
 import { SCORE_RESOLUTION, VIDEO_HEIGHT, VIDEO_WIDTH } from "../constants";
-import VideoPixelGridScore from "./VideoPixelGridScore";
 import GrassPixelGridScore from "./GrassPixelGridScore";
 import WaterPixelGridScore from "./WaterPixelGridScore";
-import BreathingPixelGridScore from "./BreathingPixelGridScore";
+import ChemtrailsVideoScore from "./ChemtrailsVideoScore";
+import FragmentedFreezeScore from "./FragmentedFreezeScore";
 
 const scoreLevelMap = {
-  1: VideoPixelGridScore,
-  2: BreathingPixelGridScore,
-  3: GrassPixelGridScore,
-  4: WaterPixelGridScore
+  1: FragmentedFreezeScore,
+  2: GrassPixelGridScore,
+  3: WaterPixelGridScore,
+  4: ChemtrailsVideoScore
 };
 
 let score;
@@ -30,8 +30,18 @@ export function drawScore(ctx, webcamVideo) {
   return score.drawScore(ctx, webcamVideo);
 }
 
-export function handlePoseDetected(keypoints, minPartConfidence, ctx) {
-  return score.handlePoseDetected(keypoints, minPartConfidence, ctx);
+export function handlePoseDetected(
+  keypoints,
+  minPartConfidence,
+  ctx,
+  webcamVideo
+) {
+  return score.handlePoseDetected(
+    keypoints,
+    minPartConfidence,
+    ctx,
+    webcamVideo
+  );
 }
 
 export function handleNoPoseDetected() {
