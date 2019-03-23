@@ -9,7 +9,7 @@ import {
 const NOSE_CIRCLE_RADIUS = 15;
 const TOTAL_POINTS_BEFORE_NEXT_LEVEL = 200;
 
-export default class FragmentedFreezeScore {
+export default class FreezeOutsideScore {
   constructor(scoreResolution, videoWidth, videoHeight) {
     this.currentColor = "#000";
     this.width = scoreResolution;
