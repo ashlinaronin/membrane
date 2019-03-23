@@ -86,10 +86,22 @@ export default class FragmentedFreezeScore {
     changeParam(x, y, this.videoWidth, this.videoHeight);
     this.framesSinceLastMovement = this.framesSinceLastMovement + 1;
 
+    const lastPointWasCollision = this.checkCollisions(
+      this.lastPosition[0],
+      this.lastPosition[1]
+    );
+
     if (collided) {
       this.pointsPlayed.push([x, y]);
-      this.checkForShouldFreeze(webcamVideo);
     }
+
+    if (collided && !lastPointWasCollision) {
+      this.hasFrozenFrame = false;
+    }
+
+    this.videoFrozen = !collided;
+
+    this.checkForShouldFreeze(webcamVideo);
 
     if (
       Math.abs(this.lastPosition[0] - x) > MIN_DISTANCE_TO_PLAY ||
@@ -132,15 +144,13 @@ export default class FragmentedFreezeScore {
   }
 
   checkForShouldFreeze(webcamVideo) {
-    this.videoFrozen =
-      this.pointsPlayed.length > 100 && this.pointsPlayed.length < 200;
-
     if (!this.hasFrozenFrame) {
       this.freezeVideo(webcamVideo);
     }
   }
 
   freezeVideo(webcamVideo) {
+    // todo: only freeze part of video?
     this.freezeFrameCtx.drawImage(
       webcamVideo,
       0,
