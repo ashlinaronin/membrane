@@ -25,7 +25,6 @@ export default class FragmentedFreezeScore {
     this.uniquePointCount = 0;
     this.pointsPlayed = [];
     this.videoFrozen = false;
-    this.hasFrozenFrame = false;
     this.freezeFrameCanvas = document.createElement("canvas");
     this.freezeFrameCanvas.width = this.videoWidth;
     this.freezeFrameCanvas.height = this.videoHeight;
@@ -91,14 +90,12 @@ export default class FragmentedFreezeScore {
       this.lastPosition[1]
     );
 
-    // todo how to determine if this is the first frame outside the collision area
-    // in a sequence of frames outside
-
     if (collided) {
+      // note this will result in a memory leak if it continues indefinitely
       this.pointsPlayed.push([x, y]);
     }
 
-    if (collided && !lastPointWasCollision) {
+    if (!collided && lastPointWasCollision) {
       this.freezeVideo(webcamVideo);
     }
 
