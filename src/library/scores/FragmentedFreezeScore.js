@@ -6,7 +6,7 @@ import {
   FRAMES_BEFORE_MOVEMENT_DECLARED_OVER
 } from "../constants";
 
-const NOSE_CIRCLE_RADIUS = 10;
+const NOSE_CIRCLE_RADIUS = 15;
 const TOTAL_POINTS_BEFORE_NEXT_LEVEL = 200;
 
 export default class FragmentedFreezeScore {
