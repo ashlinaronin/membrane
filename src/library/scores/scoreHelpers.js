@@ -38,3 +38,29 @@ export function drawMirroredVideo(
   ctx.drawImage(video, -x, -y, videoWidth, videoHeight);
   ctx.restore();
 }
+
+export function drawMirroredVideoWithMask(
+  ctx,
+  video,
+  videoWidth,
+  videoHeight,
+  x = 0,
+  y = 0,
+  // mask is array of point "2-tuples"
+  mask = [[0, 0], [videoWidth / 2, videoHeight]]
+) {
+  ctx.save();
+  ctx.scale(-1, 1);
+  ctx.translate(-videoWidth, 0);
+  ctx.drawImage(video, -x, -y, videoWidth, videoHeight);
+  ctx.restore();
+
+  const [maskTopLeft, maskBottomRight] = mask;
+  ctx.fillStyle = "white";
+  ctx.fillRect(
+    maskTopLeft[0],
+    maskTopLeft[1],
+    maskBottomRight[0],
+    maskBottomRight[1]
+  );
+}

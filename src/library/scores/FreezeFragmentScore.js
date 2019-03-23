@@ -1,5 +1,5 @@
 import { startNote, endNote, changeParam } from "../synths/synthManager";
-import { drawMirroredVideo } from "./scoreHelpers";
+import { drawMirroredVideoWithMask } from "./scoreHelpers";
 
 import {
   MIN_DISTANCE_TO_PLAY,
@@ -35,26 +35,28 @@ export default class FreezeFragmentScore {
     ctx.clearRect(0, 0, this.videoWidth, this.videoHeight);
     ctx.globalCompositeOperation = "source-over";
 
-    this.pointsPlayed.forEach(point => this.drawNose(ctx, point[0], point[1]));
+    // this.pointsPlayed.forEach(point => this.drawNose(ctx, point[0], point[1]));
 
-    ctx.globalCompositeOperation = "source-over";
-
-    drawMirroredVideo(
+    drawMirroredVideoWithMask(
       ctx,
       this.freezeFrameCanvas,
-      this.videoWidth / 2,
-      this.videoHeight / 2,
+      this.videoWidth,
+      this.videoHeight,
       0,
-      0
+      0,
+      [[this.videoWidth / 2, 0], [this.videoWidth / 2, this.videoHeight]]
     );
 
-    drawMirroredVideo(
+    ctx.globalCompositeOperation = "multiply";
+
+    drawMirroredVideoWithMask(
       ctx,
       webcamVideo,
+      this.videoWidth,
+      this.videoHeight,
       this.videoWidth / 2,
-      this.videoHeight / 2,
-      this.videoWidth / 2,
-      0
+      0,
+      [[0, 0], [this.videoWidth / 2, this.videoHeight]]
     );
 
     ctx.globalCompositeOperation = "source-over";
