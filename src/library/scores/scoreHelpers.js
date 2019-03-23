@@ -24,10 +24,17 @@ export function drawCircle(ctx, circle) {
   ctx.fill();
 }
 
-export function drawMirroredVideo(ctx, video, videoWidth, videoHeight) {
+export function drawMirroredVideo(
+  ctx,
+  video,
+  videoWidth,
+  videoHeight,
+  x = 0,
+  y = 0
+) {
   ctx.save();
   ctx.scale(-1, 1);
   ctx.translate(-videoWidth, 0);
-  ctx.drawImage(video, 0, 0, videoWidth, videoHeight);
+  ctx.drawImage(video, -x, -y, videoWidth, videoHeight);
   ctx.restore();
 }
