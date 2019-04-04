@@ -7,7 +7,6 @@ import {
 } from "../constants";
 
 const NOSE_CIRCLE_RADIUS = 15;
-const TOTAL_POINTS_BEFORE_NEXT_LEVEL = 200;
 
 export default class FreezeFragmentScore {
   constructor(scoreResolution, videoWidth, videoHeight) {
@@ -35,7 +34,16 @@ export default class FreezeFragmentScore {
     ctx.clearRect(0, 0, this.videoWidth, this.videoHeight);
     ctx.globalCompositeOperation = "source-over";
 
-    // this.pointsPlayed.forEach(point => this.drawNose(ctx, point[0], point[1]));
+    drawMirroredVideoWithMask(
+      ctx,
+      webcamVideo,
+      this.videoWidth,
+      this.videoHeight,
+      0,
+      0
+    );
+
+    ctx.globalCompositeOperation = "multiply";
 
     drawMirroredVideoWithMask(
       ctx,
@@ -43,20 +51,7 @@ export default class FreezeFragmentScore {
       this.videoWidth,
       this.videoHeight,
       0,
-      0,
-      [[this.videoWidth / 2, 0], [this.videoWidth / 2, this.videoHeight]]
-    );
-
-    ctx.globalCompositeOperation = "multiply";
-
-    drawMirroredVideoWithMask(
-      ctx,
-      webcamVideo,
-      this.videoWidth,
-      this.videoHeight,
-      this.videoWidth / 2,
-      0,
-      [[0, 0], [this.videoWidth / 2, this.videoHeight]]
+      0
     );
 
     ctx.globalCompositeOperation = "source-over";
@@ -159,6 +154,8 @@ export default class FreezeFragmentScore {
 
   freezeVideo(webcamVideo) {
     // todo: only freeze part of video?
+    this.freezeFrameCtx.globalCompositeOperation = "overlay";
+
     this.freezeFrameCtx.drawImage(
       webcamVideo,
       0,
@@ -174,6 +171,6 @@ export default class FreezeFragmentScore {
   }
 
   isClear() {
-    return this.uniquePointCount > TOTAL_POINTS_BEFORE_NEXT_LEVEL;
+    return false;
   }
 }

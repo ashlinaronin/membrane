@@ -45,22 +45,24 @@ export function drawMirroredVideoWithMask(
   videoWidth,
   videoHeight,
   x = 0,
-  y = 0,
-  // mask is array of point "2-tuples"
-  mask = [[0, 0], [videoWidth / 2, videoHeight]]
+  y = 0
 ) {
   ctx.save();
+
+  ctx.beginPath();
+  ctx.arc(
+    videoWidth / 2,
+    videoHeight / 2,
+    videoWidth / 2,
+    0,
+    Math.PI * 2,
+    false
+  );
+
+  ctx.clip();
+
   ctx.scale(-1, 1);
   ctx.translate(-videoWidth, 0);
   ctx.drawImage(video, -x, -y, videoWidth, videoHeight);
   ctx.restore();
-
-  const [maskTopLeft, maskBottomRight] = mask;
-  ctx.fillStyle = "white";
-  ctx.fillRect(
-    maskTopLeft[0],
-    maskTopLeft[1],
-    maskBottomRight[0],
-    maskBottomRight[1]
-  );
 }
