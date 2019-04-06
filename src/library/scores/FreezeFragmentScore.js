@@ -34,6 +34,10 @@ export default class FreezeFragmentScore {
     ctx.clearRect(0, 0, this.videoWidth, this.videoHeight);
     ctx.globalCompositeOperation = "source-over";
 
+    this.pointsPlayed.forEach(point => this.drawNose(ctx, point[0], point[1]));
+
+    ctx.globalCompositeOperation = "source-atop";
+
     drawMirroredVideo(
       ctx,
       webcamVideo,
@@ -107,7 +111,7 @@ export default class FreezeFragmentScore {
     }
 
     if (!collided && lastPointWasCollision) {
-      this.freezeVideo(webcamVideo);
+      this.freezeVideo(webcamVideo, x, y);
     }
 
     this.videoFrozen = !collided;
@@ -152,9 +156,7 @@ export default class FreezeFragmentScore {
     }
   }
 
-  freezeVideo(webcamVideo) {
-    // todo: only freeze part of video?
-
+  freezeVideo(webcamVideo, noseX, noseY) {
     this.freezeFrameCtx.save();
 
     this.freezeFrameCtx.globalCompositeOperation = "screen";
@@ -162,9 +164,9 @@ export default class FreezeFragmentScore {
     // Create a circle
     this.freezeFrameCtx.beginPath();
     this.freezeFrameCtx.arc(
-      this.videoWidth / 2,
-      this.videoHeight / 2,
-      this.videoWidth / 2,
+      this.videoWidth - noseX,
+      noseY,
+      NOSE_CIRCLE_RADIUS * 6,
       0,
       Math.PI * 2,
       false
