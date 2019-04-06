@@ -1,5 +1,5 @@
 import { startNote, endNote, changeParam } from "../synths/synthManager";
-import { drawMirroredVideoWithMask } from "./scoreHelpers";
+import { drawMirroredVideo } from "./scoreHelpers";
 
 import {
   MIN_DISTANCE_TO_PLAY,
@@ -34,7 +34,7 @@ export default class FreezeFragmentScore {
     ctx.clearRect(0, 0, this.videoWidth, this.videoHeight);
     ctx.globalCompositeOperation = "source-over";
 
-    drawMirroredVideoWithMask(
+    drawMirroredVideo(
       ctx,
       webcamVideo,
       this.videoWidth,
@@ -43,9 +43,9 @@ export default class FreezeFragmentScore {
       0
     );
 
-    ctx.globalCompositeOperation = "multiply";
+    ctx.globalCompositeOperation = "screen";
 
-    drawMirroredVideoWithMask(
+    drawMirroredVideo(
       ctx,
       this.freezeFrameCanvas,
       this.videoWidth,
@@ -154,7 +154,22 @@ export default class FreezeFragmentScore {
 
   freezeVideo(webcamVideo) {
     // todo: only freeze part of video?
-    this.freezeFrameCtx.globalCompositeOperation = "overlay";
+
+    this.freezeFrameCtx.save();
+
+    this.freezeFrameCtx.globalCompositeOperation = "screen";
+
+    // Create a circle
+    this.freezeFrameCtx.beginPath();
+    this.freezeFrameCtx.arc(
+      this.videoWidth / 2,
+      this.videoHeight / 2,
+      this.videoWidth / 2,
+      0,
+      Math.PI * 2,
+      false
+    );
+    this.freezeFrameCtx.clip();
 
     this.freezeFrameCtx.drawImage(
       webcamVideo,
@@ -163,6 +178,8 @@ export default class FreezeFragmentScore {
       this.videoWidth,
       this.videoHeight
     );
+
+    this.freezeFrameCtx.restore();
   }
 
   handleNoPoseDetected() {
