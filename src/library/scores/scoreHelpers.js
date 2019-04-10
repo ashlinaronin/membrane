@@ -38,31 +38,3 @@ export function drawMirroredVideo(
   ctx.drawImage(video, -x, -y, videoWidth, videoHeight);
   ctx.restore();
 }
-
-export function drawMirroredVideoWithMask(
-  ctx,
-  video,
-  videoWidth,
-  videoHeight,
-  x = 0,
-  y = 0
-) {
-  ctx.save();
-
-  ctx.beginPath();
-  ctx.arc(
-    videoWidth / 2,
-    videoHeight / 2,
-    videoWidth / 2,
-    0,
-    Math.PI * 2,
-    false
-  );
-
-  ctx.clip();
-
-  ctx.scale(-1, 1);
-  ctx.translate(-videoWidth, 0);
-  ctx.drawImage(video, -x, -y, videoWidth, videoHeight);
-  ctx.restore();
-}

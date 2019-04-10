@@ -2,10 +2,10 @@ import { SCORE_RESOLUTION, VIDEO_HEIGHT, VIDEO_WIDTH } from "../constants";
 import GrassPixelGridScore from "./GrassPixelGridScore";
 import WaterPixelGridScore from "./WaterPixelGridScore";
 import ChemtrailsVideoScore from "./ChemtrailsVideoScore";
-import FreezeOutsideScore from "./FreezeOutsideScore";
+import FreezeFragmentScore from "./FreezeFragmentScore";
 
 const scoreLevelMap = {
-  1: FreezeOutsideScore,
+  1: FreezeFragmentScore,
   2: GrassPixelGridScore,
   3: WaterPixelGridScore,
   4: ChemtrailsVideoScore

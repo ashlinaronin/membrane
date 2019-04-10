@@ -1,11 +1,11 @@
 import LowPulseSynth from "./LowPulseSynth";
 import SneezeSampler from "./SneezeSampler";
 import SineTremoloSynth from "./SineTremoloSynth";
-import MetallicSynth from "./MetallicSynth";
+import RockScrapeSampler from "./RockScrapeSampler";
 import store from "../../store";
 
 const synthLevelMap = {
-  1: MetallicSynth,
+  1: RockScrapeSampler,
   2: LowPulseSynth,
   3: SneezeSampler,
   4: SineTremoloSynth
