@@ -25,6 +25,12 @@ export default new Router({
       name: "composite-test",
       component: () =>
         import(/* webpackChunkName: "composite-test" */ "./views/CompositeTest.vue")
+    },
+    {
+      path: "/jaleesa",
+      name: "jaleesa",
+      component: () =>
+        import(/* webpackChunkName: "jaleesa" */ "./views/Jaleesa.vue")
     }
   ]
 });
