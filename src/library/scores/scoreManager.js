@@ -1,15 +1,15 @@
 import { SCORE_RESOLUTION, VIDEO_HEIGHT, VIDEO_WIDTH } from "../constants";
 import GrassPixelGridScore from "./GrassPixelGridScore";
 import WaterPixelGridScore from "./WaterPixelGridScore";
-import ChemtrailsVideoScore from "./ChemtrailsVideoScore";
 import FreezeFragmentScore from "./FreezeFragmentScore";
 import VideoPixelGridScore from "./VideoPixelGridScore";
+import BreathingPixelGridScore from "./BreathingPixelGridScore";
 
 const scoreLevelMap = {
   1: VideoPixelGridScore,
-  2: GrassPixelGridScore,
-  3: WaterPixelGridScore,
-  4: ChemtrailsVideoScore
+  2: BreathingPixelGridScore,
+  3: GrassPixelGridScore,
+  4: WaterPixelGridScore
 };
 
 const scoreNameMap = {
