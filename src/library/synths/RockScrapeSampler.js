@@ -1,6 +1,6 @@
 import Tone from "tone";
 import mapRange from "../mapRange";
-import rockScrape from "../../assets/rock-scrape-cut.wav";
+import rockScrape from "../../assets/rock-scrape-cut.mp3";
 
 export default class RockScrapeSampler {
   constructor() {
