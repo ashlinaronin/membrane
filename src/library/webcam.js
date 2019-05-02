@@ -1,5 +1,5 @@
 import { isMobile } from "./deviceDetection";
-import { VIDEO_WIDTH, VIDEO_HEIGHT, EXTERNAL_WEBCAM_LABEL } from "./constants";
+import { VIDEO_WIDTH, VIDEO_HEIGHT } from "./constants";
 
 async function setupCamera(videoElement) {
   if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
@@ -9,9 +9,11 @@ async function setupCamera(videoElement) {
   }
 
   const devices = await navigator.mediaDevices.enumerateDevices();
+
   const usbWebcamDevice = devices.find(
-    d => d.kind === "videoinput" && d.label === EXTERNAL_WEBCAM_LABEL
+    d => d.kind === "videoinput" && d.label !== "FaceTime HD Camera"
   );
+
   const mobile = isMobile();
 
   const constraints = {
