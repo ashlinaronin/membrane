@@ -40,7 +40,45 @@ async function setupCamera(videoElement) {
 
 export async function loadVideo(videoElement) {
   const loadedVideo = await setupCamera(videoElement);
+  recordVideo(loadedVideo.srcObject);
   loadedVideo.play();
 
   return loadedVideo;
+}
+
+async function recordVideo(stream) {
+  const mediaRecorder = new MediaRecorder(stream);
+  mediaRecorder.start();
+  console.log("started recording");
+
+  let chunks = [];
+
+  mediaRecorder.ondataavailable = e => {
+    if (event.data.size > 0) {
+      chunks.push(e.data);
+    } else {
+      ///
+    }
+  };
+
+  mediaRecorder.onstop = async () => {
+    console.log("stopped recording");
+    // if (MediaRecorder.isTypeSupported('video/webm;codecs=vp9')) {
+    //   options = {mimeType: 'video/webm; codecs=vp9'};
+    // } else if (MediaRecorder.isTypeSupported('video/webm;codecs=vp8')) {
+    //   options = {mimeType: 'video/webm; codecs=vp8'};
+    // } else {
+    //   // ...
+    // }
+    const blob = new Blob(chunks, { type: "video/webm; codecs=vp9" });
+    chunks = [];
+    const videoUrl = window.URL.createObjectURL(blob);
+    const videoPlaybackElement = document.createElement("video");
+    videoPlaybackElement.src = videoUrl;
+    document.body.append(videoPlaybackElement);
+  };
+
+  await new Promise(resolve => setTimeout(resolve, 10000));
+
+  mediaRecorder.stop();
 }
