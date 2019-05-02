@@ -1,6 +1,9 @@
 import { isMobile } from "./deviceDetection";
 import { VIDEO_WIDTH, VIDEO_HEIGHT } from "./constants";
 
+let mediaRecorder,
+  chunks = [];
+
 async function setupCamera(videoElement) {
   if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
     throw new Error(
@@ -40,18 +43,14 @@ async function setupCamera(videoElement) {
 
 export async function loadVideo(videoElement) {
   const loadedVideo = await setupCamera(videoElement);
-  recordVideo(loadedVideo.srcObject);
+  createMediaRecorder(loadedVideo.srcObject);
   loadedVideo.play();
 
   return loadedVideo;
 }
 
-async function recordVideo(stream) {
-  const mediaRecorder = new MediaRecorder(stream);
-  mediaRecorder.start();
-  console.log("started recording");
-
-  let chunks = [];
+function createMediaRecorder(stream) {
+  mediaRecorder = new MediaRecorder(stream);
 
   mediaRecorder.ondataavailable = e => {
     if (event.data.size > 0) {
@@ -75,10 +74,15 @@ async function recordVideo(stream) {
     chunks = [];
     downloadVideo(blob);
   };
+}
 
-  await new Promise(resolve => setTimeout(resolve, 10000));
+export async function startRecording() {
+  mediaRecorder && mediaRecorder.start();
+  console.log("started recording");
+}
 
-  mediaRecorder.stop();
+export function stopRecording() {
+  mediaRecorder && mediaRecorder.stop();
 }
 
 function downloadVideo(blob) {

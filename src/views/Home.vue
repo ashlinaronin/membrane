@@ -2,6 +2,7 @@
   <div class="home">
     <VideoScore />
     <FullScreenButton v-show="!fullscreen" />
+    <RecordingControls />
   </div>
 </template>
 
@@ -12,12 +13,14 @@ import { changeSynthByName } from "../library/synths/synthManager";
 // @ is an alias to /src
 import VideoScore from "@/components/VideoScore.vue";
 import FullScreenButton from "@/components/FullScreenButton.vue";
+import RecordingControls from "@/components/RecordingControls.vue";
 
 export default {
   name: "home",
   components: {
     VideoScore,
-    FullScreenButton
+    FullScreenButton,
+    RecordingControls
   },
   computed: {
     fullscreen() {
