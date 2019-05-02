@@ -50,6 +50,7 @@ export async function loadVideo(videoElement) {
 }
 
 function createMediaRecorder(stream) {
+  // TODO: Create combined stream here including audio output from Tone.js
   mediaRecorder = new MediaRecorder(stream);
 
   mediaRecorder.ondataavailable = e => {
