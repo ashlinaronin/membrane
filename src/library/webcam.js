@@ -57,28 +57,37 @@ async function recordVideo(stream) {
     if (event.data.size > 0) {
       chunks.push(e.data);
     } else {
-      ///
+      console.log("no data in this chunk for some reason?");
     }
   };
 
   mediaRecorder.onstop = async () => {
     console.log("stopped recording");
-    // if (MediaRecorder.isTypeSupported('video/webm;codecs=vp9')) {
-    //   options = {mimeType: 'video/webm; codecs=vp9'};
-    // } else if (MediaRecorder.isTypeSupported('video/webm;codecs=vp8')) {
-    //   options = {mimeType: 'video/webm; codecs=vp8'};
-    // } else {
-    //   // ...
-    // }
-    const blob = new Blob(chunks, { type: "video/webm; codecs=vp9" });
+    let options;
+    if (MediaRecorder.isTypeSupported("video/webm;codecs=vp9")) {
+      options = { mimeType: "video/webm; codecs=vp9" };
+    } else if (MediaRecorder.isTypeSupported("video/webm;codecs=vp8")) {
+      options = { mimeType: "video/webm; codecs=vp8" };
+    } else {
+      throw new Error("VP8/VP9 not supported, dunno how I can download :(");
+    }
+    const blob = new Blob(chunks, options);
     chunks = [];
-    const videoUrl = window.URL.createObjectURL(blob);
-    const videoPlaybackElement = document.createElement("video");
-    videoPlaybackElement.src = videoUrl;
-    document.body.append(videoPlaybackElement);
+    downloadVideo(blob);
   };
 
   await new Promise(resolve => setTimeout(resolve, 10000));
 
   mediaRecorder.stop();
+}
+
+function downloadVideo(blob) {
+  const url = window.URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  document.body.appendChild(link);
+  link.style = "display: none";
+  link.href = url;
+  link.download = "test.webm";
+  link.click();
+  window.URL.revokeObjectURL(url);
 }
