@@ -1,7 +1,6 @@
 <template>
   <div class="home">
     <VideoScore />
-    <FullScreenButton v-show="!fullscreen" />
     <RecordingControls />
   </div>
 </template>
