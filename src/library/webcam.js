@@ -92,7 +92,7 @@ function downloadVideo(blob) {
   document.body.appendChild(link);
   link.style = "display: none";
   link.href = url;
-  link.download = "test.webm";
+  link.download = `membrane-${Date.now()}.webm`;
   link.click();
   window.URL.revokeObjectURL(url);
 }
