@@ -11,17 +11,15 @@
   </div>
 </template>
 <script>
-import test1 from "../assets/recordings/membrane-1558674222781.webm";
-import test2 from "../assets/recordings/membrane-1558674661822.webm";
-import test3 from "../assets/recordings/membrane-1558674661992.webm";
-import test4 from "../assets/recordings/membrane-1558674783248.webm";
-import test5 from "../assets/recordings/membrane-1558972965427.webm";
-import test6 from "../assets/recordings/membrane-1559002595970.webm";
+import test1 from "../assets/recordings/membrane-1558972965427.webm";
+import test2 from "../assets/recordings/membrane-1558674661992.webm";
+import test3 from "../assets/recordings/membrane-1559008454578.webm";
+import test4 from "../assets/recordings/membrane-1559002595970.webm";
 
 export default {
   data() {
     return {
-      videos: [test1, test2, test3, test4, test5, test6]
+      videos: [test1, test2, test3, test4]
     };
   }
 };
@@ -45,6 +43,11 @@ export default {
 
   video {
     width: 200px;
+  }
+
+  div {
+    width: 200px;
+    background: red;
   }
 }
 </style>
