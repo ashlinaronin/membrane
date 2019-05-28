@@ -12,11 +12,6 @@ export default new Router({
       component: Home
     },
     {
-      path: "/:performer",
-      name: "performer",
-      component: Home
-    },
-    {
       path: "/synth-test",
       name: "synth-test",
       // route level code-splitting
@@ -30,6 +25,17 @@ export default new Router({
       name: "composite-test",
       component: () =>
         import(/* webpackChunkName: "composite-test" */ "./views/CompositeTest.vue")
+    },
+    {
+      path: "/recordings",
+      name: "recordings",
+      component: () =>
+        import(/* webpackChunkName: "recordings" */ "./views/Recordings.vue")
+    },
+    {
+      path: "/:performer",
+      name: "performer",
+      component: Home
     }
   ]
 });
