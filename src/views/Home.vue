@@ -3,7 +3,7 @@
     <VideoScore />
     <div class="instructions">
       <ul>
-        <li>works best in Chrome</li>
+        <li>works best on a full-sized computer in Chrome or Firefox</li>
         <li>move your nose to play notes</li>
         <li>play all the notes to reach the next stage</li>
         <li>
