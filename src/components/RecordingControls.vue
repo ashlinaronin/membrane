@@ -1,17 +1,18 @@
 <template>
-  <div class="recording-controls">
+  <div class="recording-controls" v-if="canRecord">
     <button @click="buttonAction">{{ buttonText }}</button>
   </div>
 </template>
 
 <script>
-import { startRecording, stopRecording } from "../library/webcam";
+import { startRecording, stopRecording, canRecord } from "../library/webcam";
 
 export default {
   name: "RecordingControls",
   data() {
     return {
-      isRecording: false
+      isRecording: false,
+      canRecord: canRecord()
     };
   },
   computed: {

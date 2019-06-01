@@ -49,7 +49,14 @@ export async function loadVideo(videoElement) {
   return loadedVideo;
 }
 
+export function canRecord() {
+  return typeof MediaRecorder !== "undefined";
+}
+
 function createMediaRecorder(stream) {
+  // bail if we don't have a MediaRecorder (Safari)
+  if (!canRecord()) return false;
+
   // TODO: Create combined stream here including audio output from Tone.js
   mediaRecorder = new MediaRecorder(stream);
 
