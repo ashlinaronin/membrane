@@ -17,11 +17,13 @@ import video4 from "../assets/recordings/membrane-1559002595970.webm";
 import video5 from "../assets/recordings/membrane-1559135941431.webm";
 import video6 from "../assets/recordings/video-1559015836.mp4";
 import video7 from "../assets/recordings/video-1559057469.mp4";
+import video8 from "../assets/recordings/membrane-1559359818610.webm";
+import video9 from "../assets/recordings/membrane-1559359941872.webm";
 
 export default {
   data() {
     return {
-      videos: [video1, video2, video4, video5, video6, video7]
+      videos: [video1, video2, video4, video5, video6, video7, video8, video9]
     };
   }
 };
