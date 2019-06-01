@@ -1,7 +1,16 @@
 <template>
   <div class="home">
     <VideoScore />
-    <RecordingControls />
+    <div class="instructions">
+      <ul>
+        <li>works best in Chrome</li>
+        <li>move your nose to play notes</li>
+        <li>play all the notes to reach the next stage</li>
+        <li>
+          see some <router-link to="/recordings">inspiration</router-link>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -49,5 +58,13 @@ export default {
   flex-direction: column;
   height: 100vh;
   width: 100%;
+}
+
+.instructions {
+  flex: 1;
+  ul {
+    text-align: left;
+    list-style: none;
+  }
 }
 </style>
