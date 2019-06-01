@@ -11,19 +11,20 @@
   </div>
 </template>
 <script>
-import video1 from "../assets/recordings/membrane-1558972965427.webm";
-import video2 from "../assets/recordings/membrane-1558674661992.webm";
-import video4 from "../assets/recordings/membrane-1559002595970.webm";
-import video5 from "../assets/recordings/membrane-1559135941431.webm";
-import video6 from "../assets/recordings/video-1559015836.mp4";
-import video7 from "../assets/recordings/video-1559057469.mp4";
-import video8 from "../assets/recordings/membrane-1559359818610.webm";
-import video9 from "../assets/recordings/membrane-1559359941872.webm";
+import jacob from "../assets/recordings/membrane-1558972965427.webm";
+import deryn from "../assets/recordings/membrane-1558674661992.webm";
+import sophia from "../assets/recordings/membrane-1559002595970.webm";
+import karen from "../assets/recordings/membrane-1559135941431.webm";
+import nora from "../assets/recordings/video-1559015836.mp4";
+import peter from "../assets/recordings/video-1559057469.mp4";
+import mom from "../assets/recordings/membrane-1559359818610.webm";
+import dad from "../assets/recordings/membrane-1559359941872.webm";
+import james from "../assets/recordings/membrane-1559417359675.webm";
 
 export default {
   data() {
     return {
-      videos: [video1, video2, video4, video5, video6, video7, video8, video9]
+      videos: [jacob, james, sophia, karen, nora, peter, mom, dad, deryn]
     };
   }
 };
