@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <VideoScore />
+    <RecordingControls />
     <div class="instructions">
       <ul>
         <li>works best on a full-sized computer in Chrome or Firefox</li>
