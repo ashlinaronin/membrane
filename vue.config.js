@@ -1,6 +1,17 @@
+const deployTargetsToPublicPaths = {
+  pf: "",
+  ashlinme: "/membrane/",
+  default: ""
+};
+
+function getPublicPath() {
+  const foundPublicPath = deployTargetsToPublicPaths[process.env.DEPLOY_TARGET];
+  return foundPublicPath ? foundPublicPath : deployTargetsToPublicPaths.default;
+}
+
 module.exports = {
   lintOnSave: false,
-  publicPath: "/membrane/",
+  publicPath: getPublicPath(),
   devServer: {
     host: "0.0.0.0",
     port: 8080,
