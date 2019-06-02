@@ -4,11 +4,13 @@
     <RecordingControls v-if="!isDeployedAtPeripheralForms" />
     <div class="instructions">
       <ul>
-        <li>works best on a full-sized computer in Chrome or Firefox</li>
-        <li>move your nose to play notes</li>
-        <li>play all the notes to reach the next stage</li>
+        <li>(sound on)</li>
+        <li>move your nose to play notes,</li>
+        <li>play them all to continue.</li>
+        <li>works best on laptop/desktop in Chrome/Firefox.</li>
+        <li>&nbsp;</li>
         <li>
-          see some <router-link to="/recordings">inspiration</router-link>
+          see some <router-link to="/recordings">inspiration</router-link>.
         </li>
         <li>
           by
