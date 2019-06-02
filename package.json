@@ -5,8 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "build:pf": "DEPLOY_TARGET=pf npm run build",
-    "build:ashlinme": "DEPLOY_TARGET=ashlinme npm run build",
+    "build:pf": "VUE_APP_DEPLOY_TARGET=pf npm run build",
+    "build:ashlinme": "VUE_APP_DEPLOY_TARGET=ashlinme npm run build",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
     "tunnel": "~/ngrok http 8080"

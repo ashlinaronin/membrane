@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <VideoScore />
-    <RecordingControls />
+    <RecordingControls v-if="!isDeployedAtPeripheralForms" />
     <div class="instructions">
       <ul>
         <li>works best on a full-sized computer in Chrome or Firefox</li>
@@ -34,6 +34,9 @@ export default {
   computed: {
     fullscreen() {
       return this.$store.state.fullscreen;
+    },
+    isDeployedAtPeripheralForms() {
+      return process.env.VUE_APP_DEPLOY_TARGET === "pf";
     }
   },
   mounted() {

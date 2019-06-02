@@ -5,7 +5,8 @@ const deployTargetsToPublicPaths = {
 };
 
 function getPublicPath() {
-  const foundPublicPath = deployTargetsToPublicPaths[process.env.DEPLOY_TARGET];
+  const foundPublicPath =
+    deployTargetsToPublicPaths[process.env.VUE_APP_DEPLOY_TARGET];
   return foundPublicPath ? foundPublicPath : deployTargetsToPublicPaths.default;
 }
 
