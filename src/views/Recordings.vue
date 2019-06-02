@@ -3,23 +3,22 @@
     <ul class="video-list">
       <li v-for="video in videos" :key="video">
         <video autoplay loop>
-          <!-- TODO: need to convert webm on backend to other formats for browser compat? -->
-          <source :src="video" type="video/webm" />
+          <source :src="video" type="video/mp4" />
         </video>
       </li>
     </ul>
   </div>
 </template>
 <script>
-import jacob from "../assets/recordings/membrane-1558972965427.webm";
-import deryn from "../assets/recordings/membrane-1558674661992.webm";
-import sophia from "../assets/recordings/membrane-1559002595970.webm";
-import karen from "../assets/recordings/membrane-1559135941431.webm";
+import jacob from "../assets/recordings/membrane-1558972965427.mp4";
+import deryn from "../assets/recordings/membrane-1558674661992.mp4";
+import sophia from "../assets/recordings/membrane-1559002595970.mp4";
+import karen from "../assets/recordings/membrane-1559135941431.mp4";
 import nora from "../assets/recordings/video-1559015836.mp4";
 import peter from "../assets/recordings/video-1559057469.mp4";
-import mom from "../assets/recordings/membrane-1559359818610.webm";
-import dad from "../assets/recordings/membrane-1559359941872.webm";
-import james from "../assets/recordings/membrane-1559417359675.webm";
+import mom from "../assets/recordings/membrane-1559359818610.mp4";
+import dad from "../assets/recordings/membrane-1559359941872.mp4";
+import james from "../assets/recordings/membrane-1559417359675.mp4";
 
 export default {
   data() {
