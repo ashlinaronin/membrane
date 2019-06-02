@@ -10,6 +10,18 @@
         <li>
           see some <router-link to="/recordings">inspiration</router-link>
         </li>
+        <li>
+          by
+          <a href="https://ashlin.me" target="_blank" rel="noopener"
+            >ashlin aronin</a
+          >
+          (<a
+            href="https://github.com/ashlinaronin/membrane"
+            target="_blank"
+            rel="noopener"
+            >github</a
+          >)
+        </li>
       </ul>
     </div>
   </div>
