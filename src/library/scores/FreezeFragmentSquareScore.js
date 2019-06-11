@@ -141,7 +141,7 @@ export default class FreezeFragmentScore {
     const dy = this.bigCircleY - y;
     const distance = Math.sqrt(dx * dx + dy * dy);
 
-    return distance < this.bigCircleRadius + NOSE_CIRCLE_RADIUS;
+    return distance < this.bigCircleRadius + NOSE_CIRCLE_RADIUS * 2;
   }
 
   checkForShouldEndNote() {
