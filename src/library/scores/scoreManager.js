@@ -1,7 +1,7 @@
 import { SCORE_RESOLUTION, VIDEO_HEIGHT, VIDEO_WIDTH } from "../constants";
 import GrassPixelGridScore from "./GrassPixelGridScore";
 import WaterPixelGridScore from "./WaterPixelGridScore";
-import FreezeFragmentScore from "./FreezeFragmentScore";
+import FreezeFragmentSquareScore from "./FreezeFragmentSquareScore";
 import VideoPixelGridScore from "./VideoPixelGridScore";
 import BreathingPixelGridScore from "./BreathingPixelGridScore";
 
@@ -14,7 +14,7 @@ const scoreLevelMap = {
 
 const scoreNameMap = {
   default: VideoPixelGridScore,
-  "freeze-fragment": FreezeFragmentScore
+  "freeze-fragment-square": FreezeFragmentSquareScore
 };
 
 let score;
