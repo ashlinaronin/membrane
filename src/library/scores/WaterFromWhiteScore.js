@@ -106,11 +106,11 @@ export default class WaterFromWhiteScore {
     ctx.clearRect(0, 0, this.videoWidth, this.videoHeight);
     ctx.globalCompositeOperation = "source-over";
 
-    ctx.drawImage(this.videoElement, 0, 0, this.videoWidth, this.videoHeight);
+    this.drawGrid(ctx, "white");
 
     ctx.globalCompositeOperation = "source-atop";
 
-    this.drawGrid(ctx, "black");
+    ctx.drawImage(this.videoElement, 0, 0, this.videoWidth, this.videoHeight);
 
     ctx.globalCompositeOperation = "source-over";
   }
