@@ -9,6 +9,6 @@ export const performers = {
   },
   sarah: {
     score: "water-from-white",
-    synth: "rock-scrape"
+    synth: "bubble-verb"
   }
 };

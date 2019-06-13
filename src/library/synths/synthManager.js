@@ -3,6 +3,7 @@ import SneezeSampler from "./SneezeSampler";
 import SineTremoloSynth from "./SineTremoloSynth";
 import RockScrapeSampler from "./RockScrapeSampler";
 import MetallicSynth from "./MetallicSynth";
+import BubbleVerbSynth from "./BubbleVerbSynth";
 import store from "../../store";
 
 const synthLevelMap = {
@@ -14,7 +15,8 @@ const synthLevelMap = {
 
 const synthNameMap = {
   default: MetallicSynth,
-  "rock-scrape": RockScrapeSampler
+  "rock-scrape": RockScrapeSampler,
+  "bubble-verb": BubbleVerbSynth
 };
 
 let synth;
