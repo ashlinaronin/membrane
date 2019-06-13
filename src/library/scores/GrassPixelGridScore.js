@@ -1,6 +1,6 @@
 import PixelGridScore from "./PixelGridScore";
 import { drawTriangle, drawMirroredVideo } from "./scoreHelpers";
-import grassVideo from "../../assets/grass.mp4";
+import grassVideo from "../../assets/grass-35-default-compression.mp4";
 
 export default class GrassPixelGridScore extends PixelGridScore {
   constructor(scoreResolution, videoWidth, videoHeight) {

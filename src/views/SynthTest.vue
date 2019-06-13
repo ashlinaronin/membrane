@@ -6,7 +6,7 @@
 <script>
 import Tone from "tone";
 import mapRange from "../library/mapRange";
-import sneeze from "../assets/double_big_sneez.wav";
+import sneeze from "../assets/double_big_sneez.mp3";
 
 export default {
   created() {
