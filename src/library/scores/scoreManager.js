@@ -4,6 +4,7 @@ import WaterPixelGridScore from "./WaterPixelGridScore";
 import FreezeFragmentSquareScore from "./FreezeFragmentSquareScore";
 import VideoPixelGridScore from "./VideoPixelGridScore";
 import BreathingPixelGridScore from "./BreathingPixelGridScore";
+import WaterFromWhiteScore from "./WaterFromWhiteScore";
 
 const scoreLevelMap = {
   1: VideoPixelGridScore,
@@ -14,7 +15,8 @@ const scoreLevelMap = {
 
 const scoreNameMap = {
   default: VideoPixelGridScore,
-  "freeze-fragment-square": FreezeFragmentSquareScore
+  "freeze-fragment-square": FreezeFragmentSquareScore,
+  "water-from-white": WaterFromWhiteScore
 };
 
 let score;
