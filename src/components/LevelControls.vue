@@ -25,7 +25,7 @@ export default {
         return this.$store.state.level;
       },
       set(newLevel) {
-        this.$store.commit("CHANGE_LEVEL", { level: newLevel });
+        this.$store.dispatch("CHANGE_LEVEL", { level: newLevel });
       }
     }
   }

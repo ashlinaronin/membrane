@@ -7,6 +7,7 @@ import {
 } from "../constants";
 
 const NOSE_CIRCLE_RADIUS = 15;
+const FREEZE_COUNT_THRESHOLD = 100;
 
 export default class FreezeFragmentScore {
   constructor(scoreResolution, videoWidth, videoHeight) {
@@ -28,6 +29,7 @@ export default class FreezeFragmentScore {
     this.freezeFrameCanvas.width = this.videoWidth;
     this.freezeFrameCanvas.height = this.videoHeight;
     this.freezeFrameCtx = this.freezeFrameCanvas.getContext("2d");
+    this.freezeCount = 0;
   }
 
   drawScore(ctx, webcamVideo) {
@@ -178,6 +180,8 @@ export default class FreezeFragmentScore {
     );
 
     this.freezeFrameCtx.restore();
+
+    this.freezeCount = this.freezeCount + 1;
   }
 
   handleNoPoseDetected() {
@@ -186,6 +190,6 @@ export default class FreezeFragmentScore {
   }
 
   isClear() {
-    return false;
+    return this.freezeCount > FREEZE_COUNT_THRESHOLD;
   }
 }

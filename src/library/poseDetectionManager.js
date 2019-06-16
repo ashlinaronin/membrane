@@ -69,6 +69,6 @@ function drawPose(ctx, pose, webcamVideo) {
 
 function checkScoreAndLevelUp() {
   if (scoreIsClear()) {
-    store.commit("LEVEL_UP");
+    store.dispatch("GO_TO_NEXT_LEVEL");
   }
 }
