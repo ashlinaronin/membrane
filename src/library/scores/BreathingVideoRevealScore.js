@@ -5,7 +5,7 @@ import {
   FRAMES_BEFORE_MOVEMENT_DECLARED_OVER,
   NOSE_TRIANGLE_RADIUS
 } from "../constants";
-import maxxPoem5 from "../../assets/maxx_poem_005.mp4";
+import maxxPoem5 from "../../assets/maxx_poem_005-35-default-compression.mp4";
 import maxxCursor from "../../assets/maxx_cursor_nobg.png";
 
 export default class BreathingVideoRevealScore {
