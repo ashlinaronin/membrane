@@ -1,12 +1,12 @@
 import { startNote, endNote, changeParam } from "../synths/synthManager";
-import { drawTriangle, generateTrianglePoints } from "./scoreHelpers";
+import { generateTrianglePoints } from "./scoreHelpers";
 import {
   MIN_DISTANCE_TO_PLAY,
   FRAMES_BEFORE_MOVEMENT_DECLARED_OVER,
   NOSE_TRIANGLE_RADIUS
 } from "../constants";
-
-const GRID_COLOR = "hsl(0, 100%, 95%)";
+import maxxBackground from "../../assets/maxx_background.jpg";
+import maxxCursor from "../../assets/maxx_cursor.png";
 
 export default class BreathingVideoRevealScore {
   constructor(scoreResolution, videoWidth, videoHeight) {
@@ -23,14 +23,40 @@ export default class BreathingVideoRevealScore {
     this.framesSinceLastMovement = 0;
     this.phase = 0;
     this.breath = 0;
+    this.backgroundImageLoaded = false;
+    this.backgroundImageElement = new Image();
+    this.backgroundImageElement.src = maxxBackground;
+    this.backgroundImageElement.onload = () => {
+      this.backgroundImageLoaded = true;
+    };
+    // TODO: refactor
+    this.cursorImageLoaded = false;
+    this.cursorImageElement = new Image();
+    this.cursorImageElement.src = maxxCursor;
+    this.cursorImageElement.onload = () => {
+      this.cursorImageLoaded = true;
+    };
 
     console.log(`created grid with ${this.calculateRemainingPoints()} points`);
   }
 
   drawScore(ctx) {
+    if (!this.backgroundImageLoaded || !this.cursorImageLoaded) return;
+
     ctx.clearRect(0, 0, this.videoWidth, this.videoHeight);
     ctx.globalCompositeOperation = "source-over";
-    this.drawGrid(ctx, GRID_COLOR);
+
+    this.drawGrid(ctx, "black");
+
+    ctx.globalCompositeOperation = "source-atop";
+
+    ctx.drawImage(
+      this.backgroundImageElement,
+      0,
+      0,
+      this.videoWidth,
+      this.videoHeight
+    );
   }
 
   drawGrid(ctx, gridFillStyle) {
@@ -63,7 +89,14 @@ export default class BreathingVideoRevealScore {
   }
 
   drawNose(ctx, trianglePoints) {
-    drawTriangle(ctx, trianglePoints, GRID_COLOR);
+    ctx.globalCompositeOperation = "source-over";
+    ctx.drawImage(
+      this.cursorImageElement,
+      trianglePoints[0][0],
+      trianglePoints[0][1],
+      NOSE_TRIANGLE_RADIUS * 2,
+      NOSE_TRIANGLE_RADIUS * 2
+    );
   }
 
   generateScore() {
@@ -81,6 +114,8 @@ export default class BreathingVideoRevealScore {
 
   dispose() {
     this.grid = null;
+    this.backgroundImageElement.removeAttribute("src");
+    this.backgroundImageElement = null;
   }
 
   isClear() {
