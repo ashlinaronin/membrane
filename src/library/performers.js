@@ -1,20 +1,26 @@
+import FreezeFragmentSquareScore from "./scores/FreezeFragmentSquareScore";
+import RockScrapeSampler from "./synths/RockScrapeSampler";
+import WaterFromWhiteScore from "./scores/WaterFromWhiteScore";
+import BubbleVerbSynth from "./synths/BubbleVerbSynth";
+import BreathingVideoRevealScore from "./scores/BreathingVideoRevealScore";
+
 export const performers = {
   jaleesa: [
     {
-      score: "freeze-fragment-square",
-      synth: "rock-scrape"
+      score: FreezeFragmentSquareScore,
+      synth: RockScrapeSampler
     }
   ],
   maxx: [
     {
-      score: "freeze-fragment-square",
-      synth: "rock-scrape"
+      score: BreathingVideoRevealScore,
+      synth: RockScrapeSampler
     }
   ],
   sarah: [
     {
-      score: "water-from-white",
-      synth: "bubble-verb"
+      score: WaterFromWhiteScore,
+      synth: BubbleVerbSynth
     }
   ],
   // TODO: put the main sequence here, so we don't have to split logic and keep track in multiple places

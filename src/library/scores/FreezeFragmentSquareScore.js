@@ -9,7 +9,7 @@ import {
 const NOSE_CIRCLE_RADIUS = 15;
 const FREEZE_COUNT_THRESHOLD = 100;
 
-export default class FreezeFragmentScore {
+export default class FreezeFragmentSquareScore {
   constructor(scoreResolution, videoWidth, videoHeight) {
     this.currentColor = "#000";
     this.width = scoreResolution;

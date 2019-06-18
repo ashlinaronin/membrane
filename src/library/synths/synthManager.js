@@ -1,9 +1,7 @@
 import LowPulseSynth from "./LowPulseSynth";
 import SneezeSampler from "./SneezeSampler";
 import SineTremoloSynth from "./SineTremoloSynth";
-import RockScrapeSampler from "./RockScrapeSampler";
 import MetallicSynth from "./MetallicSynth";
-import BubbleVerbSynth from "./BubbleVerbSynth";
 import store from "../../store";
 
 const synthLevelMap = {
@@ -13,17 +11,11 @@ const synthLevelMap = {
   4: SineTremoloSynth
 };
 
-const synthNameMap = {
-  default: MetallicSynth,
-  "rock-scrape": RockScrapeSampler,
-  "bubble-verb": BubbleVerbSynth
-};
-
 let synth;
 
 changeLevel(1);
 
-export function changeSynthByName(name) {
+export function changeSynthByName(SynthClassToCreate) {
   if (typeof synth !== "undefined") {
     synth.dispose();
   }
@@ -32,10 +24,7 @@ export function changeSynthByName(name) {
     return;
   }
 
-  const synthType = synthNameMap.hasOwnProperty(name)
-    ? synthNameMap[name]
-    : synthNameMap.default;
-  synth = new synthType();
+  synth = new SynthClassToCreate();
 }
 
 export function changeLevel(level) {
