@@ -2,7 +2,7 @@
   <div class="home">
     <VideoScore />
     <RecordingControls v-if="!isDeployedAtPeripheralForms" />
-    <div class="instructions">
+    <div class="instructions" v-if="!isPerformer">
       <ul>
         <li>(sound on)</li>
         <li>move your nose to play notes,</li>
@@ -47,6 +47,9 @@ export default {
     },
     isDeployedAtPeripheralForms() {
       return process.env.VUE_APP_DEPLOY_TARGET === "pf";
+    },
+    isPerformer() {
+      return this.$route.params.performer;
     }
   },
   mounted() {
