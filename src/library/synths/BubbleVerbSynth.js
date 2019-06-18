@@ -4,6 +4,7 @@ import Tone from "tone";
 export default class BubbleVerbSynth {
   constructor() {
     this.osc = new Tone.Oscillator(40, "sine");
+    this.noise = new Tone.Noise("white");
     this.ampEnv = new Tone.AmplitudeEnvelope({
       attack: 0.01,
       decay: 0.5,
@@ -26,6 +27,8 @@ export default class BubbleVerbSynth {
   async initialize() {
     this.osc.start();
     this.osc.connect(this.lowpass);
+    this.noise.start();
+    this.noise.connect(this.lowpass);
     this.lowpass.connect(this.ampEnv);
     this.freqEnv.connect(this.osc.frequency);
     this.freqEnv.connect(this.lowpass.frequency);
