@@ -3,6 +3,7 @@ import RockScrapeSampler from "./synths/RockScrapeSampler";
 import WaterFromWhiteScore from "./scores/WaterFromWhiteScore";
 import BubbleVerbSynth from "./synths/BubbleVerbSynth";
 import BreathingVideoRevealScore from "./scores/BreathingVideoRevealScore";
+import DistortedWaterSampler from "./synths/DistortedWaterSampler";
 
 export const performers = {
   jaleesa: [
@@ -14,7 +15,7 @@ export const performers = {
   maxx: [
     {
       score: BreathingVideoRevealScore,
-      synth: RockScrapeSampler
+      synth: DistortedWaterSampler
     }
   ],
   sarah: [
