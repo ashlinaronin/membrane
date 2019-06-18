@@ -1,12 +1,12 @@
 import Tone from "tone";
-// import mapRange from "../mapRange";
+import mapRange from "../mapRange";
 
 export default class BubbleVerbSynth {
   constructor() {
     this.osc = new Tone.Oscillator(40, "sine");
     this.noise = new Tone.Noise("white");
     this.ampEnv = new Tone.AmplitudeEnvelope({
-      attack: 0.01,
+      attack: 0.1,
       decay: 0.5,
       sustain: 0,
       release: 0.01
@@ -19,7 +19,9 @@ export default class BubbleVerbSynth {
       release: 0.4,
       baseFrequency: 200
     });
-    this.verb = new Tone.Freeverb(0.2, 5000);
+    this.dist = new Tone.Distortion(0.2);
+    this.verb = new Tone.JCReverb(0.6);
+    this.panner = new Tone.Panner();
     this.initialize();
     window.bubbles = this;
   }
@@ -32,8 +34,7 @@ export default class BubbleVerbSynth {
     this.lowpass.connect(this.ampEnv);
     this.freqEnv.connect(this.osc.frequency);
     this.freqEnv.connect(this.lowpass.frequency);
-    this.ampEnv.connect(this.verb);
-    this.verb.toMaster();
+    this.ampEnv.chain(this.dist, this.verb, this.panner, Tone.Master);
   }
 
   dispose() {
@@ -42,15 +43,21 @@ export default class BubbleVerbSynth {
     this.lowpass.dispose();
     this.freqEnv.dispose();
     this.verb.dispose();
+    this.dist.dispose();
+    this.noise.dispose();
+    this.panner.dispose();
     this.osc = null;
     this.ampEnv = null;
     this.lowpass = null;
     this.freqEnv = null;
     this.verb = null;
+    this.noise = null;
+    this.dist = null;
+    this.panner = null;
   }
 
   startNote() {
-    this.ampEnv.triggerAttack("+0.05", 0.8);
+    this.ampEnv.triggerAttack("+0.05");
     this.freqEnv.triggerAttack("+0.05");
   }
 
@@ -61,7 +68,7 @@ export default class BubbleVerbSynth {
 
   // eslint-disable-next-line no-unused-vars
   changeParam(x, y, width, height) {
-    // this.osc.frequency.value = mapRange(x, 0, width, 0.8, 1.0);
-    // this.osc.detune.value = mapRange(y, 0, height, 50.0, -50.0);
+    this.panner.pan.value = mapRange(x, 0, width, -1.0, 1.0);
+    this.freqEnv.attack = mapRange(y, 0, height, 0.1, 6);
   }
 }
