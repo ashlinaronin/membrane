@@ -2,11 +2,11 @@ import Vue from "vue";
 import Vuex from "vuex";
 import {
   changeLevel as changeSynthLevel,
-  changeSynthByName
+  changeSynthByClass
 } from "./library/synths/synthManager";
 import {
   changeLevel as changeScoreLevel,
-  changeScoreByName
+  changeScoreByClass
 } from "./library/scores/scoreManager";
 import { performers } from "./library/performers";
 import { NUM_LEVELS } from "./library/constants";
@@ -57,8 +57,8 @@ export default new Vuex.Store({
       });
 
       const firstPerformerScoreAndSynth = performerData[0];
-      changeScoreByName(firstPerformerScoreAndSynth.score);
-      changeSynthByName(firstPerformerScoreAndSynth.synth);
+      changeScoreByClass(firstPerformerScoreAndSynth.score);
+      changeSynthByClass(firstPerformerScoreAndSynth.synth);
     },
     GO_TO_NEXT_LEVEL({ commit, state }) {
       commit("INCREMENT_LEVEL");
@@ -66,8 +66,8 @@ export default new Vuex.Store({
       if (state.performer) {
         const performerData = performers[state.performer];
         const newLevel = performerData[state.level];
-        changeScoreByName(newLevel.score);
-        changeSynthByName(newLevel.synth);
+        changeScoreByClass(newLevel.score);
+        changeSynthByClass(newLevel.synth);
       } else {
         changeSynthLevel(state.level);
         changeScoreLevel(state.level);

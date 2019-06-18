@@ -15,7 +15,7 @@ let synth;
 
 changeLevel(1);
 
-export function changeSynthByName(SynthClassToCreate) {
+export function changeSynthByClass(SynthClassToCreate) {
   if (typeof synth !== "undefined") {
     synth.dispose();
   }

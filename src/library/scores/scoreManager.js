@@ -15,7 +15,7 @@ let score;
 
 changeLevel(1);
 
-export function changeScoreByName(ScoreClassToCreate) {
+export function changeScoreByClass(ScoreClassToCreate) {
   if (typeof score !== "undefined" && typeof score.dispose === "function") {
     score.dispose();
   }
