@@ -8,7 +8,7 @@ export default class DistortedWaterSampler {
       this.initialize();
     });
 
-    this.env = new Tone.AmplitudeEnvelope(0.05, 0.2, 1.0, 0.8);
+    this.env = new Tone.AmplitudeEnvelope(0.05, 0.8, 1.0, 0.8);
   }
 
   async initialize() {
@@ -34,9 +34,8 @@ export default class DistortedWaterSampler {
     this.env.triggerRelease("+0.05");
   }
 
+  // eslint-disable-next-line no-unused-vars
   changeParam(x, y, width, height) {
-    this.player.grainSize = mapRange(x, 0, width, 0.001, 0.5);
     this.player.playbackRate = mapRange(y, 0, height, 0.2, 2.0);
-    this.player.overlap = mapRange(x, 0, width, 0.001, 8.0);
   }
 }
