@@ -6,7 +6,7 @@ import {
   NOSE_TRIANGLE_RADIUS
 } from "../constants";
 import maxxBackground from "../../assets/maxx_background.jpg";
-import maxxCursor from "../../assets/maxx_cursor.png";
+import maxxCursor from "../../assets/maxx_cursor_nobg.png";
 
 export default class BreathingVideoRevealScore {
   constructor(scoreResolution, videoWidth, videoHeight) {
