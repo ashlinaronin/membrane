@@ -5,7 +5,7 @@ import {
   FRAMES_BEFORE_MOVEMENT_DECLARED_OVER,
   NOSE_TRIANGLE_RADIUS
 } from "../constants";
-import maxxBackground from "../../assets/maxx_background.jpg";
+import maxxPoem5 from "../../assets/maxx_poem_005.mp4";
 import maxxCursor from "../../assets/maxx_cursor_nobg.png";
 
 export default class BreathingVideoRevealScore {
@@ -23,13 +23,15 @@ export default class BreathingVideoRevealScore {
     this.framesSinceLastMovement = 0;
     this.phase = 0;
     this.breath = 0;
-    this.backgroundImageLoaded = false;
-    this.backgroundImageElement = new Image();
-    this.backgroundImageElement.src = maxxBackground;
-    this.backgroundImageElement.onload = () => {
-      this.backgroundImageLoaded = true;
-    };
-    // TODO: refactor
+
+    this.onLoadedData = this.onLoadedData.bind(this);
+
+    this.videoLoaded = false;
+    this.videoElement = document.createElement("video");
+    this.videoElement.src = maxxPoem5;
+    this.videoElement.loop = true;
+    this.videoElement.addEventListener("loadeddata", this.onLoadedData, false);
+
     this.cursorImageLoaded = false;
     this.cursorImageElement = new Image();
     this.cursorImageElement.src = maxxCursor;
@@ -40,8 +42,14 @@ export default class BreathingVideoRevealScore {
     console.log(`created grid with ${this.calculateRemainingPoints()} points`);
   }
 
+  onLoadedData() {
+    this.videoLoaded = true;
+    this.videoElement.play();
+    this.videoElement.removeEventListener("loadeddata", this.onLoadedData);
+  }
+
   drawScore(ctx) {
-    if (!this.backgroundImageLoaded || !this.cursorImageLoaded) return;
+    if (!this.videoLoaded || !this.cursorImageLoaded) return;
 
     ctx.clearRect(0, 0, this.videoWidth, this.videoHeight);
     ctx.globalCompositeOperation = "source-over";
@@ -50,13 +58,7 @@ export default class BreathingVideoRevealScore {
 
     ctx.globalCompositeOperation = "source-atop";
 
-    ctx.drawImage(
-      this.backgroundImageElement,
-      0,
-      0,
-      this.videoWidth,
-      this.videoHeight
-    );
+    ctx.drawImage(this.videoElement, 0, 0, this.videoWidth, this.videoHeight);
   }
 
   drawGrid(ctx, gridFillStyle) {
@@ -114,8 +116,11 @@ export default class BreathingVideoRevealScore {
 
   dispose() {
     this.grid = null;
-    this.backgroundImageElement.removeAttribute("src");
-    this.backgroundImageElement = null;
+
+    this.videoElement.pause();
+    this.videoElement.removeAttribute("src");
+    this.videoElement.load();
+    this.videoElement = null;
   }
 
   isClear() {
