@@ -12,7 +12,7 @@ export const performers = {
       synth: RockScrapeSampler
     }
   ],
-  maxx: [
+  maximiliano: [
     {
       score: BreathingVideoRevealScore,
       synth: DistortedWaterSampler
