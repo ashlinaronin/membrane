@@ -9,21 +9,23 @@ export default class DistortedWaterSampler {
     });
 
     this.env = new Tone.AmplitudeEnvelope(0.05, 0.8, 1.0, 0.8);
+    this.delay = new Tone.FeedbackDelay();
   }
 
   async initialize() {
     this.player.loop = true;
     this.player.start();
-    this.player.connect(this.env);
-    this.env.toMaster();
+    this.player.chain(this.env, this.delay, Tone.Master);
   }
 
   dispose() {
     this.player.stop();
     this.player.dispose();
     this.env.dispose();
+    this.delay.dispose();
     this.player = null;
     this.env = null;
+    this.delay = null;
   }
 
   startNote() {
