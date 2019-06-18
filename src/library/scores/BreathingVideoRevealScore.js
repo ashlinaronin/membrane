@@ -65,7 +65,7 @@ export default class BreathingVideoRevealScore {
 
     for (let i = 0; i < this.grid.length; i++) {
       for (let j = 0; j < this.grid[0].length; j++) {
-        if (this.grid[i][j] === true) {
+        if (this.grid[i][j] === false) {
           ctx.fillStyle = gridFillStyle;
           ctx.beginPath();
 
@@ -105,7 +105,7 @@ export default class BreathingVideoRevealScore {
     for (let i = 0; i < this.width; i++) {
       grid[i] = [];
       for (let j = 0; j < this.height; j++) {
-        grid[i][j] = Math.random() >= 0.5;
+        grid[i][j] = true;
       }
     }
 
