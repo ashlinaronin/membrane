@@ -17,7 +17,7 @@ export const FLIP_HORIZONTAL = true;
 export const IMAGE_SCALE_FACTOR = 0.2;
 export const OUTPUT_STRIDE = 16;
 
-export const MIN_DISTANCE_TO_PLAY = 16;
+export const MIN_DISTANCE_TO_PLAY = 26;
 export const FRAMES_BEFORE_MOVEMENT_DECLARED_OVER = 1;
 
 export const NOSE_TRIANGLE_RADIUS = 20;
