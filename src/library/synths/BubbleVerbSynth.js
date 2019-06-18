@@ -6,21 +6,21 @@ export default class BubbleVerbSynth {
     this.osc = new Tone.Oscillator(40, "sine");
     this.noise = new Tone.Noise("white");
     this.ampEnv = new Tone.AmplitudeEnvelope({
-      attack: 0.1,
+      attack: 0.3,
       decay: 0.5,
       sustain: 0,
       release: 0.01
     });
-    this.lowpass = new Tone.Filter(500, "lowpass");
+    this.lowpass = new Tone.Filter(800, "lowpass");
     this.freqEnv = new Tone.FrequencyEnvelope({
       attack: 3,
       decay: 1,
       sustain: 0,
       release: 0.4,
-      baseFrequency: 200
+      baseFrequency: 400
     });
-    this.dist = new Tone.Distortion(0.2);
-    this.verb = new Tone.JCReverb(0.6);
+    this.dist = new Tone.Distortion(0.8);
+    this.verb = new Tone.JCReverb(0.7);
     this.panner = new Tone.Panner();
     this.initialize();
     window.bubbles = this;
