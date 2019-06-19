@@ -30,6 +30,7 @@ export default class BreathingVideoRevealScore {
     this.videoElement = document.createElement("video");
     this.videoElement.src = maxxPoem5;
     this.videoElement.loop = true;
+    this.videoElement.muted = true;
     this.videoElement.addEventListener("loadeddata", this.onLoadedData, false);
 
     this.cursorImageLoaded = false;
