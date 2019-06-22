@@ -7,7 +7,7 @@ import {
 } from "../constants";
 
 const NOSE_CIRCLE_RADIUS = 15;
-const FREEZE_COUNT_THRESHOLD = 100;
+const FREEZE_COUNT_THRESHOLD = 50;
 
 export default class FreezeFragmentSquareScore {
   constructor(scoreResolution, videoWidth, videoHeight) {
@@ -22,7 +22,6 @@ export default class FreezeFragmentSquareScore {
     this.isPlaying = false;
     this.lastPosition = undefined;
     this.framesSinceLastMovement = 0;
-    this.uniquePointCount = 0;
     this.pointsPlayed = [];
     this.videoFrozen = false;
     this.freezeFrameCanvas = document.createElement("canvas");
@@ -132,8 +131,6 @@ export default class FreezeFragmentSquareScore {
 
   play() {
     this.isPlaying = true;
-    this.uniquePointCount = this.uniquePointCount + 1;
-    console.log("uniquePointCount", this.uniquePointCount);
 
     startNote();
   }
@@ -182,6 +179,7 @@ export default class FreezeFragmentSquareScore {
     this.freezeFrameCtx.restore();
 
     this.freezeCount = this.freezeCount + 1;
+    console.log("freezeCount", this.freezeCount);
   }
 
   handleNoPoseDetected() {
