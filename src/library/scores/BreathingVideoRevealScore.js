@@ -8,6 +8,8 @@ import {
 import maxxPoem5 from "../../assets/maxx_poem_005-35-default-compression.mp4";
 import maxxCursor from "../../assets/maxx_cursor_nobg.png";
 
+const BREATH_SPEED = 0.03;
+
 export default class BreathingVideoRevealScore {
   constructor(scoreResolution, videoWidth, videoHeight) {
     this.width = scoreResolution;
@@ -63,7 +65,7 @@ export default class BreathingVideoRevealScore {
   }
 
   drawGrid(ctx, gridFillStyle) {
-    this.phase = (this.phase + 0.01) % (2 * Math.PI);
+    this.phase = (this.phase + BREATH_SPEED) % (2 * Math.PI);
     this.breath = Math.sin(this.phase) * 30;
 
     for (let i = 0; i < this.grid.length; i++) {
