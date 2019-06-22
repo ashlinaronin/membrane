@@ -156,7 +156,8 @@ export default class BreathingVideoRevealScore {
   }
 
   handleNoseFound(ctx, x, y) {
-    const gridCoordinates = this.checkForGridPointPlayedAndAddOrRemove(x, y);
+    const gridCoordinates = this.getGridCoordinatesForPoint(x, y);
+    this.checkForGridPointPlayedAndAddOrRemove(gridCoordinates);
     this.drawNose(ctx, x, y);
 
     if (typeof this.lastPosition === "undefined") {
@@ -183,12 +184,10 @@ export default class BreathingVideoRevealScore {
     }
   }
 
-  checkForGridPointPlayedAndAddOrRemove(x, y) {
-    const gridCoordinates = this.getGridCoordinatesForPoint(x, y);
-
+  checkForGridPointPlayedAndAddOrRemove(gridCoordinates) {
     // track last grid position, only add or remove from grid if we are on a new tile
     if (coordsEqual(this.lastGridPosition, gridCoordinates)) {
-      return gridCoordinates;
+      return;
     }
 
     if (this.gridContainsPoint(gridCoordinates)) {
@@ -196,8 +195,6 @@ export default class BreathingVideoRevealScore {
     } else {
       this.addPointToGrid(gridCoordinates);
     }
-
-    return gridCoordinates;
   }
 
   getGridCoordinatesForPoint(x, y) {
