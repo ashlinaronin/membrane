@@ -24,7 +24,7 @@ export default class BreathingVideoRevealScore {
     this.heightUnit = this.videoHeight / this.height;
     this.grid = this.generateScore();
     this.isPlaying = false;
-    this.lastPosition = undefined;
+    this.lastAudioPlayedPosition = undefined;
     this.trianglePoints = undefined;
     this.framesSinceLastMovement = 0;
     this.phase = 0;
@@ -160,17 +160,19 @@ export default class BreathingVideoRevealScore {
     this.checkForGridPointPlayedAndAddOrRemove(gridCoordinates);
     this.drawNose(ctx, x, y);
 
-    if (typeof this.lastPosition === "undefined") {
-      this.lastPosition = [x, y];
-      this.lastGridPosition = gridCoordinates;
+    if (typeof this.lastAudioPlayedPosition === "undefined") {
+      this.lastAudioPlayedPosition = [x, y];
     }
+
+    // Always save lastGridPosition, regardless of whether or not we play audio
+    this.lastGridPosition = gridCoordinates;
 
     changeParam(x, y, this.videoWidth, this.videoHeight);
     this.framesSinceLastMovement = this.framesSinceLastMovement + 1;
 
     if (
-      Math.abs(this.lastPosition[0] - x) > MIN_DISTANCE_TO_PLAY ||
-      Math.abs(this.lastPosition[1] - y) > MIN_DISTANCE_TO_PLAY
+      Math.abs(this.lastAudioPlayedPosition[0] - x) > MIN_DISTANCE_TO_PLAY ||
+      Math.abs(this.lastAudioPlayedPosition[1] - y) > MIN_DISTANCE_TO_PLAY
     ) {
       this.framesSinceLastMovement = 0;
 
@@ -179,8 +181,7 @@ export default class BreathingVideoRevealScore {
         this.isPlaying = true;
       }
 
-      this.lastPosition = [x, y];
-      this.lastGridPosition = gridCoordinates;
+      this.lastAudioPlayedPosition = [x, y];
     }
   }
 
