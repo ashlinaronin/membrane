@@ -1,5 +1,4 @@
 import { startNote, endNote, changeParam } from "../synths/synthManager";
-import { generateTrianglePoints } from "./scoreHelpers";
 import {
   MIN_DISTANCE_TO_PLAY,
   FRAMES_BEFORE_MOVEMENT_DECLARED_OVER,
@@ -93,12 +92,12 @@ export default class BreathingVideoRevealScore {
     }
   }
 
-  drawNose(ctx, trianglePoints) {
+  drawNose(ctx, x, y) {
     ctx.globalCompositeOperation = "source-over";
     ctx.drawImage(
       this.cursorImageElement,
-      trianglePoints[0][0],
-      trianglePoints[0][1],
+      x,
+      y,
       NOSE_TRIANGLE_RADIUS * 2,
       NOSE_TRIANGLE_RADIUS * 2
     );
@@ -152,9 +151,8 @@ export default class BreathingVideoRevealScore {
   }
 
   handleNoseFound(ctx, x, y) {
-    this.trianglePoints = generateTrianglePoints(x, y, NOSE_TRIANGLE_RADIUS);
-    this.checkForGridPointPlayedAndRemove(this.trianglePoints);
-    this.drawNose(ctx, this.trianglePoints);
+    this.checkForGridPointPlayedAndAddOrRemove(x, y);
+    this.drawNose(ctx, x, y);
 
     if (typeof this.lastPosition === "undefined") {
       this.lastPosition = [x, y];
@@ -178,21 +176,13 @@ export default class BreathingVideoRevealScore {
     }
   }
 
-  checkForGridPointPlayedAndRemove(trianglePoints) {
-    let anyTrianglePointInGrid = false;
-
-    trianglePoints.forEach(trianglePoint => {
-      const gridCoordinates = this.getGridCoordinatesForPoint(
-        trianglePoint[0],
-        trianglePoint[1]
-      );
-      if (this.gridContainsPoint(gridCoordinates)) {
-        anyTrianglePointInGrid = true;
-        this.removePointFromGrid(gridCoordinates);
-      }
-    });
-
-    return anyTrianglePointInGrid;
+  checkForGridPointPlayedAndAddOrRemove(x, y) {
+    const gridCoordinates = this.getGridCoordinatesForPoint(x, y);
+    if (this.gridContainsPoint(gridCoordinates)) {
+      this.removePointFromGrid(gridCoordinates);
+    } else {
+      // this.addPointToGrid(gridCoordinates);
+    }
   }
 
   getGridCoordinatesForPoint(x, y) {
@@ -223,6 +213,13 @@ export default class BreathingVideoRevealScore {
     const [gridXCoord, gridYCoord] = gridPointCoords;
     this.grid[gridXCoord][gridYCoord] = false;
     console.log(`played point [${gridXCoord}, ${gridYCoord}]`);
+    console.log(`${this.calculateRemainingPoints()} points remaining in grid`);
+  }
+
+  addPointToGrid(gridPointCoords) {
+    const [gridXCoord, gridYCoord] = gridPointCoords;
+    this.grid[gridXCoord][gridYCoord] = true;
+    console.log(`added back point [${gridXCoord}, ${gridYCoord}]`);
     console.log(`${this.calculateRemainingPoints()} points remaining in grid`);
   }
 
