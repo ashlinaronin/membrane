@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import Tone from "tone";
+import StartAudioContext from "startaudiocontext";
 import VideoScore from "@/components/VideoScore.vue";
 import FullScreenButton from "@/components/FullScreenButton.vue";
 import RecordingControls from "@/components/RecordingControls.vue";
@@ -59,6 +61,10 @@ export default {
         this.$route.params.performer
       );
     }
+
+    StartAudioContext(Tone.context, null, () => {
+      console.log("Started Tone AudioContext after user interaction");
+    });
 
     this.$store.commit("SET_AUDIO_DISABLED", {
       audioDisabled: this.$route.query && this.$route.query.audioDisabled
