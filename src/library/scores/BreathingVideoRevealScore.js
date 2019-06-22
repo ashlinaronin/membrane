@@ -9,6 +9,11 @@ import maxxCursor from "../../assets/maxx_cursor_nobg.png";
 
 const BREATH_SPEED = 0.03;
 
+function coordsEqual(a, b) {
+  if (!a || a.length !== 2 || !b || b.length !== 2) return false;
+  return a[0] === b[0] && a[1] === b[1];
+}
+
 export default class BreathingVideoRevealScore {
   constructor(scoreResolution, videoWidth, videoHeight) {
     this.width = scoreResolution;
@@ -151,11 +156,12 @@ export default class BreathingVideoRevealScore {
   }
 
   handleNoseFound(ctx, x, y) {
-    this.checkForGridPointPlayedAndAddOrRemove(x, y);
+    const gridCoordinates = this.checkForGridPointPlayedAndAddOrRemove(x, y);
     this.drawNose(ctx, x, y);
 
     if (typeof this.lastPosition === "undefined") {
       this.lastPosition = [x, y];
+      this.lastGridPosition = gridCoordinates;
     }
 
     changeParam(x, y, this.videoWidth, this.videoHeight);
@@ -173,16 +179,25 @@ export default class BreathingVideoRevealScore {
       }
 
       this.lastPosition = [x, y];
+      this.lastGridPosition = gridCoordinates;
     }
   }
 
   checkForGridPointPlayedAndAddOrRemove(x, y) {
     const gridCoordinates = this.getGridCoordinatesForPoint(x, y);
+
+    // track last grid position, only add or remove from grid if we are on a new tile
+    if (coordsEqual(this.lastGridPosition, gridCoordinates)) {
+      return gridCoordinates;
+    }
+
     if (this.gridContainsPoint(gridCoordinates)) {
       this.removePointFromGrid(gridCoordinates);
     } else {
-      // this.addPointToGrid(gridCoordinates);
+      this.addPointToGrid(gridCoordinates);
     }
+
+    return gridCoordinates;
   }
 
   getGridCoordinatesForPoint(x, y) {
