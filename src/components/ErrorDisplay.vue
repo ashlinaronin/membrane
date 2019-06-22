@@ -1,6 +1,6 @@
 <template>
   <div v-if="message.error.length > 0" class="error-display">
-    Error: {{ message.error }}
+    error: {{ message.error }}
   </div>
 </template>
 

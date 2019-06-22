@@ -42,7 +42,8 @@ export default {
     } catch (e) {
       console.error(e);
       this.error =
-        "this browser does not support video capture, or this device does not have a camera.";
+        "this browser does not support video capture, or this device does not have a camera. " +
+        "please try using Chrome or Firefox on desktop.";
     }
   }
 };
