@@ -4,8 +4,8 @@ import { drawTriangle } from "./scoreHelpers";
 const GRID_COLOR = "hsl(0, 100%, 95%)";
 
 export default class BreathingPixelGridScore extends PixelGridScore {
-  constructor(scoreResolution, videoWidth, videoHeight) {
-    super(scoreResolution, videoWidth, videoHeight);
+  constructor(scoreWidth, scoreHeight, videoWidth, videoHeight) {
+    super(scoreWidth, scoreHeight, videoWidth, videoHeight);
 
     this.phase = 0;
     this.breath = 0;

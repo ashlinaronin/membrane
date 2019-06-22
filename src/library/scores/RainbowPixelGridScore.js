@@ -1,8 +1,8 @@
 import PixelGridScore from "./PixelGridScore";
 
 export default class PurplePixelGridScore extends PixelGridScore {
-  constructor(scoreResolution, videoWidth, videoHeight) {
-    super(scoreResolution, videoWidth, videoHeight);
+  constructor(scoreWidth, scoreHeight, videoWidth, videoHeight) {
+    super(scoreWidth, scoreHeight, videoWidth, videoHeight);
   }
 
   drawScore(ctx) {

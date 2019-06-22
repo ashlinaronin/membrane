@@ -3,8 +3,8 @@ import { drawTriangle } from "./scoreHelpers";
 import waterVideo from "../../assets/water-35-default-compression.mp4";
 
 export default class WaterPixelGridScore extends PixelGridScore {
-  constructor(scoreResolution, videoWidth, videoHeight) {
-    super(scoreResolution, videoWidth, videoHeight);
+  constructor(scoreWidth, scoreHeight, videoWidth, videoHeight) {
+    super(scoreWidth, scoreHeight, videoWidth, videoHeight);
 
     this.onLoadedData = this.onLoadedData.bind(this);
 

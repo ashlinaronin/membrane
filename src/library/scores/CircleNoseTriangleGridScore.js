@@ -3,8 +3,8 @@ import { NOSE_TRIANGLE_RADIUS } from "../constants";
 import { drawTriangle, generateTrianglePoints } from "./scoreHelpers";
 
 export default class CircleNoseTriangleGridScore extends PixelGridScore {
-  constructor(scoreResolution, videoWidth, videoHeight) {
-    super(scoreResolution, videoWidth, videoHeight);
+  constructor(scoreWidth, scoreHeight, videoWidth, videoHeight) {
+    super(scoreWidth, scoreHeight, videoWidth, videoHeight);
 
     // Reuse vars to avoid allocating lots of new memory every frame
     this.smallerUnit = undefined;

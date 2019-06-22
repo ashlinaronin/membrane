@@ -2,8 +2,8 @@ import { drawMirroredVideo } from "./scoreHelpers";
 import PixelGridScore from "./PixelGridScore";
 
 export default class VideoPixelGridScore extends PixelGridScore {
-  constructor(scoreResolution, videoWidth, videoHeight) {
-    super(scoreResolution, videoWidth, videoHeight);
+  constructor(scoreWidth, scoreHeight, videoWidth, videoHeight) {
+    super(scoreWidth, scoreHeight, videoWidth, videoHeight);
   }
 
   drawScore(ctx, webcamVideo) {

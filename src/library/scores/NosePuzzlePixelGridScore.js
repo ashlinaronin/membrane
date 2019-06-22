@@ -2,8 +2,8 @@ import PixelGridScore from "./PixelGridScore";
 import nosesImage from "../../assets/noses.jpg";
 
 export default class NosePuzzlePixelGridScore extends PixelGridScore {
-  constructor(scoreResolution, videoWidth, videoHeight) {
-    super(scoreResolution, videoWidth, videoHeight);
+  constructor(scoreWidth, scoreHeight, videoWidth, videoHeight) {
+    super(scoreWidth, scoreHeight, videoWidth, videoHeight);
 
     this.imgLoaded = false;
     this.img = new Image();

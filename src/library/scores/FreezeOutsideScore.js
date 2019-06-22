@@ -10,10 +10,10 @@ const NOSE_CIRCLE_RADIUS = 15;
 const TOTAL_POINTS_BEFORE_NEXT_LEVEL = 200;
 
 export default class FreezeOutsideScore {
-  constructor(scoreResolution, videoWidth, videoHeight) {
+  constructor(scoreWidth, scoreHeight, videoWidth, videoHeight) {
     this.currentColor = "#000";
-    this.width = scoreResolution;
-    this.height = scoreResolution;
+    this.width = scoreWidth;
+    this.height = scoreHeight;
     this.videoWidth = videoWidth;
     this.videoHeight = videoHeight;
     this.bigCircleRadius = this.videoWidth / 4;

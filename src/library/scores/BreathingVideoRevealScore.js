@@ -15,9 +15,9 @@ function coordsEqual(a, b) {
 }
 
 export default class BreathingVideoRevealScore {
-  constructor(scoreResolution, videoWidth, videoHeight) {
-    this.width = scoreResolution;
-    this.height = scoreResolution;
+  constructor(scoreWidth, scoreHeight, videoWidth, videoHeight) {
+    this.width = scoreWidth;
+    this.height = scoreHeight;
     this.videoWidth = videoWidth;
     this.videoHeight = videoHeight;
     this.widthUnit = this.videoWidth / this.width;

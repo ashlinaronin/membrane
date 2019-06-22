@@ -1,10 +1,8 @@
-export const VIDEO_WIDTH = 640;
-export const VIDEO_HEIGHT = 480;
-export const SCORE_RESOLUTION = 8;
+export const VIDEO_WIDTH = 1280;
+export const VIDEO_HEIGHT = 720;
+export const SCORE_WIDTH = 8;
+export const SCORE_HEIGHT = 8;
 export const MOBILENET_ARCHITECTURE = 0.5;
-
-// look for this webcam, if not found use default
-export const EXTERNAL_WEBCAM_LABEL = "USB Camera (046d:0990)";
 
 export const MULTI_POSE_CONFIG = {
   MAX_POSE_DETECTIONS: 5,

@@ -3,8 +3,8 @@ import { drawTriangle, drawMirroredVideo } from "./scoreHelpers";
 import grassVideo from "../../assets/grass-35-default-compression.mp4";
 
 export default class GrassPixelGridScore extends PixelGridScore {
-  constructor(scoreResolution, videoWidth, videoHeight) {
-    super(scoreResolution, videoWidth, videoHeight);
+  constructor(scoreWidth, scoreHeight, videoWidth, videoHeight) {
+    super(scoreWidth, scoreHeight, videoWidth, videoHeight);
 
     this.onLoadedData = this.onLoadedData.bind(this);
 
