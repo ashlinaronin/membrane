@@ -4,10 +4,11 @@ do
     if [[ $ref =~ .*/master$ ]];
     then
         echo "Master ref received.  Deploying master branch to production..."
-        git --work-tree=/var/www/html --git-dir=/home/ashlin/bare-repos/membrane checkout -f
-   	    cd /var/www/html
+        git --work-tree=/home/ashlin/build/membrane --git-dir=/home/ashlin/bare-repos/membrane checkout -f
+   	    cd /home/ashlin/build/membrane
         npm install
 	      npm run build:pf
+	      rsync -r /home/ashlin/build/membrane/dist /var/html/www
     else
         echo "Ref $ref successfully received.  Doing nothing: only the master branch may be deployed on this server."
     fi
