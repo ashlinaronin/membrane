@@ -14,7 +14,6 @@ import ErrorDisplay from "./ErrorDisplay.vue";
 
 import { loadVideo } from "../library/webcam";
 import { detectPoseInRealTime } from "../library/poseDetectionManager";
-import { MOBILENET_ARCHITECTURE } from "../library/constants";
 
 export default {
   name: "VideoScore",
@@ -29,7 +28,7 @@ export default {
     };
   },
   async mounted() {
-    this.net = await posenet.load(MOBILENET_ARCHITECTURE);
+    this.net = await posenet.load();
 
     try {
       await loadVideo(this.$refs.video);

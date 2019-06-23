@@ -4,16 +4,8 @@ export const SCORE_WIDTH = 16;
 export const SCORE_HEIGHT = 10;
 export const MOBILENET_ARCHITECTURE = 0.5;
 
-export const MULTI_POSE_CONFIG = {
-  MAX_POSE_DETECTIONS: 5,
-  MIN_POSE_CONFIDENCE: 0.15,
-  MIN_PART_CONFIDENCE: 0.1,
-  NMS_RADIUS: 30.0
-};
-
-export const FLIP_HORIZONTAL = true;
-export const IMAGE_SCALE_FACTOR = 0.2;
-export const OUTPUT_STRIDE = 16;
+export const MIN_POSE_CONFIDENCE = 0.15;
+export const MIN_PART_CONFIDENCE = 0.1;
 
 export const MIN_DISTANCE_TO_PLAY = 26;
 export const FRAMES_BEFORE_MOVEMENT_DECLARED_OVER = 1;

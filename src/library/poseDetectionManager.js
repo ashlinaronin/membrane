@@ -10,10 +10,8 @@ import store from "../store";
 import {
   VIDEO_WIDTH,
   VIDEO_HEIGHT,
-  FLIP_HORIZONTAL,
-  IMAGE_SCALE_FACTOR,
-  OUTPUT_STRIDE,
-  MULTI_POSE_CONFIG
+  MIN_POSE_CONFIDENCE,
+  MIN_PART_CONFIDENCE
 } from "./constants";
 
 /**
@@ -30,10 +28,10 @@ export function detectPoseInRealTime(canvas, webcamVideo, net, stats) {
     // Begin monitoring code for frames per second
     stats.begin();
 
-    const singlePose = await detectPose(webcamVideo, net);
+    const poses = await detectPoses(webcamVideo, net);
 
     drawScore(ctx, webcamVideo);
-    drawPose(ctx, singlePose, webcamVideo);
+    drawPose(ctx, poses[0], webcamVideo);
     checkScoreAndLevelUp();
 
     // End monitoring code for frames per second
@@ -45,25 +43,18 @@ export function detectPoseInRealTime(canvas, webcamVideo, net, stats) {
   poseDetectionFrame();
 }
 
-async function detectPose(video, net) {
-  return net.estimateSinglePose(
-    video,
-    IMAGE_SCALE_FACTOR,
-    FLIP_HORIZONTAL,
-    OUTPUT_STRIDE
-  );
+async function detectPoses(video, net) {
+  return net.estimatePoses(video, {
+    flipHorizontal: true,
+    decodingMethod: "single-person"
+  });
 }
 
 function drawPose(ctx, pose, webcamVideo) {
-  if (pose.score < MULTI_POSE_CONFIG.MIN_POSE_CONFIDENCE) {
+  if (pose.score < MIN_POSE_CONFIDENCE) {
     handleNoPoseDetected();
   } else {
-    handlePoseDetected(
-      pose.keypoints,
-      MULTI_POSE_CONFIG.MIN_PART_CONFIDENCE,
-      ctx,
-      webcamVideo
-    );
+    handlePoseDetected(pose.keypoints, MIN_PART_CONFIDENCE, ctx, webcamVideo);
   }
 }
 
