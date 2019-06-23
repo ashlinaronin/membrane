@@ -17,7 +17,7 @@
     "fscreen": "^1.0.2",
     "startaudiocontext": "^1.2.1",
     "stats.js": "^0.17.0",
-    "tone": "^13.2.9",
+    "tone": "^13.4.9",
     "vue": "^2.6.10",
     "vue-router": "^3.0.6",
     "vuex": "^3.1.1"
