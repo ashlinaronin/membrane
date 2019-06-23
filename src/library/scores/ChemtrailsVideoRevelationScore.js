@@ -1,5 +1,5 @@
 import { startNote, endNote, changeParam } from "../synths/synthManager";
-import { drawMirroredVideo } from "./scoreHelpers";
+import { drawManyCircles, drawMirroredVideo } from "./scoreHelpers";
 
 import {
   MIN_DISTANCE_TO_PLAY,
@@ -24,39 +24,6 @@ export default class ChemtrailsVideoRevelationScore {
     this.lastPosition = undefined;
     this.framesSinceLastMovement = 0;
     this.uniquePointCount = 0;
-
-    this.circles = [
-      {
-        x: this.bigCircleX,
-        y: this.bigCircleY,
-        radius: this.bigCircleRadius,
-        color: "yellow"
-      },
-      {
-        x: this.bigCircleX + 100,
-        y: this.bigCircleY + 100,
-        radius: this.bigCircleRadius / 2,
-        color: "orange"
-      },
-      {
-        x: this.bigCircleX - 100,
-        y: this.bigCircleY - 100,
-        radius: this.bigCircleRadius / 3,
-        color: "red"
-      },
-      {
-        x: 100,
-        y: 100,
-        radius: this.bigCircleRadius / 5,
-        color: "green"
-      },
-      {
-        x: 100,
-        y: this.videoHeight - 100,
-        radius: this.bigCircleRadius,
-        color: "blue"
-      }
-    ];
     this.pointsPlayed = [];
   }
 
@@ -64,7 +31,12 @@ export default class ChemtrailsVideoRevelationScore {
     ctx.clearRect(0, 0, this.videoWidth, this.videoHeight);
     ctx.globalCompositeOperation = "source-over";
 
-    this.pointsPlayed.forEach(point => this.drawNose(ctx, point[0], point[1]));
+    drawManyCircles(
+      ctx,
+      this.pointsPlayed,
+      this.currentColor,
+      NOSE_CIRCLE_RADIUS
+    );
 
     ctx.globalCompositeOperation = "source-atop";
 

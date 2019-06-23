@@ -1,5 +1,5 @@
 import { startNote, endNote, changeParam } from "../synths/synthManager";
-import { drawMirroredVideo } from "./scoreHelpers";
+import { drawMirroredVideo, drawManyCircles } from "./scoreHelpers";
 
 import {
   MIN_DISTANCE_TO_PLAY,
@@ -36,7 +36,12 @@ export default class FreezeOutsideScore {
     ctx.clearRect(0, 0, this.videoWidth, this.videoHeight);
     ctx.globalCompositeOperation = "source-over";
 
-    this.pointsPlayed.forEach(point => this.drawNose(ctx, point[0], point[1]));
+    drawManyCircles(
+      ctx,
+      this.pointsPlayed,
+      this.currentColor,
+      NOSE_CIRCLE_RADIUS
+    );
 
     ctx.globalCompositeOperation = "source-atop";
 

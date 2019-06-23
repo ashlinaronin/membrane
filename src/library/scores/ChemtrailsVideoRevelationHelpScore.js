@@ -1,5 +1,5 @@
 import { startNote, endNote, changeParam } from "../synths/synthManager";
-import { drawMirroredVideo } from "./scoreHelpers";
+import { drawManyCircles, drawMirroredVideo } from "./scoreHelpers";
 
 import {
   MIN_DISTANCE_TO_PLAY,
@@ -68,7 +68,12 @@ export default class ChemtrailsVideoRevelationHelpScore {
 
     ctx.globalCompositeOperation = "source-atop";
 
-    this.pointsPlayed.forEach(point => this.drawNose(ctx, point[0], point[1]));
+    drawManyCircles(
+      ctx,
+      this.pointsPlayed,
+      this.currentColor,
+      NOSE_CIRCLE_RADIUS
+    );
 
     ctx.globalCompositeOperation = "source-atop";
 
