@@ -4,7 +4,8 @@ import { startNote, endNote, changeParam } from "../synths/synthManager";
 import {
   MIN_DISTANCE_TO_PLAY,
   FRAMES_BEFORE_MOVEMENT_DECLARED_OVER,
-  NOSE_TRIANGLE_RADIUS
+  NOSE_TRIANGLE_RADIUS,
+  NOSE_KEYPOINT_INDEX
 } from "../constants";
 const TOTAL_POINTS_BEFORE_NEXT_LEVEL = 100;
 
@@ -41,17 +42,13 @@ export default class ChemtrailsScore {
 
   handlePoseDetected(keypoints, minPartConfidence, ctx) {
     this.checkForShouldEndNote();
-
-    for (let i = 0; i < keypoints.length; i++) {
-      const keypoint = keypoints[i];
-
-      if (keypoint.score < minPartConfidence) {
-        continue;
-      }
-
-      if (keypoint.part === "nose") {
-        this.handleNoseFound(ctx, keypoint.position.x, keypoint.position.y);
-      }
+    const noseKeypoint = keypoints[NOSE_KEYPOINT_INDEX];
+    if (noseKeypoint.score > minPartConfidence) {
+      this.handleNoseFound(
+        ctx,
+        noseKeypoint.position.x,
+        noseKeypoint.position.y
+      );
     }
   }
 
