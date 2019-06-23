@@ -27,6 +27,7 @@ export default class WaterFromWhiteScore {
     this.videoLoaded = false;
     this.videoElement = document.createElement("video");
     this.videoElement.src = waterVideo;
+    this.videoElement.muted = true;
     this.videoElement.loop = true;
     this.videoElement.addEventListener("loadeddata", this.onLoadedData, false);
 
@@ -35,8 +36,22 @@ export default class WaterFromWhiteScore {
 
   onLoadedData() {
     this.videoLoaded = true;
-    this.videoElement.play();
-    this.videoElement.removeEventListener("loadeddata", this.onLoadedData);
+
+    // Don't have access to score's "this" inside promise chain on .play()
+    const scoreScope = this;
+
+    this.videoElement
+      .play()
+      .catch(err => {
+        // probably can't autoplay because we don't have user input
+        console.error(err);
+      })
+      .finally(() => {
+        scoreScope.videoElement.removeEventListener(
+          "loadeddata",
+          scoreScope.onLoadedData
+        );
+      });
   }
 
   isClear() {
