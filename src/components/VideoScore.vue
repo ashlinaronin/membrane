@@ -39,6 +39,11 @@ export default {
         this.net,
         this.stats
       );
+
+      // Show stats panel if we are running in local development environment
+      if (location.hostname === "localhost") {
+        document.body.appendChild(this.stats.dom);
+      }
     } catch (e) {
       console.error(e);
       this.error =
