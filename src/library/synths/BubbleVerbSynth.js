@@ -23,7 +23,6 @@ export default class BubbleVerbSynth {
     this.verb = new Tone.JCReverb(0.7);
     this.panner = new Tone.Panner();
     this.initialize();
-    window.bubbles = this;
   }
 
   async initialize() {

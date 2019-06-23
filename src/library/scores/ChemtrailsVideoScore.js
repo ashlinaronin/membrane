@@ -8,7 +8,7 @@ import {
 } from "../constants";
 
 const NOSE_CIRCLE_RADIUS = 10;
-const TOTAL_POINTS_BEFORE_NEXT_LEVEL = 1000;
+const TOTAL_POINTS_BEFORE_NEXT_LEVEL = 300;
 
 export default class ChemtrailsVideoScore {
   constructor(scoreWidth, scoreHeight, videoWidth, videoHeight) {
@@ -24,39 +24,6 @@ export default class ChemtrailsVideoScore {
     this.lastPosition = undefined;
     this.framesSinceLastMovement = 0;
     this.uniquePointCount = 0;
-
-    this.circles = [
-      {
-        x: this.bigCircleX,
-        y: this.bigCircleY,
-        radius: this.bigCircleRadius,
-        color: "yellow"
-      },
-      {
-        x: this.bigCircleX + 100,
-        y: this.bigCircleY + 100,
-        radius: this.bigCircleRadius / 2,
-        color: "orange"
-      },
-      {
-        x: this.bigCircleX - 100,
-        y: this.bigCircleY - 100,
-        radius: this.bigCircleRadius / 3,
-        color: "red"
-      },
-      {
-        x: 100,
-        y: 100,
-        radius: this.bigCircleRadius / 5,
-        color: "green"
-      },
-      {
-        x: 100,
-        y: this.videoHeight - 100,
-        radius: this.bigCircleRadius,
-        color: "blue"
-      }
-    ];
     this.pointsPlayed = [];
   }
 
