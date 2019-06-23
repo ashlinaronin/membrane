@@ -28,7 +28,14 @@ export default {
     };
   },
   async mounted() {
-    this.net = await posenet.load();
+    // these values are optimized for the best possible performance with the models available
+    this.net = await posenet.load({
+      architecture: "MobileNetV1",
+      outputStride: 16,
+      inputResolution: 161,
+      multiplier: 0.5,
+      quantBytes: 2
+    });
 
     try {
       await loadVideo(this.$refs.video);
