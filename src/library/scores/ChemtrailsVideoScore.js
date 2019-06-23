@@ -31,7 +31,20 @@ export default class ChemtrailsVideoScore {
     ctx.clearRect(0, 0, this.videoWidth, this.videoHeight);
     ctx.globalCompositeOperation = "source-over";
 
-    this.pointsPlayed.forEach(point => this.drawNose(ctx, point[0], point[1]));
+    // Draw all noses in a much more performant way
+    ctx.fillStyle = this.currentColor;
+    ctx.beginPath();
+    for (let i = 0; i < this.pointsPlayed.length; i++) {
+      ctx.moveTo(this.pointsPlayed[i][0], this.pointsPlayed[i][1]);
+      ctx.arc(
+        this.pointsPlayed[i][0],
+        this.pointsPlayed[i][1],
+        NOSE_CIRCLE_RADIUS,
+        0,
+        2 * Math.PI
+      );
+    }
+    ctx.fill();
 
     ctx.globalCompositeOperation = "source-atop";
 
