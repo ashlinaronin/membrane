@@ -1,5 +1,5 @@
 import { startNote, endNote, changeParam } from "../synths/synthManager";
-import { drawMirroredVideo } from "./scoreHelpers";
+import { drawManyCircles, drawMirroredVideo } from "./scoreHelpers";
 
 import {
   MIN_DISTANCE_TO_PLAY,
@@ -31,20 +31,12 @@ export default class ChemtrailsVideoScore {
     ctx.clearRect(0, 0, this.videoWidth, this.videoHeight);
     ctx.globalCompositeOperation = "source-over";
 
-    // Draw all noses in a much more performant way
-    ctx.fillStyle = this.currentColor;
-    ctx.beginPath();
-    for (let i = 0; i < this.pointsPlayed.length; i++) {
-      ctx.moveTo(this.pointsPlayed[i][0], this.pointsPlayed[i][1]);
-      ctx.arc(
-        this.pointsPlayed[i][0],
-        this.pointsPlayed[i][1],
-        NOSE_CIRCLE_RADIUS,
-        0,
-        2 * Math.PI
-      );
-    }
-    ctx.fill();
+    drawManyCircles(
+      ctx,
+      this.pointsPlayed,
+      this.currentColor,
+      NOSE_CIRCLE_RADIUS
+    );
 
     ctx.globalCompositeOperation = "source-atop";
 

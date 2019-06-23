@@ -24,6 +24,19 @@ export function drawCircle(ctx, circle) {
   ctx.fill();
 }
 
+// Draw multiple circles as one path- much more performant than using individual paths,
+// especially with high object counts
+// `points` is an array of [x,y] tuple arrays
+export function drawManyCircles(ctx, points, color, radius) {
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  for (let i = 0; i < points.length; i++) {
+    ctx.moveTo(points[i][0], points[i][1]);
+    ctx.arc(points[i][0], points[i][1], radius, 0, 2 * Math.PI);
+  }
+  ctx.fill();
+}
+
 export function drawMirroredVideo(
   ctx,
   video,
