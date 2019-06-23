@@ -6,6 +6,7 @@ export const MOBILENET_ARCHITECTURE = 0.5;
 
 export const MIN_POSE_CONFIDENCE = 0.15;
 export const MIN_PART_CONFIDENCE = 0.1;
+export const NOSE_KEYPOINT_INDEX = 0;
 
 export const MIN_DISTANCE_TO_PLAY = 26;
 export const FRAMES_BEFORE_MOVEMENT_DECLARED_OVER = 1;

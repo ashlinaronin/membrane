@@ -2,7 +2,8 @@ import { startNote, endNote, changeParam } from "../synths/synthManager";
 import {
   MIN_DISTANCE_TO_PLAY,
   FRAMES_BEFORE_MOVEMENT_DECLARED_OVER,
-  NOSE_TRIANGLE_RADIUS
+  NOSE_TRIANGLE_RADIUS,
+  NOSE_KEYPOINT_INDEX
 } from "../constants";
 import maxxPoem5 from "../../assets/maxx_poem_005-35-default-compression.mp4";
 import maxxCursor from "../../assets/maxx_cursor_nobg.png";
@@ -142,16 +143,14 @@ export default class BreathingVideoRevealScore {
   handlePoseDetected(keypoints, minPartConfidence, ctx) {
     this.checkForShouldEndNote();
 
-    for (let i = 0; i < keypoints.length; i++) {
-      const keypoint = keypoints[i];
+    const noseKeypoint = keypoints[NOSE_KEYPOINT_INDEX];
 
-      if (keypoint.score < minPartConfidence) {
-        continue;
-      }
-
-      if (keypoint.part === "nose") {
-        this.handleNoseFound(ctx, keypoint.position.x, keypoint.position.y);
-      }
+    if (noseKeypoint.score > minPartConfidence) {
+      this.handleNoseFound(
+        ctx,
+        noseKeypoint.position.x,
+        noseKeypoint.position.y
+      );
     }
   }
 
