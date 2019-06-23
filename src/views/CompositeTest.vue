@@ -90,7 +90,6 @@ export default {
       this.grid = null;
     },
     drawGrid(ctx, gridFillStyle) {
-      debugger;
       ctx.fillStyle = gridFillStyle;
       for (let i = 0; i < this.grid.length; i++) {
         for (let j = 0; j < this.grid[0].length; j++) {

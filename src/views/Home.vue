@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <VideoScore />
-    <RecordingControls v-if="!isDeployedAtPeripheralForms" />
+    <!--<RecordingControls v-if="!isDeployedAtPeripheralForms" />-->
     <div class="instructions" v-if="!isPerformer">
       <ul>
         <li>(sound on)</li>
@@ -55,12 +55,7 @@ export default {
     }
   },
   mounted() {
-    if (this.$route.params.performer) {
-      this.$store.dispatch(
-        "INITIALIZE_PERFORMER",
-        this.$route.params.performer
-      );
-    }
+    this.$store.dispatch("INITIALIZE_PERFORMER", this.$route.params.performer);
 
     StartAudioContext(Tone.context, null, () => {
       console.log("Started Tone AudioContext after user interaction");

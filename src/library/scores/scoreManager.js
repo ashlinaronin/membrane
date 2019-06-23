@@ -4,21 +4,8 @@ import {
   VIDEO_HEIGHT,
   VIDEO_WIDTH
 } from "../constants";
-import GrassPixelGridScore from "./GrassPixelGridScore";
-import WaterPixelGridScore from "./WaterPixelGridScore";
-import VideoPixelGridScore from "./VideoPixelGridScore";
-import BreathingPixelGridScore from "./BreathingPixelGridScore";
-
-const scoreLevelMap = {
-  1: VideoPixelGridScore,
-  2: BreathingPixelGridScore,
-  3: GrassPixelGridScore,
-  4: WaterPixelGridScore
-};
 
 let score;
-
-changeLevel(1);
 
 export function changeScoreByClass(ScoreClassToCreate) {
   if (typeof score !== "undefined" && typeof score.dispose === "function") {
@@ -31,17 +18,6 @@ export function changeScoreByClass(ScoreClassToCreate) {
     VIDEO_WIDTH,
     VIDEO_HEIGHT
   );
-}
-
-export function changeLevel(level) {
-  if (typeof score !== "undefined" && typeof score.dispose === "function") {
-    score.dispose();
-  }
-
-  const scoreType = scoreLevelMap.hasOwnProperty(level)
-    ? scoreLevelMap[level]
-    : scoreLevelMap[1];
-  score = new scoreType(SCORE_WIDTH, SCORE_HEIGHT, VIDEO_WIDTH, VIDEO_HEIGHT);
 }
 
 export function drawScore(ctx, webcamVideo) {
