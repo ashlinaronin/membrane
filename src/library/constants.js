@@ -2,7 +2,6 @@ export const VIDEO_WIDTH = 1280;
 export const VIDEO_HEIGHT = 720;
 export const SCORE_WIDTH = 16;
 export const SCORE_HEIGHT = 10;
-export const MOBILENET_ARCHITECTURE = 0.5;
 
 export const MIN_POSE_CONFIDENCE = 0.15;
 export const MIN_PART_CONFIDENCE = 0.1;
