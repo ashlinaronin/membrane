@@ -69,16 +69,14 @@ export default class PixelGridScore {
   handlePoseDetected(keypoints, minPartConfidence, ctx) {
     this.checkForShouldEndNote();
 
-    for (let i = 0; i < keypoints.length; i++) {
-      const keypoint = keypoints[i];
+    const noseKeypoint = keypoints[0];
 
-      if (keypoint.score < minPartConfidence) {
-        continue;
-      }
-
-      if (keypoint.part === "nose") {
-        this.handleNoseFound(ctx, keypoint.position.x, keypoint.position.y);
-      }
+    if (noseKeypoint.score > minPartConfidence) {
+      this.handleNoseFound(
+        ctx,
+        noseKeypoint.position.x,
+        noseKeypoint.position.y
+      );
     }
   }
 
