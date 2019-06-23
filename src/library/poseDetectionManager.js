@@ -28,7 +28,10 @@ export function detectPoseInRealTime(canvas, webcamVideo, net, stats) {
     // Begin monitoring code for frames per second
     stats.begin();
 
-    const poses = await detectPoses(webcamVideo, net);
+    const poses = await net.estimatePoses(webcamVideo, {
+      flipHorizontal: true,
+      decodingMethod: "single-person"
+    });
 
     drawScore(ctx, webcamVideo);
     drawPose(ctx, poses[0], webcamVideo);
@@ -41,13 +44,6 @@ export function detectPoseInRealTime(canvas, webcamVideo, net, stats) {
   }
 
   poseDetectionFrame();
-}
-
-async function detectPoses(video, net) {
-  return net.estimatePoses(video, {
-    flipHorizontal: true,
-    decodingMethod: "single-person"
-  });
 }
 
 function drawPose(ctx, pose, webcamVideo) {
