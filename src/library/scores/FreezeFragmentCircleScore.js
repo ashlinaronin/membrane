@@ -3,7 +3,8 @@ import { drawMirroredVideo } from "./scoreHelpers";
 
 import {
   MIN_DISTANCE_TO_PLAY,
-  FRAMES_BEFORE_MOVEMENT_DECLARED_OVER
+  FRAMES_BEFORE_MOVEMENT_DECLARED_OVER,
+  NOSE_KEYPOINT_INDEX
 } from "../constants";
 
 const NOSE_CIRCLE_RADIUS = 15;
@@ -70,22 +71,14 @@ export default class FreezeFragmentScore {
 
   handlePoseDetected(keypoints, minPartConfidence, ctx, webcamVideo) {
     this.checkForShouldEndNote();
-
-    for (let i = 0; i < keypoints.length; i++) {
-      const keypoint = keypoints[i];
-
-      if (keypoint.score < minPartConfidence) {
-        continue;
-      }
-
-      if (keypoint.part === "nose") {
-        this.handleNoseFound(
-          ctx,
-          keypoint.position.x,
-          keypoint.position.y,
-          webcamVideo
-        );
-      }
+    const noseKeypoint = keypoints[NOSE_KEYPOINT_INDEX];
+    if (noseKeypoint.score > minPartConfidence) {
+      this.handleNoseFound(
+        ctx,
+        noseKeypoint.position.x,
+        noseKeypoint.position.y,
+        webcamVideo
+      );
     }
   }
 
