@@ -1,7 +1,6 @@
 import FreezeFragmentSquareScore from "./scores/FreezeFragmentSquareScore";
 import RockScrapeSampler from "./synths/RockScrapeSampler";
 import WaterFromWhiteScore from "./scores/WaterFromWhiteScore";
-import BubbleVerbSynth from "./synths/BubbleVerbSynth";
 import BreathingVideoRevealScore from "./scores/BreathingVideoRevealScore";
 import DistortedWaterSampler from "./synths/DistortedWaterSampler";
 import ChemtrailsVideoScore from "./scores/ChemtrailsVideoScore";
@@ -30,7 +29,7 @@ export default {
   sarah: [
     {
       score: WaterFromWhiteScore,
-      synth: BubbleVerbSynth
+      synth: SineTremoloSynth
     },
     {
       score: ChemtrailsVideoScore,
