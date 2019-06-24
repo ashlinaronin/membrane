@@ -46,8 +46,9 @@ export default {
         this.stats
       );
 
-      // Show stats panel if we are running in local development environment
-      if (location.hostname === "localhost") {
+      // Show stats panel if we are running in local development environment,
+      // or if stats query parameter is specified in URL (with any value)
+      if (location.hostname === "localhost" || this.$route.query.stats) {
         document.body.appendChild(this.stats.dom);
       }
     } catch (e) {
