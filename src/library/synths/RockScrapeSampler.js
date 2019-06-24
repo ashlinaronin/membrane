@@ -12,6 +12,7 @@ export default class RockScrapeSampler {
 
   async initialize() {
     this.grainPlayer.loop = true;
+    this.grainPlayer.volume.value = 30;
     this.grainPlayer.start();
     this.grainPlayer.connect(this.env);
     this.env.toMaster();
