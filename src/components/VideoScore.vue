@@ -66,10 +66,10 @@ video {
 }
 
 canvas {
-  width: 100%;
+  width: 100vw;
   cursor: none;
 
-  @media only screen and (min-width: 768px) {
+  @media only screen and (min-width: 1280px) {
     width: auto;
   }
 }
