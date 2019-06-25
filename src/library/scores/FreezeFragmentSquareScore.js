@@ -8,7 +8,7 @@ import {
 } from "../constants";
 
 const NOSE_CIRCLE_RADIUS = 15;
-const FREEZE_COUNT_THRESHOLD = 50;
+const FREEZE_COUNT_THRESHOLD = 60;
 
 export default class FreezeFragmentSquareScore {
   constructor(scoreWidth, scoreHeight, videoWidth, videoHeight) {
