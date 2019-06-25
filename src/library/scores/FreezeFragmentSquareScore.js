@@ -17,9 +17,20 @@ export default class FreezeFragmentSquareScore {
     this.height = scoreHeight;
     this.videoWidth = videoWidth;
     this.videoHeight = videoHeight;
-    this.bigCircleRadius = this.videoWidth / 4;
-    this.bigCircleX = this.videoWidth / 2;
-    this.bigCircleY = this.videoHeight / 2;
+    this.collisionCircles = [
+      {
+        color: "black",
+        radius: this.videoWidth / 5,
+        x: this.videoWidth / 4,
+        y: this.videoHeight / 2
+      },
+      {
+        color: "black",
+        radius: this.videoWidth / 5,
+        x: this.videoWidth * (3 / 4),
+        y: this.videoHeight / 2
+      }
+    ];
     this.isPlaying = false;
     this.lastPosition = undefined;
     this.framesSinceLastMovement = 0;
@@ -36,7 +47,9 @@ export default class FreezeFragmentSquareScore {
     ctx.clearRect(0, 0, this.videoWidth, this.videoHeight);
     ctx.globalCompositeOperation = "source-over";
 
-    this.pointsPlayed.forEach(point => this.drawNose(ctx, point[0], point[1]));
+    for (let i = 0; i < this.pointsPlayed.length; i++) {
+      this.drawNose(ctx, this.pointsPlayed[i][0], this.pointsPlayed[i][1]);
+    }
 
     ctx.globalCompositeOperation = "source-atop";
 
@@ -131,11 +144,19 @@ export default class FreezeFragmentSquareScore {
   }
 
   checkCollisions(x, y) {
-    const dx = this.bigCircleX - x;
-    const dy = this.bigCircleY - y;
-    const distance = Math.sqrt(dx * dx + dy * dy);
+    let collided = false;
 
-    return distance < this.bigCircleRadius + NOSE_CIRCLE_RADIUS * 2;
+    for (let i = 0; i < this.collisionCircles.length; i++) {
+      const dx = this.collisionCircles[i].x - x;
+      const dy = this.collisionCircles[i].y - y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      if (distance < this.collisionCircles[i].radius + NOSE_CIRCLE_RADIUS * 2) {
+        collided = true;
+      }
+    }
+
+    return collided;
   }
 
   checkForShouldEndNote() {
