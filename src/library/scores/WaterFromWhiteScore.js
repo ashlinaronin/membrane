@@ -1,4 +1,4 @@
-import waterVideo from "../../assets/water-35-default-compression.mp4";
+import waterVideo from "../../assets/water-bader.mp4";
 import { startNote, endNote, changeParam } from "../synths/synthManager";
 import { drawTriangle, generateTrianglePoints } from "./scoreHelpers";
 import {
