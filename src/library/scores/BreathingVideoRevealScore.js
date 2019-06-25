@@ -5,7 +5,7 @@ import {
   NOSE_TRIANGLE_RADIUS,
   NOSE_KEYPOINT_INDEX
 } from "../constants";
-import maxxPoem5 from "../../assets/maxx_poem_005-35-default-compression.mp4";
+import maxxLong from "../../assets/maxx_long_compressed.mp4";
 import maxxCursor from "../../assets/maxx_cursor_nobg.png";
 
 const BREATH_SPEED = 0.03;
@@ -35,7 +35,7 @@ export default class BreathingVideoRevealScore {
 
     this.videoLoaded = false;
     this.videoElement = document.createElement("video");
-    this.videoElement.src = maxxPoem5;
+    this.videoElement.src = maxxLong;
     this.videoElement.loop = true;
     this.videoElement.muted = true;
     this.videoElement.addEventListener("loadeddata", this.onLoadedData, false);
