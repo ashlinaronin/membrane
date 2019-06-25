@@ -23,6 +23,8 @@ export default class BreathingVideoRevealScore {
     this.videoHeight = videoHeight;
     this.widthUnit = this.videoWidth / this.width;
     this.heightUnit = this.videoHeight / this.height;
+    this.x = undefined;
+    this.y = undefined;
     this.grid = this.generateScore();
     this.isPlaying = false;
     this.lastAudioPlayedPosition = undefined;
@@ -73,18 +75,18 @@ export default class BreathingVideoRevealScore {
     this.phase = (this.phase + BREATH_SPEED) % (2 * Math.PI);
     this.breath = Math.sin(this.phase) * 30;
 
+    ctx.fillStyle = gridFillStyle;
+    ctx.beginPath();
     for (let i = 0; i < this.grid.length; i++) {
       for (let j = 0; j < this.grid[0].length; j++) {
         if (this.grid[i][j] === false) {
-          ctx.fillStyle = gridFillStyle;
-          ctx.beginPath();
-
           this.smallerUnit =
             this.widthUnit < this.heightUnit ? this.widthUnit : this.heightUnit;
           this.halfSmallerUnit = this.smallerUnit / 2;
           this.x = this.widthUnit * i + this.halfSmallerUnit;
           this.y = this.heightUnit * j + this.halfSmallerUnit;
 
+          ctx.moveTo(this.x, this.y);
           ctx.arc(
             this.x,
             this.y,
@@ -92,10 +94,10 @@ export default class BreathingVideoRevealScore {
             0,
             2 * Math.PI
           );
-          ctx.fill();
         }
       }
     }
+    ctx.fill();
   }
 
   drawNose(ctx, x, y) {
