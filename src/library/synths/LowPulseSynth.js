@@ -10,6 +10,7 @@ export default class LowPulseSynth {
 
   async initialize() {
     this.osc.start();
+    this.osc.volume.value = 5;
     this.osc.connect(this.env);
     this.env.toMaster();
   }
