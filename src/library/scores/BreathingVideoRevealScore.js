@@ -8,7 +8,7 @@ import {
 import maxxLong from "../../assets/maxx_long_compressed.mp4";
 import maxxCursor from "../../assets/maxx_cursor_nobg.png";
 
-const BREATH_SPEED = 0.03;
+const BREATH_SPEED = 0.02;
 
 function coordsEqual(a, b) {
   if (!a || a.length !== 2 || !b || b.length !== 2) return false;
