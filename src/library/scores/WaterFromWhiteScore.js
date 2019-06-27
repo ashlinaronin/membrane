@@ -8,7 +8,7 @@ import {
   NOSE_KEYPOINT_INDEX
 } from "../constants";
 
-const POINTS_PLAYED_THRESHOLD = 120;
+const POINTS_PLAYED_THRESHOLD = 70;
 
 export default class WaterFromWhiteScore {
   constructor(scoreWidth, scoreHeight, videoWidth, videoHeight) {
