@@ -1,9 +1,7 @@
-const isSarah = window.location.hash.includes("sarah");
-
-export const VIDEO_WIDTH = isSarah ? 640 : 1280;
-export const VIDEO_HEIGHT = isSarah ? 480 : 720;
-export const SCORE_WIDTH = isSarah ? 8 : 16;
-export const SCORE_HEIGHT = isSarah ? 8 : 10;
+export const VIDEO_WIDTH = 1280;
+export const VIDEO_HEIGHT = 720;
+export const SCORE_WIDTH = 16;
+export const SCORE_HEIGHT = 10;
 
 export const MIN_POSE_CONFIDENCE = 0.15;
 export const MIN_PART_CONFIDENCE = 0.1;

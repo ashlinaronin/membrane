@@ -8,6 +8,8 @@ import {
   NOSE_KEYPOINT_INDEX
 } from "../constants";
 
+const POINTS_PLAYED_THRESHOLD = 120;
+
 export default class WaterFromWhiteScore {
   constructor(scoreWidth, scoreHeight, videoWidth, videoHeight) {
     this.width = scoreWidth;
@@ -21,6 +23,7 @@ export default class WaterFromWhiteScore {
     this.lastPosition = undefined;
     this.trianglePoints = undefined;
     this.framesSinceLastMovement = 0;
+    this.pointsPlayedCount = 0;
 
     this.onLoadedData = this.onLoadedData.bind(this);
 
@@ -55,7 +58,7 @@ export default class WaterFromWhiteScore {
   }
 
   isClear() {
-    return this.grid.every(row => row.every(col => col === true));
+    return this.pointsPlayedCount > POINTS_PLAYED_THRESHOLD;
   }
 
   generateScore() {
@@ -207,6 +210,7 @@ export default class WaterFromWhiteScore {
       `${this.calculateRemainingPoints()} points played in grid of ${this
         .width * this.height}`
     );
+    this.pointsPlayedCount = this.pointsPlayedCount + 1;
   }
 
   calculateRemainingPoints() {
